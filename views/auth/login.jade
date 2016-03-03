@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-	form(method="POST", action="/users")
+	form(method="POST", action="/api/auth/register")
 		input(name="username")
 		input(name="password", type="password")
 		input(name="fullname")
