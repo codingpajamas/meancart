@@ -10,6 +10,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var apiAuth = require('./routes/api/auth');
 
 var app = express();
 
@@ -25,14 +26,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(require('express-session')({
+  secret: 'datbitch',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', routes);
 app.use('/users', users);
+app.use('/api/auth', apiAuth);
 
 // passport configuration
 var User = require('./models/User');
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+mongoose.connect('mongodb://127.0.0.1/mean-starter');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -41,7 +53,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-mongoose.connect('mongodb://127.0.0.1/onlineshops');
 
 // error handlers
 
