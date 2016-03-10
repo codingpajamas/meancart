@@ -7,10 +7,13 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy; 
+var jwt = require('jsonwebtoken');
+var secretmonster = 'meanstartedhahahaha';
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var apiAuth = require('./routes/api/auth');
+var mdWares = require('./routes/middlewares');
 
 var app = express();
 
@@ -32,11 +35,11 @@ app.use(require('express-session')({
   saveUninitialized: false
 }));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); 
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/api/auth', apiAuth);
+app.use('/api/auth', mdWares.validateToken, apiAuth);  
 
 // passport configuration
 var User = require('./models/User');
