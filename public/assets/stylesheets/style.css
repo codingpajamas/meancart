@@ -1,8 +1,25 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow: hidden;
 }
 
 a {
   color: #00B7FF;
+}
+
+#content-views { position:relative; overflow: hidden; }
+
+.ng-enter, .ng-leave { width:100%; position:absolute; }
+
+.ng-enter {
+	-webkit-animation:slideInDown 0.5s both ease-in;
+	-moz-animation:slideInDown 0.5s both ease-in;
+	animation:slideInDown 0.5s both ease-in;
+}
+
+.ng-leave {
+	-webkit-animation:slideOutUp 0.5s both ease-in;
+	-moz-animation:slideOutUp 0.5s both ease-in;
+	animation:slideOutUp 0.5s both ease-in;
 }
