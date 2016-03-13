@@ -37,9 +37,10 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session()); 
 
-app.use('/', routes);
 app.use('/users', users);
-app.use('/api/auth', mdWares.validateToken, apiAuth);  
+//app.use('/api/auth', mdWares.validateToken, apiAuth);  
+app.use('/api/auth', apiAuth);  
+app.use('/', routes);
 
 // passport configuration
 var User = require('./models/User');

@@ -6,8 +6,9 @@ router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Express' });
 });
 
-router.get('/login', function(req, res) {
-	res.render('auth/login')
-})
+// catch all other routes and pass it to angular app
+router.get('*', function(req, res) {
+	res.render('index', { title: 'Express' });
+});
 
 module.exports = router;
