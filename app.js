@@ -13,6 +13,7 @@ var secretmonster = 'meanstartedhahahaha';
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var apiAuth = require('./routes/api/auth');
+var apiUser = require('./routes/api/user');
 var mdWares = require('./routes/middlewares');
 
 var app = express();
@@ -40,6 +41,7 @@ app.use(passport.session());
 app.use('/users', users);
 //app.use('/api/auth', mdWares.validateToken, apiAuth);  
 app.use('/api/auth', apiAuth);  
+app.use('/api/user', mdWares.validateToken, apiUser);  
 app.use('/', routes);
 
 // passport configuration

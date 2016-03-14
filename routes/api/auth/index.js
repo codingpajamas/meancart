@@ -35,6 +35,12 @@ router.post('/login', function(req, res, next){
 			res.json({'status':'error', 'message' : info.message})
 		} else { 
 
+			var safeUser = {
+				id : user['id'],
+				username : user['username'],
+				fullname : user['fullname'] 
+			}
+
 			// setup the token 
 			var usertoken = jwt.sign({
 				user : user

@@ -14,6 +14,7 @@ module.exports = {
 						'message':'Failed to authenticate token.'
 					});
 				}else{
+					console.log(decoded)
 					req.decoded = decoded;
 					next();
 				}
