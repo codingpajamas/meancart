@@ -23,8 +23,33 @@ angular.module('starterApp', ['ngRoute', 'ngAnimate'])
 				controller : 		'dashboardController',
 				controllerAs : 		'dashboard'
 			})
+			.when('/profile', {
+				templateUrl : 		'app/partials/profile.html',
+				controller : 		'profileController',
+				controllerAs : 		'profile'
+			})
+			.when('/posts', {
+				templateUrl : 		'app/partials/posts.html',
+				controller : 		'postsController',
+				controllerAs : 		'posts'
+			})
 
 		$locationProvider.html5Mode(true);
+	})
+	.factory('Register', function($http, $q){
+		var RegisterFactory = {};
+
+		RegisterFactory.send = function(username, password, fullname){
+			return $http.post('/api/auth/register', {
+				username: username,
+				password: password,
+				fullname: fullname
+			}).success(function(data){
+				return data;
+			})
+		}
+
+		return RegisterFactory;
 	})
 	.factory('Auth', function($http, $q, AuthToken){
 		var AuthFactory = {};
@@ -57,7 +82,7 @@ angular.module('starterApp', ['ngRoute', 'ngAnimate'])
 		// get user info
 		AuthFactory.getUser = function(){
 			if(AuthToken.getToken()){ 
-				return $http.get('/api/me', { cache: true });
+				return $http.get('/api/user/me', { cache: true });
 			}else{ 
 				return $q.reject({'message':'User has no token'})
 			}
@@ -115,10 +140,10 @@ angular.module('starterApp', ['ngRoute', 'ngAnimate'])
 
 			Auth.getUser()
 				.then(function(data){
-					console.log(data);
+					//console.log(data);
 				})
 				.catch(function(response){
-					console.log(response);
+					//console.log(response);
 				})
 		}); 
 
@@ -132,27 +157,58 @@ angular.module('starterApp', ['ngRoute', 'ngAnimate'])
 
 	})
 	.controller('loginController', function($scope, $location, Auth){
-		$scope.isLoggedIn = Auth.isLoggedIn();
+		$scope.isLoggedIn = Auth.isLoggedIn(); 
+		$scope.loginError = '';
 
 		if($scope.isLoggedIn){
 			$location.path('/dashboard');
 		}
 
-		$scope.submitLogin = function(){
+		$scope.submitLogin = function(){ 
 			Auth.login($scope.login.username, $scope.login.password)
-				.success(function(data){
-					$location.path('/dashboard');
+				.success(function(data){ 
+					if(data.status == 'success'){ 
+						$location.path('/dashboard');
+					}else{
+						$scope.loginError = data.message;
+					} 
 				})
 		}
 	})
-	.controller('registerController', function($scope, $location, Auth){
+	.controller('registerController', function($scope, $location, Auth, Register){
 		$scope.isLoggedIn = Auth.isLoggedIn();
+		$scope.registerError = '';
 
 		if($scope.isLoggedIn){
 			$location.path('/dashboard');
 		}
+
+		$scope.submitRegister = function(){
+			Register.send($scope.register.username, $scope.register.password, $scope.register.fullname)
+				.success(function(data){ 
+					if(data.status == 'success'){ 
+						$location.path('/login');
+					}else{
+						$scope.registerError = data.message;
+					}
+				})
+		}
 	})
 	.controller('dashboardController', function($scope, $location, Auth){
+		$scope.isLoggedIn = Auth.isLoggedIn();
+
+		if($scope.isLoggedIn == false){
+			$location.path('/login');
+		}
+	})
+	.controller('profileController', function($scope, $location, Auth){
+		$scope.isLoggedIn = Auth.isLoggedIn();
+
+		if($scope.isLoggedIn == false){
+			$location.path('/login');
+		}
+	})
+	.controller('postsController', function($scope, $location, Auth){
 		$scope.isLoggedIn = Auth.isLoggedIn();
 
 		if($scope.isLoggedIn == false){

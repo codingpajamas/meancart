@@ -1,10 +1,21 @@
-<h2>Register</h2>
+<div class="row">
+	<div class="col-md-4 col-md-push-4">
+		<div class="whitebox">
+			<h2>Register</h2>
 
-<form ng-submit="submitRegister()">
-	<input class="form-control input-sm" type="text" ng-model="register.username" />
-	<input class="form-control input-sm" type="password" ng-model="register.password" />
-	<input type="submit" class="btn btn-primary" value="Register">
-</form>
+			<form ng-submit="submitRegister()">
+				<p><input class="form-control input-sm" type="text" ng-model="register.username" placeholder="Username" /></p>
+				<p><input class="form-control input-sm" type="password" ng-model="register.password" placeholder="Password" /></p>
+				<p><input class="form-control input-sm" type="password" ng-model="register.fullname" placeholder="Fullname" /></p>
+				<div class="alert alert-danger messagebox" ng-if="registerError">{{registerError}}</div> 
+				<p><input type="submit" class="btn btn-primary btn-block" value="Register"></p>
+			</form>
 
-<p><a href="/login">Login</a></p>
-<p><a href="/">Home</a></p>
+			<p class="clearfix">
+				<a href="/login">Login</a>
+				<a href="/" class="pull-right">Forgot Password</a>
+			</p>
+		</div>
+	</div>
+</div>
+ 

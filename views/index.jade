@@ -2,4 +2,15 @@ extends layout
 
 block content
 	div#main-view
+		div(ng-if="isLoggedIn").clearfix
+			.logoname.pull-left MEANjs Starter
+			ul#mainNav.list-inline.pull-right
+				li
+					a(href="/dashboard") Dashboard
+				li
+					a(href="/posts") Posts
+				li
+					a(href="/profile") Profile
+				li
+					a(ng-click="logout()") Logout
 		div(ng-view)
