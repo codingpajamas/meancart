@@ -35,25 +35,25 @@ angular.module('starterApp')
 				controller : 		'postsController',
 				controllerAs : 		'posts'
 			})
-			.when('/post/:id', {
-				templateUrl : 		'app/partials/posts/view.html',
-				controller : 		'postViewController',
-				controllerAs : 		'posts'
-			})
 			.when('/posts/add', {
 				templateUrl : 		'app/partials/posts/add.html',
 				controller : 		'postAddController',
-				controllerAs : 		'posts'
+				controllerAs : 		'postsadd'
 			})
 			.when('/posts/edit', {
 				templateUrl : 		'app/partials/posts/edit.html',
 				controller : 		'postEditController',
-				controllerAs : 		'posts'
+				controllerAs : 		'postsedit'
 			})
 			.when('/posts/delete', {
 				templateUrl : 		'app/partials/posts/delete.html',
 				controller : 		'postDeleteController',
-				controllerAs : 		'posts'
+				controllerAs : 		'postsdelete'
+			})
+			.when('/posts/:id', {
+				templateUrl : 		'app/partials/posts/view.html',
+				controller : 		'postViewController',
+				controllerAs : 		'postsview'
 			})
 
 

@@ -14,13 +14,16 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var apiAuth = require('./routes/api/auth');
 var apiUser = require('./routes/api/user');
+var apiPosts = require('./routes/api/posts');
 var mdWares = require('./routes/middlewares');
 
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -30,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use(require('express-session')({
     secret: 'datbitch',
     resave: false,
@@ -38,11 +42,14 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session()); 
 
+
 app.use('/users', users);
 //app.use('/api/auth', mdWares.validateToken, apiAuth);  
 app.use('/api/auth', apiAuth);  
-app.use('/api/user', mdWares.validateToken, apiUser);  
+app.use('/api/user', mdWares.validateToken, apiUser); 
+app.use('/api/posts', mdWares.validateToken, apiPosts);  
 app.use('/', routes);
+
 
 // passport configuration
 var User = require('./models/User');
@@ -73,6 +80,7 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
 
 // production error handler
 // no stacktraces leaked to user
