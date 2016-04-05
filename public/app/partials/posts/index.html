@@ -4,7 +4,11 @@
 		<a href="/posts/add" class="btn btn-primary pull-right">Add New Post</a>
 	</h3>
 
-	<ul>
+	<ul ng-if="arrPosts.length > 0">
 		<li ng-repeat="post in arrPosts"><a href="/posts/{{post._id}}">{{post.title}}</a></li>
 	</ul>
+
+	<div ng-if="arrPosts.length == 0">
+		No post found
+	</div>
 </div>

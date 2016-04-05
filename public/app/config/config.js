@@ -40,12 +40,12 @@ angular.module('starterApp')
 				controller : 		'postAddController',
 				controllerAs : 		'postsadd'
 			})
-			.when('/posts/edit', {
+			.when('/posts/edit/:id', {
 				templateUrl : 		'app/partials/posts/edit.html',
 				controller : 		'postEditController',
 				controllerAs : 		'postsedit'
 			})
-			.when('/posts/delete', {
+			.when('/posts/delete/:id', {
 				templateUrl : 		'app/partials/posts/delete.html',
 				controller : 		'postDeleteController',
 				controllerAs : 		'postsdelete'

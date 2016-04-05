@@ -1,5 +1,8 @@
 <div class="whitebox">
-	<h3>Add Post</h3>
+	<h3>
+		Add Post
+		<a href="/posts" class="btn btn-primary pull-right">Cancel</a>
+	</h3>
 
 	<form name="addPostForm" ng-submit="addPostSubmit()" novalidate>
 		<p>
@@ -10,6 +13,9 @@
 			<label>Post Content</label>
 			<textarea ng-model="postContent" class="form-control" required ></textarea>
 		</p>
+		<p ng-if="isAddPostSuccess" class="alert alert-success">Success</p>
+		<p ng-if="isAddPostError" class="alert alert-success">Error</p>
+
 		<p class="text-right">
 			<input type="submit" value="Add Post" class="btn btn-primary" ng-disabled="addPostForm.$invalid">
 		</p>

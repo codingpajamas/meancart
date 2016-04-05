@@ -25,5 +25,20 @@ angular.module('starterApp')
 			})
 		}
 
+		PostFactory.put = function(_id, title, body){
+			return $http.put('/api/posts/'+_id, {
+				title: title,
+				body: body
+			}).success(function(data){
+				return data;
+			})
+		}
+
+		PostFactory.delete = function(_id){
+			return $http.delete('/api/posts/'+_id).success(function(data){
+				return data;
+			})
+		}
+
 		return PostFactory;
 	}) 

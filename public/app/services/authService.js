@@ -16,7 +16,7 @@ angular.module('starterApp')
 
 		return RegisterFactory;
 	})
-	.factory('Auth', function($http, $q, AuthToken){
+	.factory('Auth', function($http, $q, AuthToken, $location){
 		var AuthFactory = {};
 
 		// login
@@ -42,6 +42,13 @@ angular.module('starterApp')
 			}else{
 				return false;
 			}
+		}
+
+		// restrict the page
+		AuthFactory.restrict = function(){  
+			if(AuthFactory.isLoggedIn() == false){
+				$location.path('/login');
+			} 
 		}
 
 		// get user info
@@ -74,7 +81,7 @@ angular.module('starterApp')
 
 		return AuthTokenFactory;
 	})
-	.factory('AuthInterceptor', function($q, AuthToken){
+	.factory('AuthInterceptor', function($q, AuthToken, $location){
 		var InterceptorFactory = {}
 
 		// attach token to every request

@@ -3,4 +3,23 @@
 		Edit Post
 		<a href="/posts" class="btn btn-primary pull-right">Cancel</a>
 	</h3>
+
+	<form ng-if="objPost"  name="addPostForm" ng-submit="editPostSubmit()" novalidate>
+		<p>
+			<label>Post Title</label>
+			<input class="form-control" ng-model="objPost.title" required />
+		</p>
+		<p>
+			<label>Post Content</label>
+			<textarea ng-model="objPost.body" class="form-control" required ></textarea>
+		</p>
+		<p ng-if="isEditPostSuccess" class="alert alert-success">Success</p>
+		<p ng-if="isEditPostError" class="alert alert-success">Error</p>
+
+		<p class="text-right">
+			<input type="submit" value="Save Changes" class="btn btn-primary" ng-disabled="addPostForm.$invalid">
+		</p>
+	</form>
+
+	<div ng-if="!objPost">No post to edit</div>
 </div>

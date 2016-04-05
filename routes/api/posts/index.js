@@ -33,9 +33,8 @@ router.post('/add', function(req, res){
 	}); 
 }); 
 
-router.get("/:id", function(req, res){
-	console.log(req.param.id)
-	Post.findById(req.param.id, function(err, post){
+router.get("/:id", function(req, res){ 
+	Post.findById(req.params.id, function(err, post){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
@@ -43,6 +42,41 @@ router.get("/:id", function(req, res){
 		} 
 		res.json(response); 
 	})
+})
+
+
+router.put("/:id", function(req, res){ 
+	Post.findById(req.params.id, function(err, post){
+		if(err){ 
+			res.json({"success":false, "message":err}); 
+		}else{ 
+			post.title = req.body.title;
+			post.body = req.body.body;
+
+			post.save(function(err) {
+                if(err){
+                	response = {"success":true, "message":err}; 
+                }else{
+                	response = {"success":true, "message":post};
+                } 
+                res.json(response); 
+            });
+		}  
+	})
+})
+
+
+router.delete("/:id", function(req, res){ 
+	Post.remove({
+		_id:req.params.id
+	}, function(err, post){
+		if(err){ 
+			res.json({"success":false, "message":err}); 
+		}else{ 
+			response = {"success":true, "message":"Post was deleted successfully"};
+		}  
+        res.json(response); 
+	});
 })
 
 module.exports = router;
