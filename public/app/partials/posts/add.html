@@ -13,6 +13,11 @@
 			<label>Post Content</label>
 			<textarea ng-model="postContent" class="form-control" required ></textarea>
 		</p>
+		<p>
+			<label>Post Image</label>
+			<input type="file" onchange="angular.element(this).scope().filesChanged(this)" multiple class="form-control">
+		</p>
+
 		<p ng-if="isAddPostSuccess" class="alert alert-success">Success</p>
 		<p ng-if="isAddPostError" class="alert alert-success">Error</p>
 

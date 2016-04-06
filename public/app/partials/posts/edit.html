@@ -13,6 +13,27 @@
 			<label>Post Content</label>
 			<textarea ng-model="objPost.body" class="form-control" required ></textarea>
 		</p>
+
+		<div class="row">
+			<div class="col-md-2">
+				<p>
+					<label class="clearfix show">
+						Post Image
+						<small class="pull-right btn btn-xs btn-danger" ng-click="removePostImage()">x</small>
+					</label>
+					<img src="/uploads/{{objPost.image}}" />
+				</p>
+			</div>
+			<div class="col-md-10">
+				<p>
+					<label>Post Image</label>
+					<input type="file" onchange="angular.element(this).scope().filesChanged(this)" multiple class="form-control">
+					<input type="hidden" ng-model="objPost.image">
+				</p>
+			</div>
+		</div>
+		
+
 		<p ng-if="isEditPostSuccess" class="alert alert-success">Success</p>
 		<p ng-if="isEditPostError" class="alert alert-success">Error</p>
 

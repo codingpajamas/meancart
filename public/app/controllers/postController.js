@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('starterApp')
+angular.module('starterApp') 
 	.controller('postsController', function($scope, $location, Auth, Post){
 		Auth.restrict();
 
@@ -27,10 +27,23 @@ angular.module('starterApp')
 		Auth.restrict();
 
 		$scope.isAddPostSuccess = false;
-		$scope.isAddPostError = false; 
+		$scope.isAddPostError = false;  
+
+		$scope.filesChanged = function(el){
+			$scope.files = el.files
+			$scope.$apply();
+		}
 
 		$scope.addPostSubmit = function(){
-			Post.add($scope.postTitle, $scope.postContent)
+			var formData = new FormData(); 
+ 			angular.forEach($scope.files, function(file){
+ 				formData.append('images', file)
+ 			}) 
+
+ 			formData.append('title', $scope.postTitle)
+ 			formData.append('body', $scope.postContent) 
+
+			Post.add(formData)
 				.success(function(data){  
 					if (true == data.success){
 						$scope.isAddPostSuccess = true;
@@ -47,8 +60,7 @@ angular.module('starterApp')
 
 		$scope.objPost = null;
 		$scope.isEditPostSuccess = false;
-		$scope.isEditPostError = false; 
-
+		$scope.isEditPostError = false;  
 
 		Post.view($routeParams.id)
 			.success(function(data){ 
@@ -57,17 +69,40 @@ angular.module('starterApp')
 				}
 			})
 
+
+		$scope.filesChanged = function(el){
+			$scope.files = el.files
+			$scope.$apply();
+		}
+ 
+
 		$scope.editPostSubmit = function(){  
-			Post.put($routeParams.id, $scope.objPost.title, $scope.objPost.body)
+ 			var formData = new FormData(); 
+ 			angular.forEach($scope.files, function(file){
+ 				formData.append('images', file)
+ 			}) 
+
+ 			formData.append('title', $scope.objPost.title)
+ 			formData.append('body', $scope.objPost.body)
+ 			formData.append('image', $scope.objPost.image) 
+
+			Post.put($routeParams.id, formData)
 				.success(function(data){ 
 					if (true == data.success){
 							$scope.isEditPostSuccess = true;
 							$scope.isEditPostError = false; 
+
+							$scope.objPost = data.message;
 						}else{
 							$scope.isEditPostSuccess = false;
 							$scope.isEditPostError = true;
 						}
 				})
+		}
+
+		$scope.removePostImage = function(){
+			$scope.objPost.image = 'none.jpg'
+			console.log($scope.objPost.image)
 		}
 	})
 	.controller('postDeleteController', function($scope, $location, Auth, Post, $routeParams){

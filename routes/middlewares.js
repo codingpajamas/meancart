@@ -13,8 +13,7 @@ module.exports = {
 						'status':'error',
 						'message':'Failed to authenticate token.'
 					});
-				}else{
-					console.log(decoded)
+				}else{ 
 					req.decoded = decoded;
 					next();
 				}

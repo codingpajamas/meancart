@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var Post = new Schema({
 	title: String,
 	body: String, 
+	image:String,
 	createdOn: {type: Date, default: Date.now()}
 });
  

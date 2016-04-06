@@ -4,10 +4,10 @@ angular.module('starterApp')
 	.factory('Post', function($http, $q){
 		var PostFactory = {};
 
-		PostFactory.add = function(title, body){
-			return $http.post('/api/posts/add', {
-				title: title,
-				body: body
+		PostFactory.add = function(fd){
+			return $http.post('/api/posts/add', fd, {
+				transformRequest:angular.identity,
+				headers:{'Content-Type':undefined}
 			}).success(function(data){
 				return data;
 			})
@@ -25,10 +25,10 @@ angular.module('starterApp')
 			})
 		}
 
-		PostFactory.put = function(_id, title, body){
-			return $http.put('/api/posts/'+_id, {
-				title: title,
-				body: body
+		PostFactory.put = function(_id, fd){ 
+			return $http.put('/api/posts/'+_id, fd, {
+				transformRequest:angular.identity,
+				headers:{'Content-Type':undefined}
 			}).success(function(data){
 				return data;
 			})
