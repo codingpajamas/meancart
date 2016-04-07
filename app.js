@@ -43,8 +43,7 @@ app.use(passport.initialize());
 app.use(passport.session()); 
 
 
-app.use('/users', users);
-//app.use('/api/auth', mdWares.validateToken, apiAuth);  
+app.use('/users', users); 
 app.use('/api/auth', apiAuth);  
 app.use('/api/user', mdWares.validateToken, apiUser); 
 app.use('/api/posts', mdWares.validateToken, apiPosts);  
@@ -57,7 +56,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-mongoose.connect('mongodb://127.0.0.1/mean-starter');
+mongoose.connect('mongodb://127.0.0.1/meancart');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
