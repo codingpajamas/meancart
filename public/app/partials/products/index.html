@@ -1,58 +1,47 @@
 <div class="row">
 	<div class="col-md-12">
-		<div class="page-wrap">
-			<div class="page-head">
-				<div class="row">
-					<div class="col-sm-4">
-						<a id="mainLogo">KOKO</a>
-					</div>
-					<div class="col-sm-8">
-						<ul id="mainVav">
-							<li><a href="/products/add" class="btn btn-primary">Add New</a></li>
-							<li><a href="/products">Product</a></li>
-							<li><a href="/orders">Orders</a></li>
-							<li><a href="/customers">Customers</a></li>
-							<li><a href="/settings">Settings</a></li>
-							<li><a ng-click="logout()">Logout</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
+		<div class="page-wrap"> 
 			<div class="page-body">
-				<div class="row mb20">
-					<div class="col-md-12">
-						<h3 class="clearfix">
-							Products
-							<a href="products-list.html" class="pull-right ml10"><i class="glyphicon glyphicon-th-list"></i></a>
-							<a href="products.html" class="pull-right"><i class="glyphicon glyphicon-th"></i></a>
-						</h3>
+				<div ng-if="arrProducts.length > 0">
+					<div class="row mb20">
+						<div class="col-md-12">
+							<h3 class="clearfix">
+								Products
+								<a href="products-list.html" class="pull-right ml10"><i class="glyphicon glyphicon-th-list"></i></a>
+								<a href="products.html" class="pull-right"><i class="glyphicon glyphicon-th"></i></a>
+							</h3>
+						</div>
 					</div>
-				</div>
-				<div class="row" ng-if="arrProducts.length > 0">
-					<div class="col-md-4" ng-repeat="product in arrProducts">
-						<div class="product-card">
-							<a href="/products/{{product._id}}/edit">
-								<img src="/uploads/{{product.image}}">
-								<span class="product-meta clearfix">
-									<span class="product-price">PHP <span>{{product.price}}</span></span>
-									{{product.name}}
-								</span>
-							</a>
+					<div class="row">
+						<div class="col-md-4" ng-repeat="product in arrProducts">
+							<div class="product-card">
+								<a href="/products/{{product._id}}/edit">
+									<img src="/uploads/{{product.image}}">
+									<span class="product-meta clearfix">
+										<span class="product-price">PHP <span>{{product.price}}</span></span>
+										{{product.name}}
+									</span>
+								</a>
+							</div>
+						</div> 
+ 
+						<div class="col-md-3 hide">
+							<div class="product-card product-card-sm">
+								<a href="#">
+									<img src="/assets/images/1.jpg">
+									<span class="product-meta clearfix">
+										<span class="product-price">PHP <span>120</span></span>
+										This is a very cool leather bag
+									</span>
+								</a>
+							</div>
 						</div>
 					</div> 
-
-
-
-
-					<div class="col-md-3 hide">
-						<div class="product-card product-card-sm">
-							<a href="#">
-								<img src="/assets/images/1.jpg">
-								<span class="product-meta clearfix">
-									<span class="product-price">PHP <span>120</span></span>
-									This is a very cool leather bag
-								</span>
-							</a>
+				</div>
+				<div ng-if="arrProducts.length == 0">
+					<div class="row mb20">
+						<div class="col-md-12">
+							<h3 class="clearfix">There are no products to display. <a href="/products/add">Add new product.</a></h3>
 						</div>
 					</div>
 				</div>

@@ -65,14 +65,14 @@ table {
 
 /* pages */
 .page-wrap {
-	background: #f1f5f8;
-	margin-top: 50px;
+	background: #f1f5f8; 
 	margin-bottom: 50px;
 	font-family: 'Raleway', 'Arial', san-serif;
 }
 .page-head {
 	background: #fff;
 	padding: 50px 20px;
+	margin-top: 50px;
 }
 #mainLogo {
 	text-decoration: none;
