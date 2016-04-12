@@ -1,11 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema; 
 
-var Post = new Schema({
-	title: String,
-	body: String, 
+var Product = new Schema({
+	name: String,
+	desc: String, 
+	price: Number, 
 	image:String,
 	createdOn: {type: Date, default: Date.now()}
 });
  
-module.exports = mongoose.model('Post', Post);
+module.exports = mongoose.model('Product', Product);

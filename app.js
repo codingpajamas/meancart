@@ -14,7 +14,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var apiAuth = require('./routes/api/auth');
 var apiUser = require('./routes/api/user');
-var apiPosts = require('./routes/api/posts');
+var apiProducts = require('./routes/api/products');
 var mdWares = require('./routes/middlewares');
 
 var app = express();
@@ -46,7 +46,7 @@ app.use(passport.session());
 app.use('/users', users); 
 app.use('/api/auth', apiAuth);  
 app.use('/api/user', mdWares.validateToken, apiUser); 
-app.use('/api/posts', mdWares.validateToken, apiPosts);  
+app.use('/api/products', mdWares.validateToken, apiProducts);  
 app.use('/', routes);
 
 

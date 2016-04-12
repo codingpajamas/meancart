@@ -18,6 +18,11 @@ angular.module('starterApp')
 				controller : 		'registerController',
 				controllerAs : 		'register'
 			})
+			.when('/forgot', {
+				templateUrl : 		'app/partials/forgot.html',
+				controller : 		'forgotController',
+				controllerAs : 		'forgot'
+			})
 			.when('/dashboard', {
 				templateUrl : 		'app/partials/dashboard.html',
 				controller : 		'dashboardController',
@@ -28,33 +33,96 @@ angular.module('starterApp')
 				controller : 		'profileController',
 				controllerAs : 		'profile'
 			})
+			.when('/settings', {
+				templateUrl : 		'app/partials/settings/index.html',
+				controller : 		'settingsController',
+				controllerAs : 		'settings'
+			})
 
-			/************* POST ROUTES ***************/
-			.when('/posts', {
-				templateUrl : 		'app/partials/posts/index.html',
-				controller : 		'postsController',
-				controllerAs : 		'posts'
+			/************* PRODUCTS ROUTES ***************/
+			.when('/products', {
+				templateUrl : 		'app/partials/products/index.html',
+				controller : 		'productsController',
+				controllerAs : 		'products'
 			})
-			.when('/posts/add', {
-				templateUrl : 		'app/partials/posts/add.html',
-				controller : 		'postAddController',
-				controllerAs : 		'postsadd'
+			.when('/products/add', {
+				templateUrl : 		'app/partials/products/add.html',
+				controller : 		'productsAddController',
+				controllerAs : 		'productsadd'
 			})
-			.when('/posts/edit/:id', {
-				templateUrl : 		'app/partials/posts/edit.html',
-				controller : 		'postEditController',
-				controllerAs : 		'postsedit'
+			.when('/products/:id/edit', {
+				templateUrl : 		'app/partials/products/edit.html',
+				controller : 		'productsEditController',
+				controllerAs : 		'productsedit'
 			})
-			.when('/posts/delete/:id', {
-				templateUrl : 		'app/partials/posts/delete.html',
-				controller : 		'postDeleteController',
-				controllerAs : 		'postsdelete'
+			.when('/products/:id/delete', {
+				templateUrl : 		'app/partials/products/delete.html',
+				controller : 		'productsDeleteController',
+				controllerAs : 		'productsdelete'
 			})
-			.when('/posts/:id', {
-				templateUrl : 		'app/partials/posts/view.html',
-				controller : 		'postViewController',
-				controllerAs : 		'postsview'
+			.when('/products/:id', {
+				templateUrl : 		'app/partials/products/view.html',
+				controller : 		'productsViewController',
+				controllerAs : 		'productsview'
 			})
+
+			/************* ORDERS ROUTES ***************/
+			.when('/orders', {
+				templateUrl : 		'app/partials/orders/index.html',
+				controller : 		'ordersController',
+				controllerAs : 		'orders'
+			})
+			.when('/orders/add', {
+				templateUrl : 		'app/partials/orders/add.html',
+				controller : 		'ordersAddController',
+				controllerAs : 		'ordersadd'
+			})
+			.when('/orders/edit/:id', {
+				templateUrl : 		'app/partials/orders/edit.html',
+				controller : 		'ordersEditController',
+				controllerAs : 		'ordersedit'
+			})
+			.when('/orders/delete/:id', {
+				templateUrl : 		'app/partials/orders/delete.html',
+				controller : 		'ordersDeleteController',
+				controllerAs : 		'ordersdelete'
+			})
+			.when('/orders/:id', {
+				templateUrl : 		'app/partials/orders/view.html',
+				controller : 		'ordersViewController',
+				controllerAs : 		'ordersview'
+			})
+
+
+			/************* CUSTOMERS ROUTES ***************/
+			.when('/customers', {
+				templateUrl : 		'app/partials/customers/index.html',
+				controller : 		'customersController',
+				controllerAs : 		'customers'
+			})
+			.when('/customers/add', {
+				templateUrl : 		'app/partials/customers/add.html',
+				controller : 		'customersAddController',
+				controllerAs : 		'customersadd'
+			})
+			.when('/customers/edit/:id', {
+				templateUrl : 		'app/partials/customers/edit.html',
+				controller : 		'customersEditController',
+				controllerAs : 		'customersedit'
+			})
+			.when('/customers/delete/:id', {
+				templateUrl : 		'app/partials/customers/delete.html',
+				controller : 		'customersDeleteController',
+				controllerAs : 		'customersdelete'
+			})
+			.when('/customers/:id', {
+				templateUrl : 		'app/partials/customers/view.html',
+				controller : 		'customersViewController',
+				controllerAs : 		'customersview'
+			})
+
+
+
 
 
 		$locationProvider.html5Mode(true);

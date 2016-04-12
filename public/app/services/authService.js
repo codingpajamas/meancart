@@ -97,7 +97,8 @@ angular.module('starterApp')
 
 		// redirect if token doesnt authenticate
 		InterceptorFactory.responseError = function(response){
-			if(response.status = 403){
+			if(response.status = 403){ 
+				AuthToken.setToken();
 				$location.path('/login');
 			}
 

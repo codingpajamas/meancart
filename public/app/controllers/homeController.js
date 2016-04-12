@@ -1,5 +1,6 @@
 'use strict'
 
 angular.module('starterApp')
-	.controller('homeController', function($scope){ 
+	.controller('homeController', function($scope){
+	 
 	})

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Post = require('../../../models/Post');
+var Product = require('../../../models/Product');
 var crypto = require('crypto'); 
 var async = require('async'); 
 var passport = require('passport');
@@ -23,7 +23,7 @@ var postImage = upload.fields([{name:'images'}])
 
 
 router.get("/", function(req, res){
-	Post.find({},{},{sort: '-createdOn'}, function(err, posts){
+	Product.find({},{},{sort: '-createdOn'}, function(err, posts){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
@@ -34,9 +34,11 @@ router.get("/", function(req, res){
 })
 
 router.post('/add', postImage, function(req, res){   
-	Post.create({
-		title: req.body.title,
-		body: req.body.body,
+	console.log(req.body)
+	Product.create({
+		name: req.body.name,
+		desc: req.body.desc,
+		price: req.body.price,
 		image: req.files && req.files['images'] ? req.files['images'][0]['filename'] : 'none.jpg'
 	}, function(err, post){ 
 		if(err){
@@ -49,7 +51,7 @@ router.post('/add', postImage, function(req, res){
 }); 
 
 router.get("/:id", function(req, res){ 
-	Post.findById(req.params.id, function(err, post){
+	Product.findById(req.params.id, function(err, post){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
@@ -62,12 +64,13 @@ router.get("/:id", function(req, res){
 
 router.put("/:id", postImage, function(req, res){ 
 
-	Post.findById(req.params.id, function(err, post){
+	Product.findById(req.params.id, function(err, post){
 		if(err){ 
 			res.json({"success":false, "message":err}); 
 		}else{ 
-			post.title = req.body.title;
-			post.body = req.body.body;
+			post.name = req.body.name;
+			post.desc = req.body.desc;
+			post.price = req.body.price;
 			post.image = req.files && req.files['images'] ? req.files['images'][0]['filename'] : req.body.image;
 
 			post.save(function(err) {
@@ -84,13 +87,13 @@ router.put("/:id", postImage, function(req, res){
 
 
 router.delete("/:id", function(req, res){ 
-	Post.remove({
+	Product.remove({
 		_id:req.params.id
 	}, function(err, post){
 		if(err){ 
 			res.json({"success":false, "message":err}); 
 		}else{ 
-			response = {"success":true, "message":"Post was deleted successfully"};
+			response = {"success":true, "message":"Product was deleted successfully"};
 		}  
         res.json(response); 
 	});

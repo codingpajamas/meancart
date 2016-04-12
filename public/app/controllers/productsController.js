@@ -1,29 +1,30 @@
 'use strict'
 
 angular.module('starterApp') 
-	.controller('postsController', function($scope, $location, Auth, Post){
+	.controller('productsController', function($scope, $location, Auth, Product){
 		Auth.restrict();
 
-		$scope.arrPosts = [];
+		$scope.arrProducts = [];
 		
-		Post.all().success(function(data){ 
-				$scope.arrPosts = data.message;
+		Product.all().success(function(data){ 
+				$scope.arrProducts = data.message;
+				console.log($scope.arrProducts)
 			});
 
 	})
-	.controller('postViewController', function($scope, $location, $routeParams, Auth, Post){
+	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product){
 		Auth.restrict();
 
-		$scope.objPost = null;
+		$scope.objProduct = null;
 
-		Post.view($routeParams.id)
+		Product.view($routeParams.id)
 			.success(function(data){ 
 				if (true == data.success){ 
-					$scope.objPost = data.message; 
+					$scope.objProduct = data.message; 
 				}
 			})
 	})
-	.controller('postAddController', function($scope, $location, Auth, Post){
+	.controller('productsAddController', function($scope, $location, Auth, Product){
 		Auth.restrict();
 
 		$scope.isAddPostSuccess = false;
@@ -40,10 +41,11 @@ angular.module('starterApp')
  				formData.append('images', file)
  			}) 
 
- 			formData.append('title', $scope.postTitle)
- 			formData.append('body', $scope.postContent) 
+ 			formData.append('name', $scope.productName)
+ 			formData.append('desc', $scope.productDescription) 
+ 			formData.append('price', $scope.productPrice) 
 
-			Post.add(formData)
+			Product.add(formData)
 				.success(function(data){  
 					if (true == data.success){
 						$scope.isAddPostSuccess = true;
@@ -55,17 +57,17 @@ angular.module('starterApp')
 				});
 		}
 	})
-	.controller('postEditController', function($scope, $location, Auth, Post, $routeParams){
+	.controller('productsEditController', function($scope, $location, Auth, Product, $routeParams){
 		Auth.restrict();
 
-		$scope.objPost = null;
+		$scope.objProduct = null;
 		$scope.isEditPostSuccess = false;
 		$scope.isEditPostError = false;  
 
-		Post.view($routeParams.id)
+		Product.view($routeParams.id)
 			.success(function(data){ 
 				if (true == data.success){ 
-					$scope.objPost = data.message; 
+					$scope.objProduct = data.message; 
 				}
 			})
 
@@ -82,11 +84,12 @@ angular.module('starterApp')
  				formData.append('images', file)
  			}) 
 
- 			formData.append('title', $scope.objPost.title)
- 			formData.append('body', $scope.objPost.body)
- 			formData.append('image', $scope.objPost.image) 
+ 			formData.append('name', $scope.objProduct.name)
+ 			formData.append('desc', $scope.objProduct.desc)
+ 			formData.append('price', $scope.objProduct.price)
+ 			formData.append('image', $scope.objProduct.image) 
 
-			Post.put($routeParams.id, formData)
+			Product.put($routeParams.id, formData)
 				.success(function(data){ 
 					if (true == data.success){
 							$scope.isEditPostSuccess = true;
@@ -105,14 +108,14 @@ angular.module('starterApp')
 			console.log($scope.objPost.image)
 		}
 	})
-	.controller('postDeleteController', function($scope, $location, Auth, Post, $routeParams){
+	.controller('productsDeleteController', function($scope, $location, Auth, Product, $routeParams){
 		Auth.restrict(); 
 
 		$scope.objPost = null;
 		$scope.isDeletePostSuccess = false;
 		$scope.isDeletePostError = false; 
 
-		Post.view($routeParams.id)
+		Product.view($routeParams.id)
 			.success(function(data){ 
 				if (true == data.success){ 
 					$scope.objPost = data.message; 
@@ -120,7 +123,7 @@ angular.module('starterApp')
 			})
 
 		$scope.deletePostSubmit = function(){
-			Post.delete($routeParams.id)
+			Product.delete($routeParams.id)
 				.success(function(data){ 
 					if (true == data.success){
 							$scope.isDeletePostSuccess = true;

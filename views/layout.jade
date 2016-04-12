@@ -3,9 +3,9 @@ html(ng-app='starterApp')
     head
         title= title
         base(href='/')
-        link(rel='stylesheet', href='/assets/stylesheets/bootstrap.min.css')
+        link(rel='stylesheet', href='/assets/stylesheets/bootstrap.css')
         link(rel='stylesheet', href='/assets/stylesheets/animate.min.css')
-        link(rel='stylesheet', href='/assets/stylesheets/style.css')
+        link(rel='stylesheet', href='/assets/stylesheets/styles.css')
         link(rel='stylesheet', href='/assets/stylesheets/misc.css')
         script(src='/assets/javascript/lodash.js')
         script(src='/assets/javascript/angular.min.js')
@@ -15,14 +15,16 @@ html(ng-app='starterApp')
         script(src='/app/app.js')
         script(src='/app/config/config.js')
         script(src='/app/services/authService.js')
-        script(src='/app/services/postService.js')
+        script(src='/app/services/productService.js')
         script(src='/app/controllers/mainController.js')
+        script(src='/app/controllers/homeController.js')
         script(src='/app/controllers/authController.js') 
         script(src='/app/controllers/dashboardController.js')
         script(src='/app/controllers/profileController.js')
-        script(src='/app/controllers/postController.js') 
-    body(ng-controller='mainController')
-        .container
-            .row
-                .col-sm-12(ng-controller="mainController")
-                    block content
+        script(src='/app/controllers/productsController.js') 
+        script(src='/app/controllers/ordersController.js') 
+        script(src='/app/controllers/customersController.js') 
+        script(src='/app/controllers/settingsController.js') 
+    body
+        .container(ng-controller='mainController')
+            block content
