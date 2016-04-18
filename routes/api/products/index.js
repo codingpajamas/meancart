@@ -34,14 +34,54 @@ router.get("/", function(req, res){
 	})
 })
 
-router.post('/add', postImage, function(req, res){   
-	console.log(req.body)
+router.post('/add', postImage, function(req, res){  
+
+	// this needs refactoring!!!!
+	var productImages = []; 
+
+	// let's add image1  
+	if(req.files && req.files['nProductImg1'] && req.files['nProductImg1'][0] && req.files['nProductImg1'][0]['size']){
+		productImages['productImg1'] = req.files['nProductImg1'][0]['filename']; 
+	} 
+	if(!productImages['productImg1'] && req.body.productImg1 != 'undefined'){  
+		productImages['productImg1'] = req.body.productImg1;
+	}
+
+	// let's add image2  
+	if(req.files && req.files['nProductImg2'] && req.files['nProductImg2'][0] && req.files['nProductImg2'][0]['size']){
+		productImages['productImg2'] = req.files['nProductImg2'][0]['filename']; 
+	} 
+	if(!productImages['productImg2'] && req.body.productImg2 != 'undefined'){ 
+		productImages['productImg2'] = req.body.productImg2;
+	}
+
+	// let's add image3  
+	if(req.files && req.files['nProductImg3'] && req.files['nProductImg3'][0] && req.files['nProductImg3'][0]['size']){
+		productImages['productImg3'] = req.files['nProductImg3'][0]['filename'];
+	} 
+	if(!productImages['productImg3'] && req.body.productImg3 != 'undefined'){ 
+		productImages['productImg3'] = req.body.productImg3;
+	}
+
+	// let's add image4  
+	if(req.files && req.files['nProductImg4'] && req.files['nProductImg4'][0] && req.files['nProductImg4'][0]['size']){
+		productImages['productImg4'] = req.files['nProductImg4'][0]['filename'];
+	} 
+	if(!productImages['productImg4'] && req.body.productImg4 != 'undefined'){ 
+		productImages['productImg4'] = req.body.productImg4;
+	} 
+
 	Product.create({
 		name: req.body.name,
 		desc: req.body.desc,
 		price: req.body.price,
 		image: req.files && req.files['images'] ? req.files['images'][0]['filename'] : 'none.jpg',
-		images: {productImg1:"", productImg2:"", productImg3:"", productImg4:""}
+		images: {
+			productImg1: productImages['productImg1'] ? productImages['productImg1'] : "",
+			productImg2: productImages['productImg2'] ? productImages['productImg2'] : "",
+			productImg3: productImages['productImg3'] ? productImages['productImg3'] : "",
+			productImg4: productImages['productImg4'] ? productImages['productImg4'] : ""
+		}
 	}, function(err, post){ 
 		if(err){
 			response = {"success":false, "message":err};

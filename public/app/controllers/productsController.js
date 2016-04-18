@@ -30,10 +30,43 @@ angular.module('starterApp')
 		$scope.isAddPostSuccess = false;
 		$scope.isAddPostError = false;  
 
-		$scope.filesChanged = function(el){
-			$scope.files = el.files
-			$scope.$apply();
-		}
+		$scope.nProductImg1 = "";
+		$scope.nProductImg2 = "";
+		$scope.nProductImg3 = "";
+		$scope.nProductImg4 = "";  
+
+		// this needs refactoring!!!!
+		$scope.addProductImage = function(el){ 
+			switch(angular.element(el).attr('data-imgtype')){
+				case "productImg1":
+					$scope.nProductImg1 = el.files;
+					break;
+				case "productImg2":
+					$scope.nProductImg2 = el.files;
+					break;
+				case "productImg3":
+					$scope.nProductImg3 = el.files;
+					break;
+				case "productImg4":
+					$scope.nProductImg4 = el.files;
+					break; 
+			}
+
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$scope.$apply(function() { 
+					angular.element(el).parent('div').css('background-image', 'url('+reader.result+')')
+				});
+			};
+
+			// get <input> element and the selected file  
+			var imgData = el.files[0];
+			reader.readAsDataURL(imgData); 
+
+
+			angular.element(el).parent('div').addClass('hasImage'); 
+			$scope.$apply(); 
+		} 
 
 		$scope.addPostSubmit = function(){
 			var formData = new FormData(); 
@@ -44,6 +77,19 @@ angular.module('starterApp')
  			formData.append('name', $scope.productName)
  			formData.append('desc', $scope.productDescription) 
  			formData.append('price', $scope.productPrice) 
+
+ 			angular.forEach($scope.nProductImg1, function(file){
+ 				formData.append('nProductImg1', file)
+ 			});
+ 			angular.forEach($scope.nProductImg2, function(file){
+ 				formData.append('nProductImg2', file)
+ 			});
+ 			angular.forEach($scope.nProductImg3, function(file){
+ 				formData.append('nProductImg3', file)
+ 			});
+ 			angular.forEach($scope.nProductImg4, function(file){
+ 				formData.append('nProductImg4', file)
+ 			});
 
 			Product.add(formData)
 				.success(function(data){  
@@ -67,8 +113,7 @@ angular.module('starterApp')
 		$scope.nProductImg1 = "";
 		$scope.nProductImg2 = "";
 		$scope.nProductImg3 = "";
-		$scope.nProductImg4 = ""; 
-		$scope.csvFile = 's';
+		$scope.nProductImg4 = "";  
 
 		Product.view($routeParams.id)
 			.success(function(data){ 
@@ -78,7 +123,7 @@ angular.module('starterApp')
 			})
 
 		// this needs refactoring!!!!
-		$scope.addProductImage = function(el){ 
+		$scope.editProductImage = function(el){ 
 			switch(angular.element(el).attr('data-imgtype')){
 				case "productImg1":
 					$scope.nProductImg1 = el.files;
@@ -96,15 +141,14 @@ angular.module('starterApp')
 
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				$scope.$apply(function() {
-					$scope.csvFile = reader.result;
+				$scope.$apply(function() { 
 					angular.element(el).parent('div').css('background-image', 'url('+reader.result+')')
 				});
 			};
 
 			// get <input> element and the selected file  
-			var csvFile = el.files[0];
-			reader.readAsDataURL(csvFile); 
+			var imgData = el.files[0];
+			reader.readAsDataURL(imgData); 
 
 
 			angular.element(el).parent('div').addClass('hasImage'); 
