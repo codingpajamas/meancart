@@ -95,6 +95,10 @@ table {
 	color: #333;
 	display: block;
 }
+#mainVav a.active {
+	color: #337ab7;
+	font-weight: bold;
+}
 #mainVav a.btn {
 	color: #fff;
 }

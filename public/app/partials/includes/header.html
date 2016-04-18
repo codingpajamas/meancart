@@ -6,10 +6,10 @@
 		<div class="col-sm-8">
 			<ul id="mainVav">
 				<li><a href="/products/add" class="btn btn-primary">Add New</a></li>
-				<li><a href="/products">Product</a></li>
-				<li><a href="/orders">Orders</a></li>
-				<li><a href="/customers">Customers</a></li>
-				<li><a href="/settings">Settings</a></li>
+				<li><a ng-class="{'active' : pagePath == 'products'}" href="/products">Product</a></li>
+				<li><a ng-class="{'active' : pagePath == 'orders'}" href="/orders">Orders</a></li>
+				<li><a ng-class="{'active' : pagePath == 'customers'}" href="/customers">Customers</a></li>
+				<li><a ng-class="{'active' : pagePath == 'settings'}" href="/settings">Settings</a></li>
 				<li><a ng-click="logout()">Logout</a></li>
 			</ul>
 		</div>

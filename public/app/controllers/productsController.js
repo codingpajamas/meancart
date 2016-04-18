@@ -4,8 +4,7 @@ angular.module('starterApp')
 	.controller('productsController', function($scope, $location, Auth, Product){
 		Auth.restrict();
 
-		$scope.arrProducts = [];
-		
+		$scope.arrProducts = []; 
 		Product.all().success(function(data){ 
 				$scope.arrProducts = data.message;
 				console.log($scope.arrProducts)
@@ -15,8 +14,7 @@ angular.module('starterApp')
 	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product){
 		Auth.restrict();
 
-		$scope.objProduct = null;
-
+		$scope.objProduct = null; 
 		Product.view($routeParams.id)
 			.success(function(data){ 
 				if (true == data.success){ 

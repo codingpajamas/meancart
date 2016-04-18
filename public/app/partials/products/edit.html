@@ -4,7 +4,7 @@
 			<div class="page-body">
 				<div class="row">
 					<div class="col-md-6 col-md-push-3">
-						<form ng-if="objProduct"  name="editPostForm" ng-submit="editPostSubmit()" novalidate>
+						<form ng-if="objProduct"  name="editProductForm" ng-submit="editPostSubmit()" novalidate>
 							<div class="form-card">
 								<h2 class="form-card-title">Edit Product Details</h2>
 								<div class="form-card-body">
@@ -114,7 +114,7 @@
 										<a href="/products/{{objProduct._id}}/delete" class="btn btn-danger btn-block">Delete</a>
 									</div>
 									<div class="col-sm-9">
-										<input type="submit" ng-disabled="editPostForm.$invalid" value="Save Changes" class="btn btn-block btn-primary">
+										<input type="submit" ng-disabled="editProductForm.$invalid" value="Save Changes" class="btn btn-block btn-primary">
 									</div>
 								</div>
 							</div>
