@@ -6,6 +6,12 @@ var Product = new Schema({
 	desc: String, 
 	price: Number, 
 	image:String,
+	images: { 
+		productImg1: String,
+		productImg2: String,
+		productImg3: String,
+		productImg4: String
+	},
 	createdOn: {type: Date, default: Date.now()}
 });
  

@@ -7,6 +7,7 @@ var passport = require('passport');
 var nodemailer = require('nodemailer'); 
 var jwt = require('jsonwebtoken');
 var multer = require('multer');
+var _ = require('lodash');
 var secretmonster = 'meanstartedhahahaha';
 
 
@@ -19,7 +20,7 @@ var storage = multer.diskStorage({
 	}
 })
 var upload = multer({ storage: storage });
-var postImage = upload.fields([{name:'images'}])
+var postImage = upload.fields([{name:'nProductImg1', maxCount:1}, {name:'nProductImg2', maxCount:1}, {name:'nProductImg3', maxCount:1}, {name:'nProductImg4', maxCount:1}])
 
 
 router.get("/", function(req, res){
@@ -39,7 +40,8 @@ router.post('/add', postImage, function(req, res){
 		name: req.body.name,
 		desc: req.body.desc,
 		price: req.body.price,
-		image: req.files && req.files['images'] ? req.files['images'][0]['filename'] : 'none.jpg'
+		image: req.files && req.files['images'] ? req.files['images'][0]['filename'] : 'none.jpg',
+		images: {productImg1:"", productImg2:"", productImg3:"", productImg4:""}
 	}, function(err, post){ 
 		if(err){
 			response = {"success":false, "message":err};
@@ -62,17 +64,56 @@ router.get("/:id", function(req, res){
 })
 
 
-router.put("/:id", postImage, function(req, res){ 
+router.put("/:id", postImage, function(req, res){  
 
+	// this needs refactoring!!!!
+	var productImages = []; 
+
+	// let's add image1  
+	if(req.files && req.files['nProductImg1'] && req.files['nProductImg1'][0] && req.files['nProductImg1'][0]['size']){
+		productImages['productImg1'] = req.files['nProductImg1'][0]['filename']; 
+	} 
+	if(!productImages['productImg1'] && req.body.productImg1 != 'undefined'){  
+		productImages['productImg1'] = req.body.productImg1;
+	}
+
+	// let's add image2  
+	if(req.files && req.files['nProductImg2'] && req.files['nProductImg2'][0] && req.files['nProductImg2'][0]['size']){
+		productImages['productImg2'] = req.files['nProductImg2'][0]['filename']; 
+	} 
+	if(!productImages['productImg2'] && req.body.productImg2 != 'undefined'){ 
+		productImages['productImg2'] = req.body.productImg2;
+	}
+
+	// let's add image3  
+	if(req.files && req.files['nProductImg3'] && req.files['nProductImg3'][0] && req.files['nProductImg3'][0]['size']){
+		productImages['productImg3'] = req.files['nProductImg3'][0]['filename'];
+	} 
+	if(!productImages['productImg3'] && req.body.productImg3 != 'undefined'){ 
+		productImages['productImg3'] = req.body.productImg3;
+	}
+
+	// let's add image4  
+	if(req.files && req.files['nProductImg4'] && req.files['nProductImg4'][0] && req.files['nProductImg4'][0]['size']){
+		productImages['productImg4'] = req.files['nProductImg4'][0]['filename'];
+	} 
+	if(!productImages['productImg4'] && req.body.productImg4 != 'undefined'){ 
+		productImages['productImg4'] = req.body.productImg4;
+	} 
+
+ 
 	Product.findById(req.params.id, function(err, post){
 		if(err){ 
 			res.json({"success":false, "message":err}); 
 		}else{ 
 			post.name = req.body.name;
 			post.desc = req.body.desc;
-			post.price = req.body.price;
-			post.image = req.files && req.files['images'] ? req.files['images'][0]['filename'] : req.body.image;
-
+			post.price = req.body.price; 
+			post.images.productImg1 = productImages['productImg1'] ? productImages['productImg1'] : ""; 
+			post.images.productImg2 = productImages['productImg2'] ? productImages['productImg2'] : ""; 
+			post.images.productImg3 = productImages['productImg3'] ? productImages['productImg3'] : ""; 
+			post.images.productImg4 = productImages['productImg4'] ? productImages['productImg4'] : ""; 
+ 
 			post.save(function(err) {
                 if(err){
                 	response = {"success":true, "message":err}; 

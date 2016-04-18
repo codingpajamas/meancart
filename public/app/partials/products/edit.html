@@ -63,21 +63,41 @@
 									</div> 
 								</div>
 							</div>
-							<div class="form-card hide">
+							<div class="form-card">
 								<h2 class="form-card-title">Edit Product Images</h2>
 								<div class="form-card-body">
 									<div class="row">
-										<div class="col-md-3">
-											<img src="/assets/images/1.jpg">
+										<div class="col-sm-3">
+											<div class="productImage shadow" ng-class="{'hasImage' : objProduct.images.productImg1}" style="background-image: url({{objProduct.images.productImg1 ? '/uploads/'+objProduct.images.productImg1 : '/assets/images/add.png'}})">
+												<img src="/assets/images/overlay.png">
+												<input data-imgtype="productImg1" type="file" onchange="angular.element(this).scope().addProductImage(this)">
+												<img class="removeImage" src="/assets/images/remove.png" ng-click="removeProductImage($event)" data-imgtype="productImg1">
+												<input type="hidden" ng-model="objProduct.images.productImg1">
+											</div> 
 										</div> 
-										<div class="col-md-3">
-											<img src="/assets/images/1.jpg">
+										<div class="col-sm-3">
+											<div class="productImage shadow" ng-class="{'hasImage' : objProduct.images.productImg2}" style="background-image: url({{objProduct.images.productImg2 ? '/uploads/'+objProduct.images.productImg2 : '/assets/images/add.png'}})">
+												<img src="/assets/images/overlay.png">
+												<input data-imgtype="productImg2" type="file" onchange="angular.element(this).scope().addProductImage(this)">
+												<img class="removeImage" src="/assets/images/remove.png" ng-click="removeProductImage($event)" data-imgtype="productImg2">
+												<input type="hidden" ng-model="objProduct.images.productImg2">
+											</div>
 										</div> 
-										<div class="col-md-3">
-											<img src="/assets/images/1.jpg">
+										<div class="col-sm-3">
+											<div class="productImage shadow" ng-class="{'hasImage' : objProduct.images.productImg3}" style="background-image: url({{objProduct.images.productImg3 ? '/uploads/'+objProduct.images.productImg3 : '/assets/images/add.png'}})">
+												<img src="/assets/images/overlay.png">
+												<input data-imgtype="productImg3" type="file" onchange="angular.element(this).scope().addProductImage(this)">
+												<img class="removeImage" src="/assets/images/remove.png" ng-click="removeProductImage($event)" data-imgtype="productImg3">
+												<input type="hidden" ng-model="objProduct.images.productImg3">
+											</div>
 										</div> 
-										<div class="col-md-3">
-											<img src="/assets/images/1.jpg">
+										<div class="col-sm-3">
+											<div class="productImage shadow" ng-class="{'hasImage' : objProduct.images.productImg4}" style="background-image: url({{objProduct.images.productImg4 ? '/uploads/'+objProduct.images.productImg4 : '/assets/images/add.png'}})">
+												<img src="/assets/images/overlay.png">
+												<input data-imgtype="productImg4" type="file" onchange="angular.element(this).scope().addProductImage(this)">
+												<img class="removeImage" src="/assets/images/remove.png" ng-click="removeProductImage($event)" data-imgtype="productImg4">
+												<input type="hidden" ng-model="objProduct.images.productImg4">
+											</div>
 										</div>  
 										<input type="hidden" ng-model="objProduct.image">
 									</div> 
@@ -91,10 +111,10 @@
 									</div>
 								</div>
 								<div class="row"> 
-									<div class="col-md-3">
+									<div class="col-sm-3">
 										<a href="/products/{{objProduct._id}}/delete" class="btn btn-danger btn-block">Delete</a>
 									</div>
-									<div class="col-md-9">
+									<div class="col-sm-9">
 										<input type="submit" ng-disabled="editPostForm.$invalid" value="Save Changes" class="btn btn-block btn-primary">
 									</div>
 								</div>

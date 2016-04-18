@@ -64,30 +64,77 @@ angular.module('starterApp')
 		$scope.isEditPostSuccess = false;
 		$scope.isEditPostError = false;  
 
+		$scope.nProductImg1 = "";
+		$scope.nProductImg2 = "";
+		$scope.nProductImg3 = "";
+		$scope.nProductImg4 = ""; 
+		$scope.csvFile = 's';
+
 		Product.view($routeParams.id)
 			.success(function(data){ 
 				if (true == data.success){ 
-					$scope.objProduct = data.message; 
+					$scope.objProduct = data.message;
 				}
 			})
 
+		// this needs refactoring!!!!
+		$scope.addProductImage = function(el){ 
+			switch(angular.element(el).attr('data-imgtype')){
+				case "productImg1":
+					$scope.nProductImg1 = el.files;
+					break;
+				case "productImg2":
+					$scope.nProductImg2 = el.files;
+					break;
+				case "productImg3":
+					$scope.nProductImg3 = el.files;
+					break;
+				case "productImg4":
+					$scope.nProductImg4 = el.files;
+					break; 
+			}
 
-		$scope.filesChanged = function(el){
-			$scope.files = el.files
-			$scope.$apply();
-		}
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$scope.$apply(function() {
+					$scope.csvFile = reader.result;
+					angular.element(el).parent('div').css('background-image', 'url('+reader.result+')')
+				});
+			};
+
+			// get <input> element and the selected file  
+			var csvFile = el.files[0];
+			reader.readAsDataURL(csvFile); 
+
+
+			angular.element(el).parent('div').addClass('hasImage'); 
+			$scope.$apply(); 
+		} 
  
 
-		$scope.editPostSubmit = function(){  
- 			var formData = new FormData(); 
- 			angular.forEach($scope.files, function(file){
- 				formData.append('images', file)
- 			}) 
-
+		$scope.editPostSubmit = function(){ 
+			var formData = new FormData(); 
  			formData.append('name', $scope.objProduct.name)
  			formData.append('desc', $scope.objProduct.desc)
  			formData.append('price', $scope.objProduct.price)
  			formData.append('image', $scope.objProduct.image) 
+ 			formData.append('productImg1', $scope.objProduct.images.productImg1) 
+ 			formData.append('productImg2', $scope.objProduct.images.productImg2) 
+ 			formData.append('productImg3', $scope.objProduct.images.productImg3)
+ 			formData.append('productImg4', $scope.objProduct.images.productImg4)  
+
+ 			angular.forEach($scope.nProductImg1, function(file){
+ 				formData.append('nProductImg1', file)
+ 			});
+ 			angular.forEach($scope.nProductImg2, function(file){
+ 				formData.append('nProductImg2', file)
+ 			});
+ 			angular.forEach($scope.nProductImg3, function(file){
+ 				formData.append('nProductImg3', file)
+ 			});
+ 			angular.forEach($scope.nProductImg4, function(file){
+ 				formData.append('nProductImg4', file)
+ 			});
 
 			Product.put($routeParams.id, formData)
 				.success(function(data){ 
@@ -103,9 +150,9 @@ angular.module('starterApp')
 				})
 		}
 
-		$scope.removePostImage = function(){
-			$scope.objPost.image = 'none.jpg'
-			console.log($scope.objPost.image)
+		$scope.removeProductImage = function(e){
+			angular.element(e.target).parent('div').css('background-image', 'url(/assets/images/add.png)').removeClass('hasImage');
+			$scope.objProduct.images[angular.element(e.target).attr('data-imgtype')] = "";
 		}
 	})
 	.controller('productsDeleteController', function($scope, $location, Auth, Product, $routeParams){
