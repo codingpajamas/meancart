@@ -29,7 +29,7 @@ angular.module('starterApp')
 		}
 
 		$scope.submitRegister = function(){
-			Register.send($scope.register.username, $scope.register.password, $scope.register.fullname)
+			Register.send($scope.register.username, $scope.register.password, $scope.register.storename, $scope.register.fullname)
 				.success(function(data){ 
 					if(data.status == 'success'){ 
 						$location.path('/login');

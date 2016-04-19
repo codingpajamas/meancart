@@ -1,11 +1,22 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
+var shortId = require('shortid');
 
 var User = new Schema({ 
+	userid: {type: String, unique: true, default: shortId.generate},
+	refid: Number,
+	url: String,
 	username: String,
 	password: String,
 	fullname: String,
+	store: {
+		url: String,
+		urlraw: String,
+		name: String,
+		description: String,
+		theme: {type: String, default: "default"}
+	},
 	registrationToken: String,
 	resetPasswordToken: String,
   	resetPasswordExpires: Date,

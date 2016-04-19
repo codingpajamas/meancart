@@ -4,10 +4,11 @@ angular.module('starterApp')
 	.factory('Register', function($http, $q){
 		var RegisterFactory = {};
 
-		RegisterFactory.send = function(username, password, fullname){
+		RegisterFactory.send = function(username, password, storename, fullname){
 			return $http.post('/api/auth/register', {
 				username: username,
 				password: password,
+				storename: storename,
 				fullname: fullname
 			}).success(function(data){
 				return data;
