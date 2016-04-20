@@ -87,22 +87,48 @@ router.post('/add', postImage, function(req, res){
 			name: req.decoded.user.store['name'],
 			url: req.decoded.user.store['url']
 		}
-	}, function(err, post){ 
+	}, function(err, product){ 
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
-			response = {"success":true, "message":post};
+			var prettyUrlRaw = req.body.storename.trim()
+				.replace(/ñ/g, 'n')
+				.replace(/'/g, '')
+				.replace(/"/g, '')
+				.replace(/[^a-zA-Z0-9]/g,"")
+				.toLowerCase()
+				.replace(/--/g, '');
+
+			Product.find({"urlraw":prettyUrlRaw, "_id": {$ne:product._id}}, {}, {sort: 'createdOn'}, function(err, products){
+				var strPrettyUrl = prettyUrlRaw
+				
+				if(products.length > 0){
+					strPrettyUrl = prettyUrlRaw + "." + users.length;
+				}
+
+				product.store.name = req.body.storename;
+				product.store.url = strPrettyUrl;
+				product.store.urlraw = prettyUrlRaw;
+				product.save(function(err){
+					if(err){
+						console.log('unable to update store name', err)
+					}
+				})
+				
+			});
+
+			response = {"success":true, "message":product};
 		} 
 		res.json(response); 
 	}); 
 }); 
 
 router.get("/:id", function(req, res){ 
-	Product.findById(req.params.id, function(err, post){
+	Product.findById(req.params.id, function(err, product){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
-			response = {"success":true, "message":post};
+			response = {"success":true, "message":product};
 		} 
 		res.json(response); 
 	})

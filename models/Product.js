@@ -4,10 +4,11 @@ var shortId = require('shortid');
 
 var Product = new Schema({
 	prodid: {type: String, unique: true, default: shortId.generate},
+	url: String,
+	urlraw: String,
 	name: String,
 	desc: String, 
-	price: Number, 
-	image:String,
+	price: Number,  
 	images: { 
 		productImg1: String,
 		productImg2: String,
