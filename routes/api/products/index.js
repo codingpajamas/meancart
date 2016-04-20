@@ -34,7 +34,7 @@ router.get("/", function(req, res){
 	})
 })
 
-router.post('/add', postImage, function(req, res){  
+router.post('/add', postImage, function(req, res){   
 
 	// this needs refactoring!!!!
 	var productImages = []; 
@@ -81,6 +81,11 @@ router.post('/add', postImage, function(req, res){
 			productImg2: productImages['productImg2'] ? productImages['productImg2'] : "",
 			productImg3: productImages['productImg3'] ? productImages['productImg3'] : "",
 			productImg4: productImages['productImg4'] ? productImages['productImg4'] : ""
+		},
+		store: {
+			id: req.decoded.user._id,
+			name: req.decoded.user.store['name'],
+			url: req.decoded.user.store['url']
 		}
 	}, function(err, post){ 
 		if(err){

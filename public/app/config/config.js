@@ -122,6 +122,31 @@ angular.module('starterApp')
 			})
 
 
+			/************* PRODUCT VIEW ROUTES ***************/
+			.when('/p/:id', {
+				templateUrl : 		'app/partials/products/view.html',
+				controller : 		'productsController',
+				controllerAs : 		'productsview'
+			}) 
+
+
+			/************* STORE ROUTES ***************/
+			.when('/s/:id', {
+				templateUrl : 		'app/partials/stores/index.html',
+				controller : 		'storesController',
+				controllerAs : 		'stores'
+			}) 
+			.when('/s/:id/reviews', {
+				templateUrl : 		'app/partials/stores/reviews.html',
+				controller : 		'storesController',
+				controllerAs : 		'storesreviews'
+			}) 
+			.when('/s/:id/products', {
+				templateUrl : 		'app/partials/stores/products.html',
+				controller : 		'storesController',
+				controllerAs : 		'storesproducts'
+			}) 
+
 
 
 
