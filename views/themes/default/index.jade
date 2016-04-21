@@ -1,70 +1,18 @@
 extends layout
 
 block content
-  #productGridWrap.col-sm-12.col-md-12
-    .productGrid
-      .product-box
-        a(href='/product')
-          span.product-box-img
-            img(src='/assets/themes/default/images/6.jpg')
-            span.product-box-shadow
-          span.product-box-meta.clearfix.show
-            span.pull-right.pad0.text-right.product-price-wrap
-              | PHP
-              span.product-price 100
-            span.pad0 Dragon Slayer And a very long title that have a two lines and shit blah
-    .productGrid
-      .product-box
-        a(href='/product')
-          span.product-box-img
-            img(src='/assets/themes/default/images/1.jpg')
-            span.product-box-shadow
-          span.product-box-meta.clearfix.show
-            span.pull-right.pad0.text-right.product-price-wrap
-              | PHP
-              span.product-price 100
-            span.pad0 Dragon Slayer
-    .productGrid
-      .product-box
-        a(href='/product')
-          span.product-box-img
-            img(src='/assets/themes/default/images/2.jpg')
-            span.product-box-shadow
-          span.product-box-meta.clearfix.show
-            span.pull-right.pad0.text-right.product-price-wrap
-              | PHP
-              span.product-price 100
-            span.pad0 Dragon Slayer And a very long title that have a two lines and shit
-    .productGrid
-      .product-box
-        a(href='/product')
-          span.product-box-img
-            img(src='/assets/themes/default/images/3.jpg')
-            span.product-box-shadow
-          span.product-box-meta.clearfix.show
-            span.pull-right.pad0.text-right.product-price-wrap
-              | PHP
-              span.product-price 100
-            span.pad0 Dragon Slayer
-    .productGrid
-      .product-box
-        a(href='/product')
-          span.product-box-img
-            img(src='/assets/themes/default/images/4.jpg')
-            span.product-box-shadow
-          span.product-box-meta.clearfix.show
-            span.pull-right.pad0.text-right.product-price-wrap
-              | PHP
-              span.product-price 100
-            span.pad0 Dragon Slayer
-    .productGrid
-      .product-box
-        a(href='/product')
-          span.product-box-img
-            img(src='/assets/themes/default/images/5.jpg')
-            span.product-box-shadow
-          span.product-box-meta.clearfix.show
-            span.pull-right.pad0.text-right.product-price-wrap
-              | PHP
-              span.product-price 100
-            span.pad0 Dragon Slayer
+  if(objProducts && objProducts.length > 0)
+    #productGridWrap.col-sm-12.col-md-12
+      each objProduct in objProducts
+        .productGrid
+          .product-box
+            a(href='/#{objUser.store.url}/#{objProduct.url}')
+              span.product-box-img
+                -var strProdImg = objProduct.images[0]['img1'] || objProduct.images[0]['img2'] || objProduct.images[0]['img3'] || objProduct.images[0]['img4'] || 'none.jpg';
+                img(src='/uploads/#{strProdImg}')
+                span.product-box-shadow
+              span.product-box-meta.clearfix.show
+                span.pull-right.pad0.text-right.product-price-wrap
+                  | PHP
+                  span.product-price #{objProduct.price}
+                span.pad0 #{objProduct.name}

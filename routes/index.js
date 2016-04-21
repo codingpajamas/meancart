@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/User');
 var Product = require('../models/Product');
 var async = require('async');
+var _ = require('lodash');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,24 +30,18 @@ router.get('/settings', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 }); 
 
+/* GET login page. */
+router.get('/login', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
+}); 
 
-
-
+/* GET register page. */
+router.get('/register', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
+}); 
+ 
 /* GET store page. */
-router.get('/:storeurl', function(req, res, next) {
-	User.findOne({"store.url":req.params.storeurl}, function(err, user){
-		if(err || !user){
-			res.render('index', { title: 'onMarket' });
-		}else{
-			res.render('themes/'+user.store.theme+'/index', { title: 'onMarket - ' + user.store.name });
-		}
-	})
-});
-
-
-
-/* GET product page. */
-router.get('/:storeurl/:productid', function(req, res, next) {
+router.get('/:storeurl', function(req, res, next) { 
 	async.waterfall([
 		function(callback){
 			User.findOne({"store.url":req.params.storeurl}, function(err, user){
@@ -60,7 +55,44 @@ router.get('/:storeurl/:productid', function(req, res, next) {
 		},
 		function(user, callback){ 
 			if(user != null){ 
-				Product.findOne({"prodid":req.params.productid, "store.id":user._id }, function(err, product){ 
+				Product.find({"store.id":user._id }, function(err, products){ 
+					if(err || !products){
+						var products = null;
+					}else{
+						var products = products;
+					}
+					callback(null, user, products);
+				})
+			}else{
+				callback(null, null, null);
+			}
+		}
+	], function(err, user, products){ 
+		if(err){
+			// display to error page
+		}else{  
+			var strTitle = user && user.store.name ? 'onMarket - '+user.store.name : "Store Not Found"; 
+			res.render('themes/'+user.store.theme+'/index', { title: strTitle, objUser:user, objProducts:products });
+		}
+	}) 
+});
+ 
+/* GET product page. */
+router.get('/:storeurl/:producturl', function(req, res, next) {
+	async.waterfall([
+		function(callback){
+			User.findOne({"store.url":req.params.storeurl}, function(err, user){
+				if(err || !user){
+					var user = null;
+				}else{
+					var user = user;
+				} 
+				callback(null, user);
+			})
+		},
+		function(user, callback){ 
+			if(user != null){ 
+				Product.findOne({"url":req.params.producturl, "store.id":user._id }, function(err, product){ 
 					if(err || !product){
 						var product = null;
 					}else{
@@ -72,19 +104,18 @@ router.get('/:storeurl/:productid', function(req, res, next) {
 				callback(null, null, null);
 			}
 		}
-	], function(err, user, product){
+	], function(err, user, product){ 
+		console.log('user', user)
+		console.log('product', product)
 		if(err){
 			// display to error page
-		}else{
-			// console.log('user', user);
-			// console.log('product', product);
-			res.render('themes/'+user.store.theme+'/index', { title: 'onMarket - '+product.name, objUser:user, objProduct:product });
+		}else{ 
+			var strTitle = product && product.name ? 'onMarket - '+product.name : "Product Not Found";   
+			res.render('themes/'+user.store.theme+'/product', { title: strTitle, objUser:user, objProduct:product });
 		}
 	}) 
 });
-
-
-
+ 
 // catch all other routes and pass it to angular app
 router.get('*', function(req, res) {   
 	res.render('index', { title: 'onMarket' }); 

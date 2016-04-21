@@ -20,6 +20,9 @@ var mdWares = require('./routes/middlewares');
 
 var app = express();
 
+// add locals
+app.locals._ = require('lodash');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

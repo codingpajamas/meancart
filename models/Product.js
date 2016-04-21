@@ -8,13 +8,8 @@ var Product = new Schema({
 	urlraw: String,
 	name: String,
 	desc: String, 
-	price: Number,  
-	images: { 
-		productImg1: String,
-		productImg2: String,
-		productImg3: String,
-		productImg4: String
-	},
+	price: Number,
+	images: Array,
 	store: {
 		id: String,
 		name: String,

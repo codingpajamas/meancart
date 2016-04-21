@@ -37,39 +37,30 @@ router.get("/", function(req, res){
 router.post('/add', postImage, function(req, res){   
 
 	// this needs refactoring!!!!
-	var productImages = []; 
+	var strProductImg1 = null
+	var strProductImg2 = null
+	var strProductImg3 = null
+	var strProductImg4 = null
 
 	// let's add image1  
 	if(req.files && req.files['nProductImg1'] && req.files['nProductImg1'][0] && req.files['nProductImg1'][0]['size']){
-		productImages['productImg1'] = req.files['nProductImg1'][0]['filename']; 
-	} 
-	if(!productImages['productImg1'] && req.body.productImg1 != 'undefined'){  
-		productImages['productImg1'] = req.body.productImg1;
-	}
+		strProductImg1 = req.files['nProductImg1'][0]['filename']; 
+	}  
 
 	// let's add image2  
 	if(req.files && req.files['nProductImg2'] && req.files['nProductImg2'][0] && req.files['nProductImg2'][0]['size']){
-		productImages['productImg2'] = req.files['nProductImg2'][0]['filename']; 
-	} 
-	if(!productImages['productImg2'] && req.body.productImg2 != 'undefined'){ 
-		productImages['productImg2'] = req.body.productImg2;
-	}
+		strProductImg2 = req.files['nProductImg2'][0]['filename']; 
+	}  
 
 	// let's add image3  
 	if(req.files && req.files['nProductImg3'] && req.files['nProductImg3'][0] && req.files['nProductImg3'][0]['size']){
-		productImages['productImg3'] = req.files['nProductImg3'][0]['filename'];
-	} 
-	if(!productImages['productImg3'] && req.body.productImg3 != 'undefined'){ 
-		productImages['productImg3'] = req.body.productImg3;
-	}
+		strProductImg3 = req.files['nProductImg3'][0]['filename'];
+	}  
 
 	// let's add image4  
 	if(req.files && req.files['nProductImg4'] && req.files['nProductImg4'][0] && req.files['nProductImg4'][0]['size']){
-		productImages['productImg4'] = req.files['nProductImg4'][0]['filename'];
-	} 
-	if(!productImages['productImg4'] && req.body.productImg4 != 'undefined'){ 
-		productImages['productImg4'] = req.body.productImg4;
-	} 
+		strProductImg4 = req.files['nProductImg4'][0]['filename'];
+	}  
 
 	Product.create({
 		name: req.body.name,
@@ -77,10 +68,10 @@ router.post('/add', postImage, function(req, res){
 		price: req.body.price,
 		image: req.files && req.files['images'] ? req.files['images'][0]['filename'] : 'none.jpg',
 		images: {
-			productImg1: productImages['productImg1'] ? productImages['productImg1'] : "",
-			productImg2: productImages['productImg2'] ? productImages['productImg2'] : "",
-			productImg3: productImages['productImg3'] ? productImages['productImg3'] : "",
-			productImg4: productImages['productImg4'] ? productImages['productImg4'] : ""
+			img1: strProductImg1,
+			img2: strProductImg2,
+			img3: strProductImg3,
+			img4: strProductImg4
 		},
 		store: {
 			id: req.decoded.user._id,
@@ -91,7 +82,7 @@ router.post('/add', postImage, function(req, res){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
-			var prettyUrlRaw = req.body.storename.trim()
+			var prettyUrlRaw = req.body.name.trim()
 				.replace(/ñ/g, 'n')
 				.replace(/'/g, '')
 				.replace(/"/g, '')
@@ -103,12 +94,11 @@ router.post('/add', postImage, function(req, res){
 				var strPrettyUrl = prettyUrlRaw
 				
 				if(products.length > 0){
-					strPrettyUrl = prettyUrlRaw + "." + users.length;
+					strPrettyUrl = prettyUrlRaw + "-" + products.length;
 				}
-
-				product.store.name = req.body.storename;
-				product.store.url = strPrettyUrl;
-				product.store.urlraw = prettyUrlRaw;
+ 
+				product.url = strPrettyUrl;
+				product.urlraw = prettyUrlRaw;
 				product.save(function(err){
 					if(err){
 						console.log('unable to update store name', err)
@@ -139,39 +129,49 @@ router.put("/:id", postImage, function(req, res){
 
 	// this needs refactoring!!!!
 	var productImages = []; 
+	var imgs = [];
+
+	var strProductImg1 = null
+	var strProductImg2 = null
+	var strProductImg3 = null
+	var strProductImg4 = null
 
 	// let's add image1  
-	if(req.files && req.files['nProductImg1'] && req.files['nProductImg1'][0] && req.files['nProductImg1'][0]['size']){
-		productImages['productImg1'] = req.files['nProductImg1'][0]['filename']; 
+	if(req.files && req.files['nProductImg1'] && req.files['nProductImg1'][0] && req.files['nProductImg1'][0]['size']){ 
+		strProductImg1 = req.files['nProductImg1'][0]['filename']; 		 
 	} 
-	if(!productImages['productImg1'] && req.body.productImg1 != 'undefined'){  
-		productImages['productImg1'] = req.body.productImg1;
+	if(!strProductImg1 && req.body.productImg1 != 'undefined'){   
+		strProductImg1 = req.body.productImg1;
 	}
 
 	// let's add image2  
-	if(req.files && req.files['nProductImg2'] && req.files['nProductImg2'][0] && req.files['nProductImg2'][0]['size']){
-		productImages['productImg2'] = req.files['nProductImg2'][0]['filename']; 
+	if(req.files && req.files['nProductImg2'] && req.files['nProductImg2'][0] && req.files['nProductImg2'][0]['size']){ 
+		strProductImg2 = req.files['nProductImg2'][0]['filename'];; 		
 	} 
-	if(!productImages['productImg2'] && req.body.productImg2 != 'undefined'){ 
-		productImages['productImg2'] = req.body.productImg2;
+	if(!strProductImg2 && req.body.productImg2 != 'undefined'){ 
+		strProductImg2 = req.body.productImg2;
 	}
 
 	// let's add image3  
-	if(req.files && req.files['nProductImg3'] && req.files['nProductImg3'][0] && req.files['nProductImg3'][0]['size']){
-		productImages['productImg3'] = req.files['nProductImg3'][0]['filename'];
+	if(req.files && req.files['nProductImg3'] && req.files['nProductImg3'][0] && req.files['nProductImg3'][0]['size']){ 
+		strProductImg3 = req.files['nProductImg3'][0]['filename']; 		
 	} 
-	if(!productImages['productImg3'] && req.body.productImg3 != 'undefined'){ 
-		productImages['productImg3'] = req.body.productImg3;
+	if(!strProductImg3 && req.body.productImg3 != 'undefined'){  
+		strProductImg3 = req.body.productImg;
 	}
 
 	// let's add image4  
-	if(req.files && req.files['nProductImg4'] && req.files['nProductImg4'][0] && req.files['nProductImg4'][0]['size']){
-		productImages['productImg4'] = req.files['nProductImg4'][0]['filename'];
+	if(req.files && req.files['nProductImg4'] && req.files['nProductImg4'][0] && req.files['nProductImg4'][0]['size']){ 
+		strProductImg4 = req.files['nProductImg4'][0]['filename']; 		
 	} 
-	if(!productImages['productImg4'] && req.body.productImg4 != 'undefined'){ 
-		productImages['productImg4'] = req.body.productImg4;
+	if(!strProductImg4 && req.body.productImg4 != 'undefined'){  
+		strProductImg4 = req.body.productImg;
 	} 
 
+	console.log(strProductImg1)
+console.log(strProductImg2)
+console.log(strProductImg3)
+console.log(strProductImg4)
  
 	Product.findById(req.params.id, function(err, post){
 		if(err){ 
@@ -179,11 +179,13 @@ router.put("/:id", postImage, function(req, res){
 		}else{ 
 			post.name = req.body.name;
 			post.desc = req.body.desc;
-			post.price = req.body.price; 
-			post.images.productImg1 = productImages['productImg1'] ? productImages['productImg1'] : ""; 
-			post.images.productImg2 = productImages['productImg2'] ? productImages['productImg2'] : ""; 
-			post.images.productImg3 = productImages['productImg3'] ? productImages['productImg3'] : ""; 
-			post.images.productImg4 = productImages['productImg4'] ? productImages['productImg4'] : ""; 
+			post.price = req.body.price;   
+			post.images = {
+				img1: strProductImg1,
+				img2: strProductImg2,
+				img3: strProductImg3,
+				img4: strProductImg4
+			};
  
 			post.save(function(err) {
                 if(err){
