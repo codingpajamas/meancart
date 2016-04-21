@@ -7,21 +7,25 @@ block content
         .product-page
           span.product-page-img
             -var arrProdImg = _.filter(objProduct.images[0], Boolean)
-            #productImageCarousel.carousel.slide(data-ride='carousel') 
-              ol.carousel-indicators.hide
-                li.active(data-target='#productImageCarousel', data-slide-to='0')
-                li(data-target='#productImageCarousel', data-slide-to='1') 
-              .carousel-inner(role='listbox') 
-                each prodImg, index in arrProdImg 
-                  -var isActive = index == 0 ? 'active' : ''
-                  .item(class=isActive)
-                    img.img-full(src='/uploads/#{prodImg}') 
-              a.left.carousel-control(href='#productImageCarousel', role='button', data-slide='prev')
-                span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
-                span.sr-only Previous
-              a.right.carousel-control(href='#productImageCarousel', role='button', data-slide='next')
-                span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
-                span.sr-only Next 
+            -if(arrProdImg && arrProdImg.length > 0){
+              #productImageCarousel.carousel.slide(data-ride='carousel') 
+                ol.carousel-indicators.hide
+                  li.active(data-target='#productImageCarousel', data-slide-to='0')
+                  li(data-target='#productImageCarousel', data-slide-to='1') 
+                .carousel-inner(role='listbox') 
+                  each prodImg, index in arrProdImg 
+                    -var isActive = index == 0 ? 'active' : ''
+                    .item(class=isActive)
+                      img.img-full(src='/uploads/#{prodImg}') 
+                a.left.carousel-control(href='#productImageCarousel', role='button', data-slide='prev')
+                  span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+                  span.sr-only Previous
+                a.right.carousel-control(href='#productImageCarousel', role='button', data-slide='next')
+                  span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+                  span.sr-only Next 
+            -}else{
+              img.img-ful(src="/uploads/none.jpg")
+            -}
           h1.product-page-title.mb20 #{objProduct.name} 
           .product-page-description.mb20 #{objProduct.desc}
         .product-page.mb20

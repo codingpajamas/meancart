@@ -67,7 +67,7 @@
 								<h2 class="form-card-title">Edit Product Images</h2>
 								<div class="form-card-body">
 									<div class="row">
-										<div class="col-sm-3">
+										<div class="col-xs-3">
 											<div class="productImage shadow" ng-class="{'hasImage' : objProduct.images[0]['img1']}" style="background-image: url({{objProduct.images[0]['img1'] ? '/uploads/'+objProduct.images[0]['img1'] : '/assets/images/add.png'}})">
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg1" type="file" onchange="angular.element(this).scope().editProductImage(this)">
@@ -75,7 +75,7 @@
 												<input type="hidden" ng-model="objProduct.images.productImg1">
 											</div> 
 										</div> 
-										<div class="col-sm-3">
+										<div class="col-xs-3">
 											<div class="productImage shadow" ng-class="{'hasImage' : objProduct.images[0]['img2']}" style="background-image: url({{objProduct.images[0]['img2'] ? '/uploads/'+objProduct.images[0]['img2'] : '/assets/images/add.png'}})">
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg2" type="file" onchange="angular.element(this).scope().editProductImage(this)">
@@ -83,7 +83,7 @@
 												<input type="hidden" ng-model="objProduct.images.productImg2">
 											</div>
 										</div> 
-										<div class="col-sm-3">
+										<div class="col-xs-3">
 											<div class="productImage shadow" ng-class="{'hasImage' : objProduct.images[0]['img3']}" style="background-image: url({{objProduct.images[0]['img3'] ? '/uploads/'+objProduct.images[0]['img3'] : '/assets/images/add.png'}})">
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg3" type="file" onchange="angular.element(this).scope().editProductImage(this)">
@@ -91,7 +91,7 @@
 												<input type="hidden" ng-model="objProduct.images.productImg3">
 											</div>
 										</div> 
-										<div class="col-sm-3">
+										<div class="col-xs-3">
 											<div class="productImage shadow" ng-class="{'hasImage' : objProduct.images[0]['img4']}" style="background-image: url({{objProduct.images[0]['img4'] ? '/uploads/'+objProduct.images[0]['img4'] : '/assets/images/add.png'}})">
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg4" type="file" onchange="angular.element(this).scope().editProductImage(this)">

@@ -6,6 +6,7 @@ var async = require('async');
 var passport = require('passport');
 var nodemailer = require('nodemailer'); 
 var jwt = require('jsonwebtoken');
+var mkdirp = require('mkdirp');
 var secretmonster = 'meanstartedhahahaha';
 
 router.post('/register', function(req, res){ 

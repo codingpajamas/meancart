@@ -13,10 +13,16 @@ router.get('/', function(req, res, next) {
 /* GET products page. */
 router.get('/products', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
+});  
+router.get('/products/*', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
 }); 
 
 /* GET orders page. */
 router.get('/orders', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
+}); 
+router.get('/orders/*', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 }); 
 
@@ -24,9 +30,15 @@ router.get('/orders', function(req, res, next) {
 router.get('/customers', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 }); 
+router.get('/customers/*', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
+}); 
 
 /* GET settings page. */
 router.get('/settings', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
+}); 
+router.get('/settings/*', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 }); 
 
