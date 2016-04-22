@@ -32,13 +32,16 @@ block content
           h3.product-page-title.m0.mb20 Product Reviews
           p No feedbacks yet.
       .col-md-4.col-sm-4
-        .row
+        .row 
           .col-sm-12
             .product-page.mb20
-              .input-group.mb10
-                input.form-control.text-center(type='text', placeholder='Quantity', value="1")
-                span.input-group-addon pcs
-              input.btn.btn-primary.btn-block(type="submit", value="Add To Cart")
+              form#sideOrderForm(novalidate)
+                .input-group.mb10
+                  span.input-group-addon Qty
+                  input.form-control.text-center#sideQnty(type='number', placeholder='Quantity', value="1", min="1")
+                  span.input-group-addon Php 
+                    span#sideTotal(data-price="#{objProduct.price}") #{objProduct.price}
+                input.btn.btn-primary.btn-block#sideOrderBtn(type="submit", value="Add To Cart") 
           .col-sm-12
             h4.side-title Related Products
           .col-sm-12.col-md-12
