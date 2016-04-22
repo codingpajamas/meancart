@@ -82,6 +82,7 @@ router.get('/:storeurl', function(req, res, next) {
 	], function(err, user, products){ 
 		if(err){
 			// display to error page
+			res.render('index', { title: 'onMarket' }); 
 		}else{  
 			var strTitle = user && user.store.name ? 'onMarket - '+user.store.name : "Store Not Found"; 
 			res.render('themes/'+user.store.theme+'/index', { title: strTitle, objUser:user, objProducts:products });
@@ -116,11 +117,10 @@ router.get('/:storeurl/:producturl', function(req, res, next) {
 				callback(null, null, null);
 			}
 		}
-	], function(err, user, product){ 
-		console.log('user', user)
-		console.log('product', product)
+	], function(err, user, product){  
 		if(err){
 			// display to error page
+			res.render('index', { title: 'onMarket' }); 
 		}else{ 
 			var strTitle = product && product.name ? 'onMarket - '+product.name : "Product Not Found";   
 			res.render('themes/'+user.store.theme+'/product', { title: strTitle, objUser:user, objProduct:product });

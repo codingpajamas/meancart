@@ -16,7 +16,7 @@ block content
                   each prodImg, index in arrProdImg 
                     -var isActive = index == 0 ? 'active' : ''
                     .item(class=isActive)
-                      img.img-full(src='/uploads/#{prodImg}') 
+                      img.img-full(src='/uploads/#{objUser._id}/products/#{prodImg}') 
                 a.left.carousel-control(href='#productImageCarousel', role='button', data-slide='prev')
                   span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
                   span.sr-only Previous

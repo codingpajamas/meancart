@@ -11,7 +11,7 @@ angular.module('starterApp')
 
 		$scope.submitLogin = function(){ 
 			Auth.login($scope.login.username, $scope.login.password)
-				.success(function(data){ 
+				.success(function(data){  
 					if(data.status == 'success'){ 
 						$location.path('/dashboard');
 					}else{

@@ -6,8 +6,7 @@ angular.module('starterApp')
 
 		$scope.arrProducts = []; 
 		Product.all().success(function(data){ 
-				$scope.arrProducts = data.message;
-				console.log($scope.arrProducts)
+				$scope.arrProducts = data.message; 
 			});
 
 	})

@@ -9,7 +9,7 @@ block content
             a(href='/#{objUser.store.url}/#{objProduct.url}')
               span.product-box-img
                 -var strProdImg = objProduct.images[0]['img1'] || objProduct.images[0]['img2'] || objProduct.images[0]['img3'] || objProduct.images[0]['img4'] || 'none.jpg';
-                img(src='/uploads/#{strProdImg}')
+                img(src='/uploads/#{objUser._id}/products/#{strProdImg}')
                 span.product-box-shadow
               span.product-box-meta.clearfix.show
                 span.pull-right.pad0.text-right.product-price-wrap

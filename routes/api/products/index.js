@@ -13,7 +13,7 @@ var secretmonster = 'meanstartedhahahaha';
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, 'public/uploads/')
+		cb(null, 'public/uploads/'+req.decoded.user._id+'/products/')
 	},
 	filename: function (req, file, cb) {
 		cb(null, new Date().getTime().toString() + '_' + file.fieldname + '-' + file.originalname)

@@ -47,7 +47,15 @@ router.post('/register', function(req, res){
 								if(err){
 									console.log('unable to update store name', err)
 								}
-							})
+							});
+
+							mkdirp(__dirname+'/../../../public/uploads/'+userObj._id+'/products', function (err) {
+							    if(err){
+							    	console.error(err)
+							    }else{
+							    	console.log('Directory "/uploads/'+userObj._id+'/products" has been created');
+							    }
+							});
 							
 						})
  
