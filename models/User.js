@@ -15,7 +15,7 @@ var User = new Schema({
 		urlraw: String,
 		name: String,
 		description: String,
-		theme: {type: String, default: "default"}
+		theme: String
 	},
 	registrationToken: String,
 	resetPasswordToken: String,

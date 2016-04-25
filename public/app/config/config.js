@@ -13,6 +13,11 @@ angular.module('starterApp')
 				controller : 		'loginController',
 				controllerAs : 		'login'
 			})
+			.when('/logout', {
+				templateUrl : 		'app/partials/login.html',
+				controller : 		'logoutController',
+				controllerAs : 		'logout'
+			})
 			.when('/register', {
 				templateUrl : 		'app/partials/register.html',
 				controller : 		'registerController',
@@ -22,72 +27,74 @@ angular.module('starterApp')
 				templateUrl : 		'app/partials/forgot.html',
 				controller : 		'forgotController',
 				controllerAs : 		'forgot'
-			})
-			.when('/dashboard', {
-				templateUrl : 		'app/partials/dashboard.html',
-				controller : 		'dashboardController',
-				controllerAs : 		'dashboard'
-			})
+			}) 
 			.when('/profile', {
 				templateUrl : 		'app/partials/profile.html',
 				controller : 		'profileController',
 				controllerAs : 		'profile'
 			})
-			.when('/settings', {
+			.when('/manage/settings', {
 				templateUrl : 		'app/partials/settings/index.html',
 				controller : 		'settingsController',
 				controllerAs : 		'settings'
 			})
 
+			/************* DASHBOARD ROUTES ***************/
+			.when('/manage/dashboard', {
+				templateUrl : 		'app/partials/dashboard.html',
+				controller : 		'dashboardController',
+				controllerAs : 		'dashboard'
+			})
+
 			/************* PRODUCTS ROUTES ***************/
-			.when('/products', {
+			.when('/manage/products', {
 				templateUrl : 		'app/partials/products/index.html',
 				controller : 		'productsController',
 				controllerAs : 		'products'
 			})
-			.when('/products/add', {
+			.when('/manage/products/add', {
 				templateUrl : 		'app/partials/products/add.html',
 				controller : 		'productsAddController',
 				controllerAs : 		'productsadd'
 			})
-			.when('/products/:id/edit', {
+			.when('/manage/products/:id/edit', {
 				templateUrl : 		'app/partials/products/edit.html',
 				controller : 		'productsEditController',
 				controllerAs : 		'productsedit'
 			})
-			.when('/products/:id/delete', {
+			.when('/manage/products/:id/delete', {
 				templateUrl : 		'app/partials/products/delete.html',
 				controller : 		'productsDeleteController',
 				controllerAs : 		'productsdelete'
 			})
-			.when('/products/:id', {
+			.when('/manage/products/:id', {
 				templateUrl : 		'app/partials/products/view.html',
 				controller : 		'productsViewController',
 				controllerAs : 		'productsview'
 			})
 
 			/************* ORDERS ROUTES ***************/
-			.when('/orders', {
+			.when('/manage/orders', {
 				templateUrl : 		'app/partials/orders/index.html',
 				controller : 		'ordersController',
 				controllerAs : 		'orders'
 			})
-			.when('/orders/add', {
+			.when('/manage/orders/add', {
 				templateUrl : 		'app/partials/orders/add.html',
 				controller : 		'ordersAddController',
 				controllerAs : 		'ordersadd'
 			})
-			.when('/orders/edit/:id', {
+			.when('/manage/orders/edit/:id', {
 				templateUrl : 		'app/partials/orders/edit.html',
 				controller : 		'ordersEditController',
 				controllerAs : 		'ordersedit'
 			})
-			.when('/orders/delete/:id', {
+			.when('/manage/orders/delete/:id', {
 				templateUrl : 		'app/partials/orders/delete.html',
 				controller : 		'ordersDeleteController',
 				controllerAs : 		'ordersdelete'
 			})
-			.when('/orders/:id', {
+			.when('/manage/orders/:id', {
 				templateUrl : 		'app/partials/orders/view.html',
 				controller : 		'ordersViewController',
 				controllerAs : 		'ordersview'
@@ -95,27 +102,27 @@ angular.module('starterApp')
 
 
 			/************* CUSTOMERS ROUTES ***************/
-			.when('/customers', {
+			.when('/manage/customers', {
 				templateUrl : 		'app/partials/customers/index.html',
 				controller : 		'customersController',
 				controllerAs : 		'customers'
 			})
-			.when('/customers/add', {
+			.when('/manage/customers/add', {
 				templateUrl : 		'app/partials/customers/add.html',
 				controller : 		'customersAddController',
 				controllerAs : 		'customersadd'
 			})
-			.when('/customers/edit/:id', {
+			.when('/manage/customers/edit/:id', {
 				templateUrl : 		'app/partials/customers/edit.html',
 				controller : 		'customersEditController',
 				controllerAs : 		'customersedit'
 			})
-			.when('/customers/delete/:id', {
+			.when('/manage/customers/delete/:id', {
 				templateUrl : 		'app/partials/customers/delete.html',
 				controller : 		'customersDeleteController',
 				controllerAs : 		'customersdelete'
 			})
-			.when('/customers/:id', {
+			.when('/manage/customers/:id', {
 				templateUrl : 		'app/partials/customers/view.html',
 				controller : 		'customersViewController',
 				controllerAs : 		'customersview'
@@ -146,9 +153,7 @@ angular.module('starterApp')
 				controller : 		'storesController',
 				controllerAs : 		'storesproducts'
 			}) 
-
-
-
+ 
 
 		$locationProvider.html5Mode(true);
 		$httpProvider.interceptors.push('AuthInterceptor');

@@ -102,6 +102,31 @@ table {
 #mainVav a.btn {
 	color: #fff;
 }
+
+#subNav { 
+	margin: 0;
+	padding: 20px 20px 0px;
+	background: #f1f5f8;
+}
+#subNav li {
+	list-style: none;
+	display: inline-block;
+	margin-right: 30px;
+}
+#subNav a {
+	text-decoration: none;
+	color: #333;
+	display: block;
+}
+#subNav a.active {
+	color: #337ab7;
+	font-weight: bold;
+}
+#subNav a.btn {
+	color: #fff;
+}
+
+
 .page-body {
 	padding: 20px;
 }

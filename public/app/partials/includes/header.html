@@ -1,17 +1,40 @@
-<div class="page-head" ng-if="isLoggedIn">
+<div class="page-head" ng-if="isLoggedIn && isManage">
 	<div class="row">
 		<div class="col-sm-4">
-			<a id="mainLogo">KOKO</a>
+			<a id="mainLogo">7-11</a>
 		</div>
 		<div class="col-sm-8">
 			<ul id="mainVav">
 				<li><a href="/products/add" class="btn btn-primary">Add New</a></li>
-				<li><a ng-class="{'active' : pagePath == 'products'}" href="/products">Product</a></li>
-				<li><a ng-class="{'active' : pagePath == 'orders'}" href="/orders">Orders</a></li>
-				<li><a ng-class="{'active' : pagePath == 'customers'}" href="/customers">Customers</a></li>
-				<li><a ng-class="{'active' : pagePath == 'settings'}" href="/settings">Settings</a></li>
+				<li><a ng-class="{'active' : pagePath == 'products'}" href="/manage/products">Product</a></li>
+				<li><a ng-class="{'active' : pagePath == 'orders'}" href="/manage/orders">Orders</a></li>
+				<li><a ng-class="{'active' : pagePath == 'customers'}" href="/manage/customers">Customers</a></li>
+				<li><a ng-class="{'active' : pagePath == 'settings'}" href="/manage/settings">Settings</a></li>
 				<li><a ng-click="logout()">Logout</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
+
+<div class="page-head" ng-if="isLoggedIn && !isManage">
+	<div class="row">
+		<div class="col-xs-8">
+			<a id="mainLogo">7-11</a>
+		</div>
+		<div class="col-xs-4 text-right">
+			<a ng-click="manageStore()" class="btn btn-primary mt10" ng-if="hasStore">Manage Store</a>
+			<a href="/manage/settings" class="btn btn-primary mt10" ng-if="!hasStore">Create Store</a>
+		</div>
+	</div>
+</div> 
+
+ 
+<div class="row" ng-if="isLoggedIn && !isManage"> 
+	<div class="col-sm-12">
+		<ul id="subNav" class="clearfix">
+			<li><a href="#">Menu1</a></li>
+			<li><a href="#">Menu1</a></li>
+			<li><a href="#">Menu1</a></li>
+		</ul>
+	</div>
+</div> 

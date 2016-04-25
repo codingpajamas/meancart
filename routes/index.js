@@ -9,41 +9,18 @@ var _ = require('lodash');
 router.get('/', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 });
-
-/* GET products page. */
-router.get('/products', function(req, res, next) {
+ 
+router.get('/manage/*', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 });  
-router.get('/products/*', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
-}); 
 
-/* GET orders page. */
-router.get('/orders', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
-}); 
-router.get('/orders/*', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
-}); 
-
-/* GET customers page. */
-router.get('/customers', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
-}); 
-router.get('/customers/*', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
-}); 
-
-/* GET settings page. */
-router.get('/settings', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
-}); 
-router.get('/settings/*', function(req, res, next) {
+/* GET login page. */
+router.get('/login', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 }); 
 
 /* GET login page. */
-router.get('/login', function(req, res, next) {
+router.get('/logout', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 }); 
 

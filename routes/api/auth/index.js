@@ -18,47 +18,10 @@ router.post('/register', function(req, res){
 			}else if(user){
 				res.json({"status":"error", "message":"Email is already used."})
 			}else{
-				User.register( new User({ username:req.body.username, fullname:req.body.fullname }), req.body.password, function(err, userObj){
+				User.register( new User({ username:req.body.username, fullname:req.body.fullname, store:null }), req.body.password, function(err, userObj){
 					if(err){
 						res.json({"status":"error", "message": err.message});
-					}else{
-
-
-						var prettyUrlRaw = req.body.storename.trim()
-							.replace(/ñ/g, 'n')
-							.replace(/'/g, '')
-							.replace(/"/g, '')
-							.replace(/[^a-zA-Z0-9]/g,"")
-							.toLowerCase()
-							.replace(/--/g, '');
-
-
-						User.find({"store.urlraw":prettyUrlRaw, "username": {$ne:userObj.username}}, {}, {sort: 'createdOn'}, function(err, users){
-							var strPrettyUrl = prettyUrlRaw
-							
-							if(users.length > 0){
-								strPrettyUrl = prettyUrlRaw + "." + users.length;
-							}
-
-							userObj.store.name = req.body.storename;
-							userObj.store.url = strPrettyUrl;
-							userObj.store.urlraw = prettyUrlRaw;
-							userObj.save(function(err){
-								if(err){
-									console.log('unable to update store name', err)
-								}
-							});
-
-							mkdirp(__dirname+'/../../../public/uploads/'+userObj._id+'/products', function (err) {
-							    if(err){
-							    	console.error(err)
-							    }else{
-							    	console.log('Directory "/uploads/'+userObj._id+'/products" has been created');
-							    }
-							});
-							
-						})
- 
+					}else{  
 						res.json({'status':'success','message':'Registration is successful.'});
 					}
 				});

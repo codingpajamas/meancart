@@ -15,7 +15,7 @@
 					<div class="row">
 						<div class="col-md-4" ng-repeat="product in arrProducts">
 							<div class="product-card">
-								<a href="/products/{{product._id}}/edit">
+								<a href="/manage/products/{{product._id}}/edit">
 									<img ng-src="/uploads/{{me._id}}/products/{{product.images[0].img1 || product.images[0].img2 || product.images[0].img3 || product.images[0].img4 || 'none.jpg'}}">
 									<span class="product-meta clearfix">
 										<span class="product-price">PHP <span>{{product.price}}</span></span>
