@@ -2,7 +2,7 @@
 
 angular.module('starterApp') 
 	.controller('productsController', function($scope, $location, Auth, Product){
-		Auth.restrict();
+		Auth.restrict(); 
 
 		$scope.arrProducts = []; 
 		Product.all().success(function(data){ 
@@ -10,8 +10,7 @@ angular.module('starterApp')
 			});
 
 	})
-	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product){
-		Auth.restrict();
+	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product){ 
 
 		$scope.objProduct = null; 
 		Product.view($routeParams.id)

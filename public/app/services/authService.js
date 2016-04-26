@@ -61,6 +61,15 @@ angular.module('starterApp')
 			}
 		}
 
+		// refresh token
+		AuthFactory.refreshToken = function(){
+			return $http.get('/api/user/refresh').success(function(data){
+				if(data.status){
+					AuthToken.setToken(data.token);
+				}
+			});
+		}
+
 		return AuthFactory;
 	})
 	.factory('AuthToken', function($window){
@@ -78,7 +87,7 @@ angular.module('starterApp')
 			}else{
 				$window.localStorage.removeItem('token');
 			}
-		}
+		} 
 
 		return AuthTokenFactory;
 	})

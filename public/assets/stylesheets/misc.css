@@ -151,6 +151,9 @@ img {
 .tshadow, .tshadow a {
 	text-shadow: 0 0 3px #000 !important;
 } 
+.cp {
+	cursor: pointer !important;
+}
 
 /* display*/
 .hide {

@@ -3,10 +3,9 @@
 angular.module('starterApp')
 	.controller('mainController', function($scope, $rootScope, $location, $cookies, $cacheFactory, Auth){
 
-		$scope.me = null;
-		$scope.isManage = $cookies.get('omp_isManage');
-		console.log($scope.isManage)
-		$scope.hasStore = false;
+		$rootScope.rs_me = null;
+		$rootScope.rs_isManage = $cookies.get('omp_isManage');
+		$rootScope.rs_hasStore = false;
 
 		$rootScope.$on('$routeChangeStart', function(){
 			$scope.isLoggedIn = Auth.isLoggedIn(); 
@@ -14,12 +13,12 @@ angular.module('starterApp')
 			if($scope.isLoggedIn){
 				Auth.getUser()
 					.success(function(data){
-						$scope.me = data.user;
+						$scope.rs_me = data.user;
 
 						if(data.user && data.user.store){
-							$scope.hasStore = true;
+							$scope.rs_hasStore = true;
 						}else{
-							$scope.hasStore = false;
+							$scope.rs_hasStore = false;
 						}
 					})
 					.catch(function(response){
@@ -29,14 +28,21 @@ angular.module('starterApp')
 		});
 
 		$scope.manageStore = function(){
-			$scope.isManage = true;
+			$rootScope.rs_isManage = true;
 			$cookies.put('omp_isManage', true);
 
 			$location.path('/manage/products');
 		} 
 
+		$scope.manageout = function(){
+			$rootScope.rs_isManage = false;
+			$cookies.remove('omp_isManage');
+
+			$location.path('/');
+		}
+
 		$scope.logout = function(){
-			$scope.isManage = false;
+			$rootScope.rs_isManage = false;
 			$cookies.remove('omp_isManage');
 
 			var httpCache = $cacheFactory.get('$http');  

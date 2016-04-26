@@ -1,16 +1,17 @@
-<div class="whitebox">
-
-	<div ng-if="objPost">
-		<h3 clas="clearfix">
-			<a href="/posts" class="btn btn-default ml5 pull-right">Back to Posts</a>
-			<a href="/posts/delete/{{objPost._id}}" class="ml5 btn btn-warning pull-right">Delete Post</a>
-			<a href="/posts/edit/{{objPost._id}}" class="btn btn-primary pull-right">Edit Post</a>
-			{{objPost.title}}
-		</h3>
-		<p><small>{{objPost.createdOn | date:'MMMM dd, yyyy'}}</small></p> 
-		<div>{{objPost.body}}</div>  
-	</div>
-	<div ng-if="!objPost">
-		No post found
+<div class="page-wrap">
+	<div class="page-body">
+		<div ng-if="objProduct">
+			<h3 clas="clearfix">
+				<a href="/posts" class="btn btn-default ml5 pull-right">Back to Posts</a>
+				<a href="/posts/delete/{{objProduct._id}}" class="ml5 btn btn-warning pull-right">Delete Post</a>
+				<a href="/posts/edit/{{objProduct._id}}" class="btn btn-primary pull-right">Edit Post</a>
+				{{objProduct.name}}
+			</h3>
+			<p><small>{{objProduct.createdOn | date:'MMMM dd, yyyy'}}</small></p> 
+			<div>{{objProduct.body}}</div>  
+		</div>
+		<div ng-if="!objProduct">
+			No Product found
+		</div>
 	</div>
 </div>

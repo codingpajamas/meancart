@@ -6,14 +6,16 @@ angular.module('starterApp')
 		$scope.loginError = '';
 
 		if($scope.isLoggedIn){
-			$location.path('/manage/dashboard');
+			//$location.path('/manage/dashboard');
+			$location.path('/');
 		}
 
 		$scope.submitLogin = function(){ 
 			Auth.login($scope.login.username, $scope.login.password)
 				.success(function(data){  
 					if(data.status == 'success'){ 
-						$location.path('/manage/dashboard');
+						//$location.path('/manage/dashboard');
+						$location.path('/');
 					}else{
 						$scope.loginError = data.message;
 					} 
@@ -40,7 +42,7 @@ angular.module('starterApp')
 		}
 	})
 	.controller('logoutController', function($scope, $rootScope, $location, $cookies, $cacheFactory, Auth){ 
-		$scope.isManage = false;
+		$rootScope.rs_isManage = false;
 		$cookies.remove('omp_isManage');
 
 		var httpCache = $cacheFactory.get('$http');  

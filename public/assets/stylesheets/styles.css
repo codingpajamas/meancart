@@ -21,8 +21,7 @@ body {
 } 
 table {
 	width: 100%;
-	height: 100%;
-	color: #fff;
+	height: 100%; 
 	border: none;
 	padding: 0;
 	margin: 0;
@@ -30,6 +29,7 @@ table {
 .homeTable { 
 	text-shadow: 0 1px 1px #000;
 	margin-top: 200px;
+	color: #fff;
 }
 .homeTable #logo {
 	margin: 0 50px 0 0 !important;
@@ -341,6 +341,66 @@ table {
 .form-card label {
 	font-weight: normal;
 	color: #333;
+}
+
+/* cart list card */
+.cart-card {
+	background-color: #fff;
+	margin-bottom: 40px;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.2); 
+}
+.cart-head {
+	padding: 10px;
+}
+.cart-head-img {
+	width: 50px;
+}
+.cart-head-name {
+	padding-left: 10px; 
+	font-size: 18px;
+}
+.cart-head-price {
+	text-align: right;
+	font-size: 18px;
+	font-weight: bold;
+}
+.cart-body {
+
+}
+.cart-body table {
+	margin: 0;
+}
+.cart-body table td {
+	vertical-align: middle !important;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.cart-foot {
+	padding: 20px;
+	background-color: #eee;
+}
+.cart-prod-img {
+	width: 68px;  
+}
+.cart-prod-img img {
+	width: 100%;
+}
+.cart-prod-name {
+	 
+}
+.cart-prod-qty {
+	width: 150px;
+}
+.cart-prod-qty input {
+	text-align: center !important;
+}
+.cart-prod-total {
+	width: 150px;
+	text-align: right;
+	font-weight: bold;
+}
+.cart-prod-remove {
+	width: 50px;
+	text-align: right;
 }
 
 

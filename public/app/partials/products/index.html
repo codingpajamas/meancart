@@ -16,7 +16,7 @@
 						<div class="col-md-4" ng-repeat="product in arrProducts">
 							<div class="product-card">
 								<a href="/manage/products/{{product._id}}/edit">
-									<img ng-src="/uploads/{{me._id}}/products/{{product.images[0].img1 || product.images[0].img2 || product.images[0].img3 || product.images[0].img4 || 'none.jpg'}}">
+									<img ng-src="/uploads/{{rs_me._id}}/products/{{product.images[0].img1 || product.images[0].img2 || product.images[0].img3 || product.images[0].img4 || 'none.jpg'}}">
 									<span class="product-meta clearfix">
 										<span class="product-price">PHP <span>{{product.price}}</span></span>
 										{{product.name}}
@@ -41,7 +41,7 @@
 				<div ng-if="arrProducts.length == 0">
 					<div class="row mb20">
 						<div class="col-md-12">
-							<h3 class="clearfix">There are no products to display. <a href="/products/add">Add new product.</a></h3>
+							<h3 class="clearfix">There are no products to display. <a href="/manage/products/add">Add new product.</a></h3>
 						</div>
 					</div>
 				</div>

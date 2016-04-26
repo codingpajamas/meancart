@@ -1,40 +1,43 @@
-<div class="page-head" ng-if="isLoggedIn && isManage">
+<div class="page-head" ng-if="isLoggedIn && rs_isManage">
 	<div class="row">
 		<div class="col-sm-4">
-			<a id="mainLogo">7-11</a>
+			<a id="mainLogo" class="cp" ng-click="manageout()">7-11</a>
 		</div>
 		<div class="col-sm-8">
 			<ul id="mainVav">
-				<li><a href="/products/add" class="btn btn-primary">Add New</a></li>
-				<li><a ng-class="{'active' : pagePath == 'products'}" href="/manage/products">Product</a></li>
-				<li><a ng-class="{'active' : pagePath == 'orders'}" href="/manage/orders">Orders</a></li>
-				<li><a ng-class="{'active' : pagePath == 'customers'}" href="/manage/customers">Customers</a></li>
-				<li><a ng-class="{'active' : pagePath == 'settings'}" href="/manage/settings">Settings</a></li>
-				<li><a ng-click="logout()">Logout</a></li>
+				<li><a href="/manage/products/add" class="btn btn-primary">Add New</a></li>
+				<li><a ng-class="{'active' : rs_pagePath == 'products'}" href="/manage/products">Product</a></li>
+				<li><a ng-class="{'active' : rs_pagePath == 'orders'}" href="/manage/orders">Orders</a></li>
+				<li><a ng-class="{'active' : rs_pagePath == 'customers'}" href="/manage/customers">Customers</a></li>
+				<li><a ng-class="{'active' : rs_pagePath == 'settings'}" href="/manage/settings">Settings</a></li>
+				<li><a class="cp" ng-click="logout()">Logout</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
 
-<div class="page-head" ng-if="isLoggedIn && !isManage">
+<div class="page-head" ng-if="isLoggedIn && !rs_isManage">
 	<div class="row">
 		<div class="col-xs-8">
-			<a id="mainLogo">7-11</a>
+			<a id="mainLogo" class="cp" ng-click="manageout()">7-11</a>
 		</div>
 		<div class="col-xs-4 text-right">
-			<a ng-click="manageStore()" class="btn btn-primary mt10" ng-if="hasStore">Manage Store</a>
-			<a href="/manage/settings" class="btn btn-primary mt10" ng-if="!hasStore">Create Store</a>
+			<a ng-click="manageStore()" class="btn btn-primary mt10" ng-if="rs_hasStore">Manage Store</a>
+			<a href="/manage/settings" class="btn btn-primary mt10" ng-if="!rs_hasStore">Create Store</a>
 		</div>
 	</div>
 </div> 
 
  
-<div class="row" ng-if="isLoggedIn && !isManage"> 
+<div class="row" ng-if="isLoggedIn && !rs_isManage"> 
 	<div class="col-sm-12">
 		<ul id="subNav" class="clearfix">
-			<li><a href="#">Menu1</a></li>
-			<li><a href="#">Menu1</a></li>
-			<li><a href="#">Menu1</a></li>
+			<li><a ng-class="{'active' : rs_pagePath == ''}" href="/">Home</a></li>
+			<li><a ng-class="{'active' : rs_pagePath == 'wishlist'}" href="/my/wishlist">Wishlist</a></li>
+			<li><a ng-class="{'active' : rs_pagePath == 'orders'}" href="/my/orders">Orders</a></li>
+			<li><a ng-class="{'active' : rs_pagePath == 'cart'}" href="/my/cart">Cart</a></li>
+			<li><a ng-class="{'active' : rs_pagePath == 'profile'}" href="/my/profile">Profile</a></li>
+			<li><a href="/logout">Logout</a></li>
 		</ul>
 	</div>
 </div> 

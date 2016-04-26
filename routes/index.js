@@ -14,6 +14,14 @@ router.get('/manage/*', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 });  
 
+router.get('/my/*', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
+});  
+
+router.get('/p/*', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
+});  
+
 /* GET login page. */
 router.get('/login', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });

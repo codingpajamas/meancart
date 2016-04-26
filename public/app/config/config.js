@@ -27,16 +27,6 @@ angular.module('starterApp')
 				templateUrl : 		'app/partials/forgot.html',
 				controller : 		'forgotController',
 				controllerAs : 		'forgot'
-			}) 
-			.when('/profile', {
-				templateUrl : 		'app/partials/profile.html',
-				controller : 		'profileController',
-				controllerAs : 		'profile'
-			})
-			.when('/manage/settings', {
-				templateUrl : 		'app/partials/settings/index.html',
-				controller : 		'settingsController',
-				controllerAs : 		'settings'
 			})
 
 			/************* DASHBOARD ROUTES ***************/
@@ -44,6 +34,11 @@ angular.module('starterApp')
 				templateUrl : 		'app/partials/dashboard.html',
 				controller : 		'dashboardController',
 				controllerAs : 		'dashboard'
+			})
+			.when('/manage/settings', {
+				templateUrl : 		'app/partials/settings/index.html',
+				controller : 		'settingsController',
+				controllerAs : 		'settings'
 			})
 
 			/************* PRODUCTS ROUTES ***************/
@@ -132,7 +127,7 @@ angular.module('starterApp')
 			/************* PRODUCT VIEW ROUTES ***************/
 			.when('/p/:id', {
 				templateUrl : 		'app/partials/products/view.html',
-				controller : 		'productsController',
+				controller : 		'productsViewController',
 				controllerAs : 		'productsview'
 			}) 
 
@@ -152,6 +147,29 @@ angular.module('starterApp')
 				templateUrl : 		'app/partials/stores/products.html',
 				controller : 		'storesController',
 				controllerAs : 		'storesproducts'
+			}) 
+
+
+			/************** USER ROUTES **************/ 
+			.when('/my/wishlist', {
+				templateUrl : 		'app/partials/my/wishlist.html',
+				controller : 		'wishlistController',
+				controllerAs : 		'wishlist'
+			}) 
+			.when('/my/orders', {
+				templateUrl : 		'app/partials/my/orders.html',
+				controller : 		'ordersController',
+				controllerAs : 		'orders'
+			}) 
+			.when('/my/cart', {
+				templateUrl : 		'app/partials/my/cart.html',
+				controller : 		'cartController',
+				controllerAs : 		'cart'
+			}) 
+			.when('/my/profile', {
+				templateUrl : 		'app/partials/my/profile.html',
+				controller : 		'profileController',
+				controllerAs : 		'profile'
 			}) 
  
 

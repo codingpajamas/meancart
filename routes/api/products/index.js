@@ -24,7 +24,7 @@ var postImage = upload.fields([{name:'nProductImg1', maxCount:1}, {name:'nProduc
 
 
 router.get("/", function(req, res){
-	Product.find({},{},{sort: '-createdOn'}, function(err, posts){
+	Product.find({'store.id':req.decoded.user._id},{},{sort: '-createdOn'}, function(err, posts){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
@@ -61,6 +61,8 @@ router.post('/add', postImage, function(req, res){
 	if(req.files && req.files['nProductImg4'] && req.files['nProductImg4'][0] && req.files['nProductImg4'][0]['size']){
 		strProductImg4 = req.files['nProductImg4'][0]['filename'];
 	}  
+
+	console.log(req.decoded.user)
 
 	Product.create({
 		name: req.body.name,
@@ -114,6 +116,7 @@ router.post('/add', postImage, function(req, res){
 }); 
 
 router.get("/:id", function(req, res){ 
+	console.log(req.params.id)
 	Product.findById(req.params.id, function(err, product){
 		if(err){
 			response = {"success":false, "message":err};

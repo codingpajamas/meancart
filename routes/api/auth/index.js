@@ -7,6 +7,7 @@ var passport = require('passport');
 var nodemailer = require('nodemailer'); 
 var jwt = require('jsonwebtoken');
 var mkdirp = require('mkdirp');
+var fs = require('fs-extra'); 
 var secretmonster = 'meanstartedhahahaha';
 
 router.post('/register', function(req, res){ 
@@ -22,6 +23,17 @@ router.post('/register', function(req, res){
 					if(err){
 						res.json({"status":"error", "message": err.message});
 					}else{  
+						mkdirp(__dirname+'/../../../public/uploads/'+userObj._id+'/products', function (err) {
+						    if(err){
+						    	console.error(err)
+						    }else{
+						    	fs.copy(__dirname+'/../../../public/uploads/none.jpg', __dirname+'/../../../public/uploads/'+userObj._id+'/products/none.jpg', function (err) {
+									if (err) return console.error(err) 
+								})  
+						    	console.log('Directory "/uploads/'+userObj._id+'/products" has been created');
+						    }
+						});
+
 						res.json({'status':'success','message':'Registration is successful.'});
 					}
 				});
