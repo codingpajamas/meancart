@@ -1,17 +1,35 @@
 <div class="page-wrap">
 	<div class="page-body">
-		<div ng-if="objProduct">
-			<h3 clas="clearfix">
-				<a href="/posts" class="btn btn-default ml5 pull-right">Back to Posts</a>
-				<a href="/posts/delete/{{objProduct._id}}" class="ml5 btn btn-warning pull-right">Delete Post</a>
-				<a href="/posts/edit/{{objProduct._id}}" class="btn btn-primary pull-right">Edit Post</a>
-				{{objProduct.name}}
-			</h3>
-			<p><small>{{objProduct.createdOn | date:'MMMM dd, yyyy'}}</small></p> 
-			<div>{{objProduct.body}}</div>  
-		</div>
-		<div ng-if="!objProduct">
-			No Product found
+		<div class="productview">
+			<div class="productview-head"> 
+				<h2>This is a product</h2>
+				<p><a href="/s/1"><img src="/temp/carthtml/images/1.jpg"> hahaStore</a></p> 
+			</div>
+			<div class="productview-body"> 
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="productview-img">
+							<img src="/temp/carthtml/images/1.jpg"> 
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="productview-img">
+							<img src="/temp/carthtml/images/1.jpg"> 
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12"> 
+						<div class="productview-desc">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

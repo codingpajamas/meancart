@@ -19,7 +19,7 @@ router.post('/register', function(req, res){
 			}else if(user){
 				res.json({"status":"error", "message":"Email is already used."})
 			}else{
-				User.register( new User({ username:req.body.username, fullname:req.body.fullname, store:null }), req.body.password, function(err, userObj){
+				User.register( new User({ username:req.body.username, fullname:req.body.fullname, store:null, profile:null }), req.body.password, function(err, userObj){
 					if(err){
 						res.json({"status":"error", "message": err.message});
 					}else{  

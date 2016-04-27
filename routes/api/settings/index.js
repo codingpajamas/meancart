@@ -48,11 +48,8 @@ router.post("/", function(req, res){
 							console.log('unable to update store name', err)
 							res.json({"success":false, "message":err}); 
 						}else{
-							// update req.decoded
-							console.log(req.decoded.user)
-							console.log(userObj.store)
-							req.decoded.user.store = userObj.store 
-							console.log(req.decoded.user)
+							// update req.decoded 
+							req.decoded.user.store = userObj.store  
 							res.json({"success":true, "message":userObj.store}); 
 						}
 					}); 
@@ -74,5 +71,39 @@ router.post("/", function(req, res){
 		}  
 	});
 });  
+
+
+router.get("/profile", function(req, res){
+	User.findById(req.decoded.user._id, function(err, user){
+		if(err){ 
+			res.json({"success":false, "message":err}); 
+		}else{ 
+			response = {"success":true, "message":user.profile}; 
+		}  
+
+		res.json(response);
+	});
+});
+
+router.post("/profile", function(req, res){
+	User.findById(req.decoded.user._id, function(err, user){ 
+		if(err || !user){ 
+			res.json({"success":false, "message":err}); 
+		}else{
+			user.profile.address1 = req.body.address1 ? req.body.address1 : '';
+			user.profile.address2 = req.body.address2 ? req.body.address2 : '';
+			user.profile.address3 = req.body.address3 ? req.body.address3 : '';
+			user.profile.number = req.body.number ? req.body.number : '';
+
+			user.save(function(err){
+				if(err){ 
+					res.json({"success":false, "message":err}); 
+				}else{
+					res.json({"success":true, "message":user.profile}); 
+				}
+			});  
+		}
+	});
+})
 
 module.exports = router;

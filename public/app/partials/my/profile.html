@@ -1,1 +1,44 @@
-profile
+<div class="page-wrap">
+	<div class="page-body"> 	
+		<div class="row">
+			<div class="col-md-12"> 
+				<form name="profileForm" ng-submit="submitProfile()">
+					<div class="form-card">
+						<h2 class="form-card-title">Profile</h2>
+						<div class="form-card-body">
+							<p>
+								<label>Address (required)</label>
+								<input type="text" class="form-control input-sm" ng-model="profile.address1" required/>
+							</p>
+							<p>
+								<label>Address 2</label>
+								<input type="text" class="form-control input-sm" ng-model="profile.address2" />
+							</p>
+							<p>
+								<label>Address 3</label>
+								<input type="text" class="form-control input-sm" ng-model="profile.address3" />
+							</p>
+							<p>
+								<label>Contact Number (required)</label>
+								<input type="text" class="form-control input-sm" ng-model="profile.number" required />
+							</p> 
+						</div>
+					</div>  
+					<div class="form-card pad20">
+						<div class="row">
+							<div class="col-md-12">
+								<p ng-if="isProfileSuccess" class="alert alert-success">Success</p>
+								<p ng-if="isProfileError" class="alert alert-success">Error</p>
+							</div>
+						</div>
+						<div class="row"> 
+							<div class="col-md-12">
+								<input type="submit" value="Save Changes" class="btn btn-block btn-primary" ng-disabled="profileForm.$invalid">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>	

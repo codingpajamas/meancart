@@ -10,6 +10,12 @@ var User = new Schema({
 	username: String,
 	password: String,
 	fullname: String,
+	profile: {
+		address1: String,
+		address2: String,
+		address3: String,
+		number: String
+	},
 	store: {
 		url: String,
 		urlraw: String,

@@ -403,6 +403,37 @@ table {
 	text-align: right;
 }
 
+/* product page */
+.productview { 
+	box-shadow: 0 1px 1px rgba(0,0,0,0.2); 
+	background-color: #fff;
+}
+.productview-head {
+	padding: 20px;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.productview-head h2 {
+	margin: 0;
+}
+.productview-head p {
+	margin: 0;
+}
+.productview-head a {
+	
+}
+.productview-head img {
+	width: 30px;
+}
+.productview-body {
+	padding: 20px;
+}
+.productview-img {
+
+} 
+.productview-desc {
+
+}
+
 
 html {
   height: 100%;

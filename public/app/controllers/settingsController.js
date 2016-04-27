@@ -8,13 +8,13 @@ angular.module('starterApp')
 		$scope.isSettingsSuccess = false;
 		$scope.isSettingsError = false
 
-		Setting.get()
+		Setting.getStore()
 			.success(function(data){
 				$scope.settings = data.message; 
 			});
 
 		$scope.submitSettings = function(){
-			Setting.set($scope.settings)
+			Setting.setStore($scope.settings)
 				.success(function(data){
 					if(data.success){
 						$scope.isSettingsSuccess = true;
@@ -27,6 +27,8 @@ angular.module('starterApp')
 							$cookies.put('omp_isManage', true); 
 
 							// refresh the token since we updated our profile
+							var httpCache = $cacheFactory.get('$http'); 
+							httpCache.remove('/api/user/me');
 							Auth.refreshToken() 
 							
 							// redirect to manage page

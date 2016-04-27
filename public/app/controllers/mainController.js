@@ -6,6 +6,9 @@ angular.module('starterApp')
 		$rootScope.rs_me = null;
 		$rootScope.rs_isManage = $cookies.get('omp_isManage');
 		$rootScope.rs_hasStore = false;
+		$rootScope.rs_hasProfile = false; 
+
+		console.log($rootScope.rs_hasProfile )
 
 		$rootScope.$on('$routeChangeStart', function(){
 			$scope.isLoggedIn = Auth.isLoggedIn(); 
@@ -13,12 +16,18 @@ angular.module('starterApp')
 			if($scope.isLoggedIn){
 				Auth.getUser()
 					.success(function(data){
-						$scope.rs_me = data.user;
+						$rootScope.rs_me = data.user;
 
 						if(data.user && data.user.store){
-							$scope.rs_hasStore = true;
+							$rootScope.rs_hasStore = true;
 						}else{
-							$scope.rs_hasStore = false;
+							$rootScope.rs_hasStore = false;
+						}
+
+						if(data.user && data.user.profile){
+							$rootScope.rs_hasProfile = true;
+						}else{
+							$rootScope.rs_hasProfile = false;
 						}
 					})
 					.catch(function(response){

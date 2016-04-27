@@ -41,3 +41,11 @@
 		</ul>
 	</div>
 </div> 
+
+<div class="page-wrap mb0" ng-if="isLoggedIn && !rs_isManage && !rs_hasProfile">
+	<div class="page-body">
+		<div class="alert alert-danger mb0">
+			Please complete your <a href="/my/profile">profile here</a>.
+		</div>
+	</div>
+</div>
