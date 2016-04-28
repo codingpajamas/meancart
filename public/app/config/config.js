@@ -130,22 +130,32 @@ angular.module('starterApp')
 				controller : 		'productsViewController',
 				controllerAs : 		'productsview'
 			}) 
+			.when('/p/:id/related', {
+				templateUrl : 		'app/partials/products/related.html',
+				controller : 		'productsRelatedController',
+				controllerAs : 		'productsrelated'
+			})
+			.when('/p/:id/reviews', {
+				templateUrl : 		'app/partials/products/reviews.html',
+				controller : 		'productsReviewsController',
+				controllerAs : 		'productsreviews'
+			})
 
 
 			/************* STORE ROUTES ***************/
 			.when('/s/:id', {
-				templateUrl : 		'app/partials/stores/index.html',
-				controller : 		'storesController',
+				templateUrl : 		'app/partials/stores/view.html',
+				controller : 		'storeController',
 				controllerAs : 		'stores'
 			}) 
 			.when('/s/:id/reviews', {
 				templateUrl : 		'app/partials/stores/reviews.html',
-				controller : 		'storesController',
+				controller : 		'storeReveiwsController',
 				controllerAs : 		'storesreviews'
 			}) 
 			.when('/s/:id/products', {
 				templateUrl : 		'app/partials/stores/products.html',
-				controller : 		'storesController',
+				controller : 		'storeProductsController',
 				controllerAs : 		'storesproducts'
 			}) 
 

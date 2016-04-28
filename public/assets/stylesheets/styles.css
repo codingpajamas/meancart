@@ -221,6 +221,70 @@ table {
 	font-size: 14px;
 }
 
+/* product-card-cool */
+.product-card.product-card-cool {
+	position: relative;
+}
+.product-card.product-card-cool a {
+	position: relative;
+	display: block;
+}
+.product-card.product-card-cool .product-name {
+	position: absolute;
+	top: 0;
+	height: 0;
+	display: block !important;
+	z-index: 10;
+	width: 100%;
+	height: 90px;
+	color: #fff;
+	padding: 10px;
+	text-shadow: 1px 1px 1px #000;
+	font-size: 16px;
+	line-height: 16px;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.65+0,0+100;Neutral+Density */
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+
+}
+.product-card.product-card-cool .product-meta {
+	padding: 0px;
+	margin: 0px;
+}
+.product-card.product-card-cool .product-price {
+	float: left;
+	margin: 9px 0 0;
+	padding: 3px 10px;
+}
+.product-card.product-card-cool .product-like,
+.product-card.product-card-cool .product-wishlist,
+.product-card.product-card-cool .product-view {
+	float: right; 
+	padding: 10px;
+	line-height: 12px;
+	border-left: 1px solid rgba(0,0,0,0.1);
+	margin: 0;
+	text-align: center;
+	font-size: 12px;
+	display: inline-block;
+	cursor: pointer;
+}
+.product-card.product-card-cool .product-like i,
+.product-card.product-card-cool .product-wishlist i,
+.product-card.product-card-cool .product-view i {
+	display: block;
+	margin-bottom: 5px;
+}  
+
+.product-card.product-card-cool .product-like:hover,
+.product-card.product-card-cool .product-wishlist:hover,
+.product-card.product-card-cool .product-view:hover {
+	background-color: #337ab7;
+	color: #fff;
+}
+
 /* product form */
 .productImage {
 	position: relative;
@@ -432,6 +496,55 @@ table {
 } 
 .productview-desc {
 
+}
+
+.productview-addtocart {
+	box-shadow: 0 1px 1px rgba(0,0,0,0.2); 
+	background-color: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+.productview-storeinfo {
+	box-shadow: 0 1px 1px rgba(0,0,0,0.2); 
+	background-color: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+.productview-storeinfo a {
+	font-size: 16px;
+	line-height: 18px;
+	color: #666;
+	text-decoration: none;
+	font-weight: bold;
+	display: block;
+	position: relative;
+	padding-left: 40px;
+}
+.productview-storeinfo img {
+	width: 35px;
+	height: 35px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.productview-storeinfo span {
+	display: block;
+	display: inline-block;
+	font-weight: normal;
+	font-size: 14px;
+	color: #666;
+}
+.productview-related {
+	box-shadow: 0 1px 1px rgba(0,0,0,0.2); 
+	background-color: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+.productview-reviews {
+	box-shadow: 0 1px 1px rgba(0,0,0,0.2); 
+	background-color: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
 }
 
 

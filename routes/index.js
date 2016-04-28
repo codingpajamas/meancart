@@ -20,6 +20,10 @@ router.get('/my/*', function(req, res, next) {
 
 router.get('/p/*', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
+}); 
+
+router.get('/s/*', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
 });  
 
 /* GET login page. */
