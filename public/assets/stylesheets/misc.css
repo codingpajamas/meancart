@@ -174,3 +174,9 @@ img {
 .white-text {
 	color: #fff !important;
 }
+.black-text {
+	color: #000 !important;
+}
+.gray-text {
+	color: #666 !important;
+}
