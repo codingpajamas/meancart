@@ -9,11 +9,12 @@ var jwt = require('jsonwebtoken');
 var multer = require('multer');
 var _ = require('lodash');
 var secretmonster = 'meanstartedhahahaha';
+var gm = require('gm').subClass({ imageMagick: true });
 
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, 'public/uploads/'+req.decoded.user._id+'/products/')
+		cb(null, 'public/uploads/'+req.decoded.user._id+'/products/c/')
 	},
 	filename: function (req, file, cb) {
 		cb(null, new Date().getTime().toString() + '_' + file.fieldname + '-' + file.originalname)
@@ -60,9 +61,7 @@ router.post('/add', postImage, function(req, res){
 	// let's add image4  
 	if(req.files && req.files['nProductImg4'] && req.files['nProductImg4'][0] && req.files['nProductImg4'][0]['size']){
 		strProductImg4 = req.files['nProductImg4'][0]['filename'];
-	}  
-
-	console.log(req.decoded.user)
+	}   
 
 	Product.create({
 		name: req.body.name,
@@ -169,12 +168,60 @@ router.put("/:id", postImage, function(req, res){
 	} 
 	if(!strProductImg4 && req.body.productImg4 != 'undefined'){  
 		strProductImg4 = req.body.productImg;
-	} 
+	}  
 
-	console.log(strProductImg1)
-console.log(strProductImg2)
-console.log(strProductImg3)
-console.log(strProductImg4)
+	// THIS PART NEED SOME SERIOUS REFACTORING
+	if(strProductImg1){
+		var imgPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/c/"+strProductImg1;
+		var xsthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/xs/"+strProductImg1;
+		var smthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/sm/"+strProductImg1;
+		var mdthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/md/"+strProductImg1;
+ 
+		gm(imgPath)
+			.noProfile()
+			.gravity('center')
+			.resize('50', '50', "^>")
+			.quality(70)
+			.crop('50', '50')
+			.write(xsthumbPath, function (err) {
+				if (!err){
+					console.log('strProductImg1 xs done');
+				} else {
+					console.log(err);
+					console.log('strProductImg1 xs error');
+				}
+			});
+
+		gm(imgPath)
+			.noProfile()
+			.gravity('center')
+			.resize('200', '200', "^>")
+			.quality(80)
+			.crop('200', '200')
+			.write(smthumbPath, function (err) {
+				if (!err){
+					console.log('strProductImg1 sm done');
+				} else {
+					console.log(err);
+					console.log('strProductImg1 sm error');
+				}
+			});
+
+		gm(imgPath)
+			.noProfile()
+			.gravity('center')
+			.resize('400', '400', "^>")
+			.quality(90)
+			.crop('400', '400')
+			.write(mdthumbPath, function (err) {
+				if (!err){
+					console.log('strProductImg1 md done');
+				} else {
+					console.log(err);
+					console.log('strProductImg1 md error');
+				}
+			});
+	}
  
 	Product.findById(req.params.id, function(err, post){
 		if(err){ 

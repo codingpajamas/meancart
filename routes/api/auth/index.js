@@ -23,16 +23,86 @@ router.post('/register', function(req, res){
 					if(err){
 						res.json({"status":"error", "message": err.message});
 					}else{  
-						mkdirp(__dirname+'/../../../public/uploads/'+userObj._id+'/products', function (err) {
-						    if(err){
-						    	console.error(err)
-						    }else{
-						    	fs.copy(__dirname+'/../../../public/uploads/none.jpg', __dirname+'/../../../public/uploads/'+userObj._id+'/products/none.jpg', function (err) {
-									if (err) return console.error(err) 
-								})  
-						    	console.log('Directory "/uploads/'+userObj._id+'/products" has been created');
-						    }
-						});
+						async.parallel([
+							function(callback){
+								mkdirp(__dirname+'/../../../public/uploads/'+userObj._id+'/products/c', function (err) {
+								    if(err){
+								    	console.error(err)
+								    	callback(null, err);
+								    }else{
+								    	fs.copy(__dirname+'/../../../public/uploads/none.jpg', __dirname+'/../../../public/uploads/'+userObj._id+'/products/c/none.jpg', function (err) {
+											if (err) {
+												console.error(err) 
+												callback(null, err);
+											}else{
+												callback(null, 'C Directory - ok');
+								    			console.log('Directory "/uploads/'+userObj._id+'/products/c" has been created');
+											}
+										})  
+								    }
+								});
+							},
+							function(callback){
+								mkdirp(__dirname+'/../../../public/uploads/'+userObj._id+'/products/xs', function (err) {
+								    if(err){
+								    	console.error(err)
+								    	callback(null, err);
+								    }else{
+								    	fs.copy(__dirname+'/../../../public/uploads/none.jpg', __dirname+'/../../../public/uploads/'+userObj._id+'/products/xs/none.jpg', function (err) {
+											if (err) {
+												console.error(err) 
+												callback(null, err);
+											}else{
+												callback(null, 'C Directory - ok');
+								    			console.log('Directory "/uploads/'+userObj._id+'/products/xs" has been created');
+											}
+										})  
+								    }
+								});
+							},
+							function(callback){
+								mkdirp(__dirname+'/../../../public/uploads/'+userObj._id+'/products/sm', function (err) {
+								    if(err){
+								    	console.error(err)
+								    	callback(null, err);
+								    }else{
+								    	fs.copy(__dirname+'/../../../public/uploads/none.jpg', __dirname+'/../../../public/uploads/'+userObj._id+'/products/sm/none.jpg', function (err) {
+											if (err) {
+												console.error(err) 
+												callback(null, err);
+											}else{
+												callback(null, 'C Directory - ok');
+								    			console.log('Directory "/uploads/'+userObj._id+'/products/sm" has been created');
+											}
+										})  
+								    }
+								});
+							},
+							function(callback){
+								mkdirp(__dirname+'/../../../public/uploads/'+userObj._id+'/products/md', function (err) {
+								    if(err){
+								    	console.error(err)
+								    	callback(null, err);
+								    }else{
+								    	fs.copy(__dirname+'/../../../public/uploads/none.jpg', __dirname+'/../../../public/uploads/'+userObj._id+'/products/md/none.jpg', function (err) {
+											if (err) {
+												console.error(err) 
+												callback(null, err);
+											}else{
+												callback(null, 'C Directory - ok');
+								    			console.log('Directory "/uploads/'+userObj._id+'/products/md" has been created');
+											}
+										})  
+								    }
+								});
+							}
+						], function(err, result){
+							if(err){
+								console.log(err)
+							}else{
+								console.log(result)
+							}
+						}) 
 
 						res.json({'status':'success','message':'Registration is successful.'});
 					}
