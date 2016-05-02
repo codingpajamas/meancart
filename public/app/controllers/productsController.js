@@ -98,6 +98,10 @@ angular.module('starterApp')
 					}
 				});
 		}
+
+		$scope.removeProductImage = function(e){
+			angular.element(e.target).parent('div').css('background-image', 'url(/assets/images/add.png)').removeClass('hasImage'); 
+		}
 	})
 	.controller('productsEditController', function($scope, $location, Auth, Product, $routeParams){
 		Auth.restrict();

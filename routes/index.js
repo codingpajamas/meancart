@@ -49,6 +49,7 @@ router.get('/manage/*', function(req, res, next) {
 		})
 	*/
 
+	/*
 	var imgPath = __dirname + "../../public/uploads/572206b1b3151de41e6b8af4/products/10.jpg";
 	var thumbPath = __dirname + "../../public/uploads/572206b1b3151de41e6b8af4/thumbs/10.jpg";
 
@@ -67,6 +68,7 @@ router.get('/manage/*', function(req, res, next) {
 				console.log('error');
 			}
 		});
+	*/
 
 	res.render('index', { title: 'onMarket' });
 });  

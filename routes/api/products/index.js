@@ -61,7 +61,90 @@ router.post('/add', postImage, function(req, res){
 	// let's add image4  
 	if(req.files && req.files['nProductImg4'] && req.files['nProductImg4'][0] && req.files['nProductImg4'][0]['size']){
 		strProductImg4 = req.files['nProductImg4'][0]['filename'];
-	}   
+	}  
+
+		async.forEachOfSeries([strProductImg1, strProductImg2, strProductImg3, strProductImg4], function(value, i, callback){ 
+		if(value){
+			var imgPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/c/"+value;
+			var xsthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/xs/"+value;
+			var smthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/sm/"+value;
+			var mdthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/md/"+value;
+	 		
+	 		async.series([
+	 			function(cb){
+	 				gm(imgPath)
+						.noProfile()
+						.gravity('center')
+						.resize('50', '50', "^>")
+						.quality(70)
+						.crop('50', '50')
+						.write(xsthumbPath, function (err) {
+							var msg = value + ' : c done';
+							if (err){
+								msg = err
+							}
+							cb(null, msg);
+						});
+	 			},
+	 			function(cb){
+	 				gm(imgPath)
+						.noProfile()
+						.gravity('center')
+						.resize('50', '50', "^>")
+						.quality(70)
+						.crop('50', '50')
+						.write(xsthumbPath, function (err) {
+							var msg = value + ' : xs done';
+							if (err){
+								msg = err
+							}
+							cb(null, msg);
+						}); 
+	 			},
+	 			function(cb){
+	 				gm(imgPath)
+						.noProfile()
+						.gravity('center')
+						.resize('200', '200', "^>")
+						.quality(80)
+						.crop('200', '200')
+						.write(smthumbPath, function (err) {
+							var msg = value + ' : sm done';
+							if (err){
+								msg = err
+							}
+							cb(null, msg);
+						});
+	 			},
+	 			function(cb){
+	 				gm(imgPath)
+						.noProfile()
+						.gravity('center')
+						.resize('400', '400', "^>")
+						.quality(90)
+						.crop('400', '400')
+						.write(mdthumbPath, function (err) {
+							var msg = value + ' : md done';
+							if (err){
+								msg = err
+							}
+							cb(null, msg);
+						});
+	 			}
+	 		], function(err, result){
+	 			console.log(result)
+	 			callback()
+	 		}) 
+		}else{
+			callback()
+		}
+	}, function(err){
+		if(err){
+			console.log(err)
+		}else{
+			console.log('DONE') 
+		}
+	})   
 
 	Product.create({
 		name: req.body.name,
@@ -170,58 +253,88 @@ router.put("/:id", postImage, function(req, res){
 		strProductImg4 = req.body.productImg;
 	}  
 
-	// THIS PART NEED SOME SERIOUS REFACTORING
-	if(strProductImg1){
-		var imgPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/c/"+strProductImg1;
-		var xsthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/xs/"+strProductImg1;
-		var smthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/sm/"+strProductImg1;
-		var mdthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/md/"+strProductImg1;
  
-		gm(imgPath)
-			.noProfile()
-			.gravity('center')
-			.resize('50', '50', "^>")
-			.quality(70)
-			.crop('50', '50')
-			.write(xsthumbPath, function (err) {
-				if (!err){
-					console.log('strProductImg1 xs done');
-				} else {
-					console.log(err);
-					console.log('strProductImg1 xs error');
-				}
-			});
+	async.forEachOfSeries([strProductImg1, strProductImg2, strProductImg3, strProductImg4], function(value, i, callback){ 
+		if(value){
+			var imgPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/c/"+value;
+			var xsthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/xs/"+value;
+			var smthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/sm/"+value;
+			var mdthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/md/"+value;
+	 		
+	 		async.series([
+	 			function(cb){
+	 				gm(imgPath)
+						.noProfile()
+						.gravity('center')
+						.resize('50', '50', "^>")
+						.quality(70)
+						.crop('50', '50')
+						.write(xsthumbPath, function (err) {
+							var msg = value + ' : c done';
+							if (err){
+								msg = err
+							}
+							cb(null, msg);
+						});
+	 			},
+	 			function(cb){
+	 				gm(imgPath)
+						.noProfile()
+						.gravity('center')
+						.resize('50', '50', "^>")
+						.quality(70)
+						.crop('50', '50')
+						.write(xsthumbPath, function (err) {
+							var msg = value + ' : xs done';
+							if (err){
+								msg = err
+							}
+							cb(null, msg);
+						}); 
+	 			},
+	 			function(cb){
+	 				gm(imgPath)
+						.noProfile()
+						.gravity('center')
+						.resize('200', '200', "^>")
+						.quality(80)
+						.crop('200', '200')
+						.write(smthumbPath, function (err) {
+							var msg = value + ' : sm done';
+							if (err){
+								msg = err
+							}
+							cb(null, msg);
+						});
+	 			},
+	 			function(cb){
+	 				gm(imgPath)
+						.noProfile()
+						.gravity('center')
+						.resize('400', '400', "^>")
+						.quality(90)
+						.crop('400', '400')
+						.write(mdthumbPath, function (err) {
+							var msg = value + ' : md done';
+							if (err){
+								msg = err
+							}
+							cb(null, msg);
+						});
+	 			}
+	 		], function(err, result){
+	 			console.log(result)
+	 			callback()
+	 		}) 
+		}
+	}, function(err){
+		if(err){
+			console.log(err)
+		}else{
+			console.log('DONE') 
+		}
+	})  
 
-		gm(imgPath)
-			.noProfile()
-			.gravity('center')
-			.resize('200', '200', "^>")
-			.quality(80)
-			.crop('200', '200')
-			.write(smthumbPath, function (err) {
-				if (!err){
-					console.log('strProductImg1 sm done');
-				} else {
-					console.log(err);
-					console.log('strProductImg1 sm error');
-				}
-			});
-
-		gm(imgPath)
-			.noProfile()
-			.gravity('center')
-			.resize('400', '400', "^>")
-			.quality(90)
-			.crop('400', '400')
-			.write(mdthumbPath, function (err) {
-				if (!err){
-					console.log('strProductImg1 md done');
-				} else {
-					console.log(err);
-					console.log('strProductImg1 md error');
-				}
-			});
-	}
  
 	Product.findById(req.params.id, function(err, post){
 		if(err){ 
