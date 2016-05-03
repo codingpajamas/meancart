@@ -63,7 +63,7 @@ router.post('/add', postImage, function(req, res){
 		strProductImg4 = req.files['nProductImg4'][0]['filename'];
 	}  
 
-		async.forEachOfSeries([strProductImg1, strProductImg2, strProductImg3, strProductImg4], function(value, i, callback){ 
+	async.forEachOfSeries([strProductImg1, strProductImg2, strProductImg3, strProductImg4], function(value, i, callback){ 
 		if(value){
 			var imgPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/c/"+value;
 			var xsthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/xs/"+value;
@@ -146,6 +146,8 @@ router.post('/add', postImage, function(req, res){
 		}
 	})   
 
+	console.log(req.body.tags)
+
 	Product.create({
 		name: req.body.name,
 		desc: req.body.desc,
@@ -165,7 +167,8 @@ router.post('/add', postImage, function(req, res){
 		category: {
 			main: req.body.maincat,
 			sub: req.body.subcat
-		}
+		},
+		tags: req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : []
 	}, function(err, product){ 
 		if(err){
 			response = {"success":false, "message":err};
@@ -339,6 +342,8 @@ router.put("/:id", postImage, function(req, res){
 		}
 	})  
 
+	console.log(req.body.tags)
+	console.log(JSON.parse(req.body.tags))
  
 	Product.findById(req.params.id, function(err, post){
 		if(err){ 
@@ -357,7 +362,9 @@ router.put("/:id", postImage, function(req, res){
 				main: req.body.maincat,
 				sub: req.body.subcat 
 			}; 
-			
+
+			post.tags = req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : []
+
 			post.save(function(err) {
                 if(err){
                 	response = {"success":true, "message":err}; 

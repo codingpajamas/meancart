@@ -29,6 +29,8 @@ angular.module('starterApp')
 		$scope.isAddPostSuccess = false;
 		$scope.isAddPostError = false;  
 
+		$scope.productTags = [];
+
 		$scope.nProductImg1 = "";
 		$scope.nProductImg2 = "";
 		$scope.nProductImg3 = "";
@@ -76,6 +78,7 @@ angular.module('starterApp')
 		} 
 
 		$scope.addPostSubmit = function(){
+
 			var formData = new FormData(); 
  			angular.forEach($scope.files, function(file){
  				formData.append('images', file)
@@ -86,6 +89,7 @@ angular.module('starterApp')
  			formData.append('price', $scope.productPrice) 
  			formData.append('maincat', $scope.productMainCat) 
  			formData.append('subcat', $scope.productSubCat) 
+ 			formData.append('tags', JSON.stringify(_.map($scope.productTags, 'text')))
 
  			angular.forEach($scope.nProductImg1, function(file){
  				formData.append('nProductImg1', file)
@@ -133,6 +137,7 @@ angular.module('starterApp')
 
 		$scope.mainCategories = Category.main();
 		$scope.subCategories = []; 
+		$scope.productTags = [];
 
 		Product.view($routeParams.id)
 			.success(function(data){ 
@@ -142,6 +147,8 @@ angular.module('starterApp')
 					$scope.productMainCat = $scope.objProduct ? $scope.objProduct.category.main : '';
 					$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : [];
 					$scope.productSubCat = $scope.objProduct ? $scope.objProduct.category.sub : '';
+
+					$scope.productTags = $scope.objProduct.tags;
 				}
 			});
   
@@ -190,7 +197,7 @@ angular.module('starterApp')
 		} 
  
 
-		$scope.editPostSubmit = function(){ 
+		$scope.editPostSubmit = function(){   
 			var formData = new FormData(); 
  			formData.append('name', $scope.objProduct.name)
  			formData.append('desc', $scope.objProduct.desc)
@@ -202,6 +209,15 @@ angular.module('starterApp')
  			formData.append('productImg4', $scope.objProduct.images.productImg4) 
  			formData.append('maincat', $scope.productMainCat) 
  			formData.append('subcat', $scope.productSubCat) 
+
+ 			var objTags = _.map($scope.productTags, 'text');
+ 			if(!objTags[0]){
+ 				objTags = JSON.stringify($scope.productTags, 'text')
+ 			}else{
+ 				objTags = JSON.stringify(_.map($scope.productTags, 'text'))
+ 			}
+
+ 			formData.append('tags', objTags)
 
  			angular.forEach($scope.nProductImg1, function(file){
  				formData.append('nProductImg1', file)

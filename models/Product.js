@@ -19,6 +19,7 @@ var Product = new Schema({
 		main: String,
 		sub: String
 	},
+	tags: Array,
 	createdOn: {type: Date, default: Date.now()}
 });
  
