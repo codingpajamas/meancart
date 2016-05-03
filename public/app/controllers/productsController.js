@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('starterApp') 
-	.controller('productsController', function($scope, $location, Auth, Product,){
+	.controller('productsController', function($scope, $location, Auth, Product){
 		Auth.restrict(); 
 
 		$scope.arrProducts = []; 
@@ -23,6 +23,9 @@ angular.module('starterApp')
 	.controller('productsAddController', function($scope, $location, Auth, Product, Category){
 		Auth.restrict();
 
+		$scope.productMainCat = '';
+		$scope.productSubCat = '';
+
 		$scope.isAddPostSuccess = false;
 		$scope.isAddPostError = false;  
 
@@ -32,6 +35,12 @@ angular.module('starterApp')
 		$scope.nProductImg4 = "";  
 
 		$scope.mainCategories = Category.main();
+		$scope.subCategories = []; 
+
+		$scope.updateSubCat = function(){
+			$scope.productSubCat = '';
+			$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : [];
+		}
 
 		// this needs refactoring!!!!
 		$scope.addProductImage = function(el){ 
@@ -75,6 +84,8 @@ angular.module('starterApp')
  			formData.append('name', $scope.productName)
  			formData.append('desc', $scope.productDescription) 
  			formData.append('price', $scope.productPrice) 
+ 			formData.append('maincat', $scope.productMainCat) 
+ 			formData.append('subcat', $scope.productSubCat) 
 
  			angular.forEach($scope.nProductImg1, function(file){
  				formData.append('nProductImg1', file)
@@ -105,7 +116,7 @@ angular.module('starterApp')
 			angular.element(e.target).parent('div').css('background-image', 'url(/assets/images/add.png)').removeClass('hasImage'); 
 		}
 	})
-	.controller('productsEditController', function($scope, $location, Auth, Product, $routeParams){
+	.controller('productsEditController', function($scope, $location, Auth, Product, $routeParams, Category){
 		Auth.restrict();
 
 		$scope.objProduct = null;
@@ -117,12 +128,33 @@ angular.module('starterApp')
 		$scope.nProductImg3 = "";
 		$scope.nProductImg4 = "";  
 
+		$scope.productMainCat = '';
+		$scope.productSubCat = '';
+
+		$scope.mainCategories = Category.main();
+		$scope.subCategories = []; 
+
 		Product.view($routeParams.id)
 			.success(function(data){ 
 				if (true == data.success){ 
 					$scope.objProduct = data.message;
+
+					$scope.productMainCat = $scope.objProduct ? $scope.objProduct.category.main : '';
+					$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : [];
+					$scope.productSubCat = $scope.objProduct ? $scope.objProduct.category.sub : '';
 				}
-			})
+			});
+  
+		$scope.updateMainCat = function(strMainCat){  
+			$scope.productMainCat = strMainCat;
+			$scope.productSubCat = '';
+			$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : [];
+		}
+
+		$scope.updateSubCat = function(strSubCat){  
+			$scope.productSubCat = strSubCat;
+			$scope.subCategories = Category.sub($scope.productSubCat) ? Category.sub($scope.productSubCat) : [];
+		}
 
 		// this needs refactoring!!!!
 		$scope.editProductImage = function(el){ 
@@ -167,7 +199,9 @@ angular.module('starterApp')
  			formData.append('productImg1', $scope.objProduct.images.productImg1) 
  			formData.append('productImg2', $scope.objProduct.images.productImg2) 
  			formData.append('productImg3', $scope.objProduct.images.productImg3)
- 			formData.append('productImg4', $scope.objProduct.images.productImg4)  
+ 			formData.append('productImg4', $scope.objProduct.images.productImg4) 
+ 			formData.append('maincat', $scope.productMainCat) 
+ 			formData.append('subcat', $scope.productSubCat) 
 
  			angular.forEach($scope.nProductImg1, function(file){
  				formData.append('nProductImg1', file)

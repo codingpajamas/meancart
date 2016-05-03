@@ -26,8 +26,16 @@
 									</p>
 									<p>
 										<label>Product Category</label>
-										<select class="form-control input-sm">
-											<option>Select a category</option>
+										<select class="form-control input-sm" ng-model="productMainCat" ng-change="updateSubCat()" required>
+											<option value="">Select a category</option>
+											<option ng-repeat="mainCat in mainCategories">{{mainCat}}</option>
+										</select>
+									</p>
+									<p>
+										<label>Product SubCategory</label>
+										<select class="form-control input-sm" ng-model="productSubCat">
+											<option value="">Select a category</option>
+											<option ng-repeat="subCat in subCategories">{{subCat}}</option>
 										</select>
 									</p>
 								</div>

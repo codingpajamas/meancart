@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('starterApp')
-	.controller('mainController', function($scope, $rootScope, $location, $cookies, $cacheFactory, Auth, ){
+	.controller('mainController', function($scope, $rootScope, $location, $cookies, $cacheFactory, Auth){
 
 		$rootScope.rs_me = null;
 		$rootScope.rs_isManage = $cookies.get('omp_isManage');

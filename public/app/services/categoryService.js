@@ -13,8 +13,7 @@ angular.module('starterApp')
 			'cars' : [ 
 				'accessories', 
 				'auv', 
-				'motorcycle', 
-				'others', 
+				'motorcycle',
 				'parts', 
 				'pick-up', 
 				'suv', 
@@ -85,6 +84,7 @@ angular.module('starterApp')
 		}
 
 		CategoryFactory.sub = function(main){
+			console.log(main)
 			return Category[main];
 		}
 

@@ -161,6 +161,10 @@ router.post('/add', postImage, function(req, res){
 			id: req.decoded.user._id,
 			name: req.decoded.user.store['name'],
 			url: req.decoded.user.store['url']
+		},
+		category: {
+			main: req.body.maincat,
+			sub: req.body.subcat
 		}
 	}, function(err, product){ 
 		if(err){
@@ -349,7 +353,11 @@ router.put("/:id", postImage, function(req, res){
 				img3: strProductImg3,
 				img4: strProductImg4
 			};
- 
+			post.category = {
+				main: req.body.maincat,
+				sub: req.body.subcat 
+			}; 
+			
 			post.save(function(err) {
                 if(err){
                 	response = {"success":true, "message":err}; 
