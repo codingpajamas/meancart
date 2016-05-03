@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('starterApp') 
-	.controller('productsController', function($scope, $location, Auth, Product){
+	.controller('productsController', function($scope, $location, Auth, Product,){
 		Auth.restrict(); 
 
 		$scope.arrProducts = []; 
@@ -20,7 +20,7 @@ angular.module('starterApp')
 				}
 			})
 	})
-	.controller('productsAddController', function($scope, $location, Auth, Product){
+	.controller('productsAddController', function($scope, $location, Auth, Product, Category){
 		Auth.restrict();
 
 		$scope.isAddPostSuccess = false;
@@ -30,6 +30,8 @@ angular.module('starterApp')
 		$scope.nProductImg2 = "";
 		$scope.nProductImg3 = "";
 		$scope.nProductImg4 = "";  
+
+		$scope.mainCategories = Category.main();
 
 		// this needs refactoring!!!!
 		$scope.addProductImage = function(el){ 

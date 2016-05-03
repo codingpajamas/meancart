@@ -15,6 +15,10 @@ var Product = new Schema({
 		name: String,
 		url: String
 	},
+	category: {
+		main: String,
+		sub: String
+	},
 	createdOn: {type: Date, default: Date.now()}
 });
  

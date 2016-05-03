@@ -1,14 +1,12 @@
 'use strict'
 
 angular.module('starterApp')
-	.controller('mainController', function($scope, $rootScope, $location, $cookies, $cacheFactory, Auth){
+	.controller('mainController', function($scope, $rootScope, $location, $cookies, $cacheFactory, Auth, ){
 
 		$rootScope.rs_me = null;
 		$rootScope.rs_isManage = $cookies.get('omp_isManage');
 		$rootScope.rs_hasStore = false;
-		$rootScope.rs_hasProfile = false; 
-
-		console.log($rootScope.rs_hasProfile )
+		$rootScope.rs_hasProfile = false;
 
 		$rootScope.$on('$routeChangeStart', function(){
 			$scope.isLoggedIn = Auth.isLoggedIn(); 
