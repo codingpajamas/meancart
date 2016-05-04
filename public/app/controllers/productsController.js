@@ -30,6 +30,7 @@ angular.module('starterApp')
 		$scope.isAddPostError = false;  
 
 		$scope.productTags = [];
+		$scope.relatedProducts = [];
 
 		$scope.nProductImg1 = "";
 		$scope.nProductImg2 = "";
@@ -39,9 +40,15 @@ angular.module('starterApp')
 		$scope.mainCategories = Category.main();
 		$scope.subCategories = []; 
 
+		Product.get().success(function(data){
+			if (true == data.success){ 
+				$scope.relatedProducts = data.message; 
+			}
+		})
+
 		$scope.updateSubCat = function(){
 			$scope.productSubCat = '';
-			$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : [];
+			$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : []; 
 		}
 
 		// this needs refactoring!!!!
@@ -77,7 +84,7 @@ angular.module('starterApp')
 			$scope.$apply(); 
 		} 
 
-		$scope.addPostSubmit = function(){
+		$scope.addPostSubmit = function(){ 
 
 			var formData = new FormData(); 
  			angular.forEach($scope.files, function(file){
@@ -90,6 +97,7 @@ angular.module('starterApp')
  			formData.append('maincat', $scope.productMainCat) 
  			formData.append('subcat', $scope.productSubCat) 
  			formData.append('tags', JSON.stringify(_.map($scope.productTags, 'text')))
+ 			formData.append('related', JSON.stringify($scope.productRelated))
 
  			angular.forEach($scope.nProductImg1, function(file){
  				formData.append('nProductImg1', file)
@@ -138,6 +146,7 @@ angular.module('starterApp')
 		$scope.mainCategories = Category.main();
 		$scope.subCategories = []; 
 		$scope.productTags = [];
+		$scope.relatedProducts = [];
 
 		Product.view($routeParams.id)
 			.success(function(data){ 
@@ -147,10 +156,16 @@ angular.module('starterApp')
 					$scope.productMainCat = $scope.objProduct ? $scope.objProduct.category.main : '';
 					$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : [];
 					$scope.productSubCat = $scope.objProduct ? $scope.objProduct.category.sub : '';
-
+					$scope.productRelated = $scope.objProduct.related;
 					$scope.productTags = $scope.objProduct.tags;
 				}
 			});
+
+		Product.get().success(function(data){
+			if (true == data.success){ 
+				$scope.relatedProducts = data.message; 
+			}
+		})
   
 		$scope.updateMainCat = function(strMainCat){  
 			$scope.productMainCat = strMainCat;
@@ -209,6 +224,7 @@ angular.module('starterApp')
  			formData.append('productImg4', $scope.objProduct.images.productImg4) 
  			formData.append('maincat', $scope.productMainCat) 
  			formData.append('subcat', $scope.productSubCat) 
+ 			formData.append('related', JSON.stringify($scope.productRelated))
 
  			var objTags = _.map($scope.productTags, 'text');
  			if(!objTags[0]){

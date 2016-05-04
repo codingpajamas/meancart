@@ -20,6 +20,7 @@ var Product = new Schema({
 		sub: String
 	},
 	tags: Array,
+	related: Array,
 	createdOn: {type: Date, default: Date.now()}
 });
  

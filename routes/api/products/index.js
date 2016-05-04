@@ -35,6 +35,17 @@ router.get("/", function(req, res){
 	})
 })
 
+router.get("/get", function(req, res){  
+	Product.find({'store.id':req.decoded.user._id}, {'prodid':1, 'name':1}, {}, function(err, product){
+		if(err){
+			response = {"success":false, "message":err};
+		}else{
+			response = {"success":true, "message":product};
+		} 
+		res.json(response); 
+	})
+})
+
 router.post('/add', postImage, function(req, res){   
 
 	// this needs refactoring!!!!
@@ -168,7 +179,8 @@ router.post('/add', postImage, function(req, res){
 			main: req.body.maincat,
 			sub: req.body.subcat
 		},
-		tags: req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : []
+		tags: req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : [],
+		related: req.body.related && JSON.parse(req.body.related) ? JSON.parse(req.body.related) : []
 	}, function(err, product){ 
 		if(err){
 			response = {"success":false, "message":err};
@@ -204,8 +216,7 @@ router.post('/add', postImage, function(req, res){
 	}); 
 }); 
 
-router.get("/:id", function(req, res){ 
-	console.log(req.params.id)
+router.get("/:id", function(req, res){  
 	Product.findById(req.params.id, function(err, product){
 		if(err){
 			response = {"success":false, "message":err};
@@ -363,7 +374,8 @@ router.put("/:id", postImage, function(req, res){
 				sub: req.body.subcat 
 			}; 
 
-			post.tags = req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : []
+			post.tags = req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : [];
+			post.related = req.body.related && JSON.parse(req.body.related) ? JSON.parse(req.body.related) : [];
 
 			post.save(function(err) {
                 if(err){

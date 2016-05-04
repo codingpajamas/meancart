@@ -38,6 +38,12 @@
 											<option ng-repeat="subCat in subCategories">{{subCat}}</option>
 										</select>
 									</p>
+									<p>
+										<label>Related Products</label>
+										<select class="form-control input-sm" chosen multiple ng-model="productRelated" data-placeholder="Select a product" max-selected-options="3" search-contains="true"> 
+											<option ng-repeat="relProd in relatedProducts" value="{{relProd._id}}">{{relProd.name}}</option>
+										</select>
+									</p>
 								</div>
 							</div>
 							<div class="form-card hide">

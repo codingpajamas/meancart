@@ -19,6 +19,12 @@ angular.module('starterApp')
 			})
 		}
 
+		ProductFactory.get = function(){
+			return $http.get('/api/products/get').success(function(data){
+				return data;
+			})
+		}
+
 		ProductFactory.view = function(_id){
 			return $http.get('/api/products/'+_id).success(function(data){
 				return data;
