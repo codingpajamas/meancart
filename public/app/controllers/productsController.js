@@ -164,6 +164,7 @@ angular.module('starterApp')
 		Product.get().success(function(data){
 			if (true == data.success){ 
 				$scope.relatedProducts = data.message; 
+				console.log(data.message)
 			}
 		})
   
