@@ -22,7 +22,7 @@
 									</p>
 									<p>
 										<label>Product Tags</label>
-										<tags-input ng-model="productTags"></tags-input>
+										<tags-input ng-model="productTags" on-tag-added="updateTags(productTags)"></tags-input>
 									</p>
 									<p>
 										<label>Product Category</label>
@@ -42,13 +42,15 @@
 										<label>Related Products</label>
 										<select 
 											class="form-control input-sm" 
+											id="productRelated"
 											chosen 
 											multiple 
 											ng-model="productRelated" 
 											data-placeholder="Select a product" 
 											max-selected-options="3" 
 											search-contains="true"
-											ng-options="rel._id as rel.name for rel in relatedProducts">  
+											ng-options="rel._id as rel.name for rel in relatedProducts"
+											ng-change="updateRelatedProducts(productRelated)">  
 										</select>
 									</p>
 								</div>

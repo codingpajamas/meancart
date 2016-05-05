@@ -147,6 +147,7 @@ angular.module('starterApp')
 		$scope.subCategories = []; 
 		$scope.productTags = [];
 		$scope.relatedProducts = [];
+		$scope.productRelated = [];
 
 		Product.view($routeParams.id)
 			.success(function(data){ 
@@ -156,17 +157,24 @@ angular.module('starterApp')
 					$scope.productMainCat = $scope.objProduct ? $scope.objProduct.category.main : '';
 					$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : [];
 					$scope.productSubCat = $scope.objProduct ? $scope.objProduct.category.sub : '';
-					$scope.productRelated = $scope.objProduct.related;
+					$scope.productRelated = $scope.objProduct ? $scope.objProduct.related : [];
 					$scope.productTags = $scope.objProduct.tags;
 				}
 			});
 
 		Product.get().success(function(data){
 			if (true == data.success){ 
-				$scope.relatedProducts = data.message; 
-				console.log(data.message)
+				$scope.relatedProducts = data.message;  
 			}
 		})
+
+		$scope.updateTags = function(prodTags){
+			$scope.productTags = prodTags;
+		}
+
+		$scope.updateRelatedProducts = function(relProds) {
+			$scope.productRelated = relProds;
+		}
   
 		$scope.updateMainCat = function(strMainCat){  
 			$scope.productMainCat = strMainCat;
@@ -213,7 +221,8 @@ angular.module('starterApp')
 		} 
  
 
-		$scope.editPostSubmit = function(){   
+		$scope.editPostSubmit = function(){ 
+			console.log(JSON.stringify($scope.productRelated))  
 			var formData = new FormData(); 
  			formData.append('name', $scope.objProduct.name)
  			formData.append('desc', $scope.objProduct.desc)
