@@ -95,7 +95,7 @@
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg1" type="file" onchange="angular.element(this).scope().editProductImage(this)">
 												<div class="removeImage" ng-click="removeProductImage($event)" data-imgtype="productImg1"></div>
-												<input type="hidden" ng-model="objProduct.images.productImg1">
+												<input type="hidden" ng-model="objProduct.images[0]['img1']">
 											</div> 
 										</div> 
 										<div class="col-xs-3">
@@ -103,7 +103,7 @@
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg2" type="file" onchange="angular.element(this).scope().editProductImage(this)">
 												<div class="removeImage" ng-click="removeProductImage($event)" data-imgtype="productImg2"></div>
-												<input type="hidden" ng-model="objProduct.images.productImg2">
+												<input type="hidden" ng-model="objProduct.images[0]['img2']">
 											</div>
 										</div> 
 										<div class="col-xs-3">
@@ -111,7 +111,7 @@
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg3" type="file" onchange="angular.element(this).scope().editProductImage(this)">
 												<div class="removeImage" ng-click="removeProductImage($event)" data-imgtype="productImg3"></div>
-												<input type="hidden" ng-model="objProduct.images.productImg3">
+												<input type="hidden" ng-model="objProduct.images[0]['img3']">
 											</div>
 										</div> 
 										<div class="col-xs-3">
@@ -119,7 +119,7 @@
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg4" type="file" onchange="angular.element(this).scope().editProductImage(this)">
 												<div class="removeImage" ng-click="removeProductImage($event)" data-imgtype="productImg4"></div>
-												<input type="hidden" ng-model="objProduct.images.productImg4">
+												<input type="hidden" ng-model="objProduct.images[0]['img4']">
 											</div>
 										</div>   
 									</div> 
