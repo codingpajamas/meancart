@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('starterApp')
-	.config(function($routeProvider, $locationProvider, $httpProvider){
+	.config(function($routeProvider, $locationProvider, $httpProvider, $compileProvider){
 		$routeProvider
 			.when('/', {
 				templateUrl : 		'app/partials/home.html',
@@ -185,4 +185,5 @@ angular.module('starterApp')
 
 		$locationProvider.html5Mode(true);
 		$httpProvider.interceptors.push('AuthInterceptor');
+		//$compileProvider.debugInfoEnabled(false);
 	})
