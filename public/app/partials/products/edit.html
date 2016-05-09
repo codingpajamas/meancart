@@ -19,7 +19,28 @@
 									<p>
 										<label>Product Price</label>
 										<input type="number" class="form-control input-sm" ng-model="objProduct.price" required />
+									</p> 
+									<p>
+										<label>Related Products</label>
+										<select 
+											class="form-control input-sm" 
+											id="productRelated"
+											chosen 
+											multiple 
+											ng-model="productRelated" 
+											data-placeholder="Select a product" 
+											max-selected-options="3" 
+											search-contains="true"
+											ng-options="rel._id as rel.name for rel in relatedProducts"
+											ng-change="updateRelatedProducts(productRelated)">  
+										</select>
 									</p>
+								</div>
+							</div>
+
+							<div class="form-card">
+								<h2 class="form-card-title">Labels</h2>
+								<div class="form-card-body">
 									<p>
 										<label>Product Tags</label>
 										<tags-input ng-model="productTags" on-tag-added="updateTags(productTags)"></tags-input>
@@ -38,23 +59,31 @@
 											<option ng-repeat="subCat in subCategories" value="{{subCat}}">{{subCat}}</option>
 										</select>
 									</p>
-									<p>
-										<label>Related Products</label>
-										<select 
-											class="form-control input-sm" 
-											id="productRelated"
-											chosen 
-											multiple 
-											ng-model="productRelated" 
-											data-placeholder="Select a product" 
-											max-selected-options="3" 
-											search-contains="true"
-											ng-options="rel._id as rel.name for rel in relatedProducts"
-											ng-change="updateRelatedProducts(productRelated)">  
-										</select>
-									</p>
 								</div>
 							</div>
+
+							<div class="form-card">
+								<h2 class="form-card-title">Sale</h2>
+								<div class="form-card-body">
+									<div class="row">
+										<div class="col-sm-4 mb5">
+											<div class="form-group mb0">
+												<div class="input-group">
+													<input type="number" class="form-control input-sm" placeholder="0" name="saleoff" min="0" ng-model="productSaleOff">
+													<div class="input-group-addon">% off </div>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-4 mb5">
+											<input type="text" class="form-control input-sm" placeholder="Date Start" ng-model="productSaleStart">
+										</div>
+										<div class="col-sm-4 mb5">
+											<input type="text" class="form-control input-sm" placeholder="Date End" ng-model="productSaleEnd">
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<div class="form-card hide">
 								<h2 class="form-card-title">Edit Product Sale</h2>
 								<div class="form-card-body"> 
@@ -95,7 +124,7 @@
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg1" type="file" onchange="angular.element(this).scope().editProductImage(this)">
 												<div class="removeImage" ng-click="removeProductImage($event)" data-imgtype="productImg1"></div>
-												<input type="hidden" ng-model="objProduct.images[0]['img1']">
+												<input type="hidden" ng-model="objProduct.images.productImg1">
 											</div> 
 										</div> 
 										<div class="col-xs-3">
@@ -103,7 +132,7 @@
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg2" type="file" onchange="angular.element(this).scope().editProductImage(this)">
 												<div class="removeImage" ng-click="removeProductImage($event)" data-imgtype="productImg2"></div>
-												<input type="hidden" ng-model="objProduct.images[0]['img2']">
+												<input type="hidden" ng-model="objProduct.images.productImg2">
 											</div>
 										</div> 
 										<div class="col-xs-3">
@@ -111,7 +140,7 @@
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg3" type="file" onchange="angular.element(this).scope().editProductImage(this)">
 												<div class="removeImage" ng-click="removeProductImage($event)" data-imgtype="productImg3"></div>
-												<input type="hidden" ng-model="objProduct.images[0]['img3']">
+												<input type="hidden" ng-model="objProduct.images.productImg3">
 											</div>
 										</div> 
 										<div class="col-xs-3">
@@ -119,7 +148,7 @@
 												<img src="/assets/images/overlay.png">
 												<input data-imgtype="productImg4" type="file" onchange="angular.element(this).scope().editProductImage(this)">
 												<div class="removeImage" ng-click="removeProductImage($event)" data-imgtype="productImg4"></div>
-												<input type="hidden" ng-model="objProduct.images[0]['img4']">
+												<input type="hidden" ng-model="objProduct.images.productImg4">
 											</div>
 										</div>   
 									</div> 

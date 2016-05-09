@@ -179,6 +179,11 @@ router.post('/add', postImage, function(req, res){
 			main: req.body.maincat,
 			sub: req.body.subcat
 		},
+		sale: {
+			off: req.body.saleOff,
+			start: req.body.saleStart ? new Date(req.body.saleStart) : '',
+			end: req.body.saleEnd ? new Date(req.body.saleEnd) : ''
+		},
 		tags: req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : [],
 		related: req.body.related && JSON.parse(req.body.related) ? JSON.parse(req.body.related) : []
 	}, function(err, product){ 
@@ -241,7 +246,7 @@ router.put("/:id", postImage, function(req, res){
 
 	// let's add image1  
 	if(req.files && req.files['nProductImg1'] && req.files['nProductImg1'][0] && req.files['nProductImg1'][0]['size']){ 
-		strProductImg1 = req.files['nProductImg1'][0]['filename']; 		 
+		strProductImg1 = req.files['nProductImg1'][0]['filename'];
 	} 
 	if(!strProductImg1 && req.body.productImg1 != 'undefined'){   
 		strProductImg1 = req.body.productImg1;
@@ -273,7 +278,8 @@ router.put("/:id", postImage, function(req, res){
 
  
 	async.forEachOfSeries([strProductImg1, strProductImg2, strProductImg3, strProductImg4], function(value, i, callback){ 
-		if(value){
+		console.log(i, value)
+		if(value != 'null' || value != 'undefined' || value != undefined || value != null){
 			var imgPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/c/"+value;
 			var xsthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/xs/"+value;
 			var smthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/sm/"+value;
@@ -351,10 +357,7 @@ router.put("/:id", postImage, function(req, res){
 		}else{
 			console.log('DONE') 
 		}
-	})  
-
-	console.log(req.body.tags)
-	console.log(JSON.parse(req.body.tags))
+	})   
  
 	Product.findById(req.params.id, function(err, post){
 		if(err){ 

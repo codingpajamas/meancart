@@ -83,8 +83,7 @@ angular.module('starterApp')
 			return _.keys(Category);
 		}
 
-		CategoryFactory.sub = function(main){
-			console.log(main)
+		CategoryFactory.sub = function(main){ 
 			return Category[main];
 		}
 

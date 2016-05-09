@@ -19,6 +19,11 @@ var Product = new Schema({
 		main: String,
 		sub: String
 	},
+	sale: { 
+		off: String,
+		start: Date,
+		end: Date
+	},
 	tags: Array,
 	related: Array,
 	createdOn: {type: Date, default: Date.now()}

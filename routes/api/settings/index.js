@@ -42,7 +42,7 @@ router.post("/", function(req, res){
 					userObj.store.urlraw = prettyUrlRaw;
 					userObj.store.name = req.body.name;
 					userObj.store.description = req.body.description;
-					userObj.store.theme = req.body.theme;
+					userObj.store.theme = req.body.theme ? req.body.theme : 'default';
 					userObj.save(function(err){
 						if(err){
 							console.log('unable to update store name', err)

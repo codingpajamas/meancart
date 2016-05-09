@@ -19,7 +19,19 @@
 									<p>
 										<label>Product Price</label>
 										<input type="number" class="form-control input-sm" ng-model="productPrice" required />
+									</p> 
+									<p>
+										<label>Related Products</label>
+										<select class="form-control input-sm" chosen multiple ng-model="productRelated" data-placeholder="Select a product" max-selected-options="3" search-contains="true"> 
+											<option ng-repeat="relProd in relatedProducts" value="{{relProd._id}}">{{relProd.name}}</option>
+										</select>
 									</p>
+								</div>
+							</div>
+
+							<div class="form-card">
+								<h2 class="form-card-title">Labels</h2>
+								<div class="form-card-body">
 									<p>
 										<label>Product Tags</label> 
 										<tags-input ng-model="productTags"></tags-input>
@@ -38,14 +50,31 @@
 											<option ng-repeat="subCat in subCategories">{{subCat}}</option>
 										</select>
 									</p>
-									<p>
-										<label>Related Products</label>
-										<select class="form-control input-sm" chosen multiple ng-model="productRelated" data-placeholder="Select a product" max-selected-options="3" search-contains="true"> 
-											<option ng-repeat="relProd in relatedProducts" value="{{relProd._id}}">{{relProd.name}}</option>
-										</select>
-									</p>
 								</div>
 							</div>
+
+							<div class="form-card">
+								<h2 class="form-card-title">Sale</h2>
+								<div class="form-card-body">
+									<div class="row">
+										<div class="col-sm-4 mb5">
+											<div class="form-group mb0">
+												<div class="input-group">
+													<input type="number" class="form-control input-sm" placeholder="0" name="saleoff" min="0" ng-model="productSaleOff">
+													<div class="input-group-addon">% off </div>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-4 mb5">
+											<input type="text" class="form-control input-sm" placeholder="Date Start" ng-model="productSaleStart">
+										</div>
+										<div class="col-sm-4 mb5">
+											<input type="text" class="form-control input-sm" placeholder="Date End" ng-model="productSaleEnd">
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<div class="form-card hide">
 								<h2 class="form-card-title">Product Sale</h2>
 								<div class="form-card-body"> 

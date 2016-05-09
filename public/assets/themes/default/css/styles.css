@@ -103,6 +103,15 @@ body {
     font-weight: bold;
     font-size: 18px;
 }
+.product-price-wrap.product-price-orig {
+    text-decoration: line-through;
+    font-size: 12px;
+    margin-right: 5px;
+}
+.product-price-wrap.product-price-orig .product-price {
+    font-weight: normal;
+    font-size: 14px;
+}
 
 /* product box -small */
 .product-box.product-box-sm {

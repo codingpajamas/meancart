@@ -37,6 +37,11 @@ angular.module('starterApp')
 		$scope.nProductImg3 = "";
 		$scope.nProductImg4 = "";  
 
+		// test sale date
+		$scope.productSaleStart = '05/08/2016';
+		$scope.productSaleEnd = '05/18/2016';
+		$scope.productSaleOff = 0;
+
 		$scope.mainCategories = Category.main();
 		$scope.subCategories = []; 
 
@@ -91,13 +96,18 @@ angular.module('starterApp')
  				formData.append('images', file)
  			}) 
 
+ 			var arrRelated = $scope.productRelated ? $scope.productRelated : []; 
+
  			formData.append('name', $scope.productName)
  			formData.append('desc', $scope.productDescription) 
  			formData.append('price', $scope.productPrice) 
  			formData.append('maincat', $scope.productMainCat) 
  			formData.append('subcat', $scope.productSubCat) 
  			formData.append('tags', JSON.stringify(_.map($scope.productTags, 'text')))
- 			formData.append('related', JSON.stringify($scope.productRelated))
+ 			formData.append('related', JSON.stringify(arrRelated))
+ 			formData.append('saleOff', $scope.productSaleOff) 
+ 			formData.append('saleStart', $scope.productSaleStart) 
+ 			formData.append('saleEnd', $scope.productSaleEnd) 
 
  			angular.forEach($scope.nProductImg1, function(file){
  				formData.append('nProductImg1', file)
@@ -149,6 +159,11 @@ angular.module('starterApp')
 		$scope.relatedProducts = [];
 		$scope.productRelated = [];
 
+		// test sale date
+		// $scope.productSaleStart = '';
+		// $scope.productSaleEnd = '';
+		// $scope.productSaleOff = 0;
+
 		Product.view($routeParams.id)
 			.success(function(data){ 
 				if (true == data.success){ 
@@ -159,6 +174,10 @@ angular.module('starterApp')
 					$scope.productSubCat = $scope.objProduct ? $scope.objProduct.category.sub : '';
 					$scope.productRelated = $scope.objProduct ? $scope.objProduct.related : [];
 					$scope.productTags = $scope.objProduct.tags;
+
+					$scope.productSaleOff = parseInt($scope.objProduct.sale.off);
+					$scope.productSaleStart = $scope.objProduct.sale.start;
+					$scope.productSaleEnd = $scope.objProduct.sale.end;
 				}
 			});
 
@@ -222,7 +241,7 @@ angular.module('starterApp')
  
 
 		$scope.editPostSubmit = function(){ 
-			console.log(JSON.stringify($scope.productRelated))  
+			
 			var formData = new FormData(); 
  			formData.append('name', $scope.objProduct.name)
  			formData.append('desc', $scope.objProduct.desc)
@@ -234,7 +253,12 @@ angular.module('starterApp')
  			formData.append('productImg4', $scope.objProduct.images[0]['img4']) 
  			formData.append('maincat', $scope.productMainCat) 
  			formData.append('subcat', $scope.productSubCat) 
- 			formData.append('related', JSON.stringify($scope.productRelated))
+ 			formData.append('saleOff', $scope.productSaleOff) 
+ 			formData.append('saleStart', $scope.productSaleStart) 
+ 			formData.append('saleEnd', $scope.productSaleEnd) 
+
+ 			var arrRelated = $scope.productRelated ? $scope.productRelated : []; 
+			formData.append('related', JSON.stringify(arrRelated));
 
  			var objTags = _.map($scope.productTags, 'text');
  			if(!objTags[0]){

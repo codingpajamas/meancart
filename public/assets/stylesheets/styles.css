@@ -574,6 +574,10 @@ table {
 	margin-bottom: 20px;
 }
 
+.chosen-container {
+    width: 100% !important;
+}
+
 
 html {
   height: 100%;
