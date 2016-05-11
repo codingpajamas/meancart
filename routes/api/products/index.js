@@ -110,7 +110,7 @@ router.post('/add', postImage, function(req, res){
 								msg = err
 							}
 							cb(null, msg);
-						}); 
+						});
 	 			},
 	 			function(cb){
 	 				gm(imgPath)
@@ -243,6 +243,8 @@ router.put("/:id", postImage, function(req, res){
 	var strProductImg2 = null
 	var strProductImg3 = null
 	var strProductImg4 = null
+
+	var 
 
 	// let's add image1  
 	if(req.files && req.files['nProductImg1'] && req.files['nProductImg1'][0] && req.files['nProductImg1'][0]['size']){ 
