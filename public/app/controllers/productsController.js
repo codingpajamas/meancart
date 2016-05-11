@@ -178,14 +178,15 @@ angular.module('starterApp')
 					$scope.productSaleOff = parseInt($scope.objProduct.sale.off);
 					$scope.productSaleStart = $scope.objProduct.sale.start;
 					$scope.productSaleEnd = $scope.objProduct.sale.end;
-				}
-			});
 
-		Product.get().success(function(data){
-			if (true == data.success){ 
-				$scope.relatedProducts = data.message;  
-			}
-		})
+					Product.get().success(function(data){
+						if (true == data.success){ 
+							_.remove(data.message, {_id:$scope.objProduct._id})
+							$scope.relatedProducts = data.message;  
+						}
+					})
+				}
+			}); 
 
 		$scope.updateTags = function(prodTags){
 			$scope.productTags = prodTags;
