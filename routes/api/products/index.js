@@ -244,8 +244,6 @@ router.put("/:id", postImage, function(req, res){
 	var strProductImg3 = null
 	var strProductImg4 = null
 
-	var 
-
 	// let's add image1  
 	if(req.files && req.files['nProductImg1'] && req.files['nProductImg1'][0] && req.files['nProductImg1'][0]['size']){ 
 		strProductImg1 = req.files['nProductImg1'][0]['filename'];
