@@ -299,6 +299,20 @@ angular.module('starterApp')
 		$scope.removeProductImage = function(e){
 			angular.element(e.target).parent('div').css('background-image', 'url(/assets/images/add.png)').removeClass('hasImage');
 			$scope.objProduct.images[angular.element(e.target).attr('data-imgtype')] = "";
+			switch(angular.element(e.target).attr('data-imgtype')){
+				case "productImg1":
+					$scope.objProduct.images[0]['img1'] = null
+					break;
+				case "productImg2":
+					$scope.objProduct.images[0]['img2'] = null
+					break;
+				case "productImg3":
+					$scope.objProduct.images[0]['img3'] = null
+					break;
+				case "productImg4":
+					$scope.objProduct.images[0]['img4'] = null
+					break; 
+			}
 		}
 	})
 	.controller('productsDeleteController', function($scope, $location, Auth, Product, $routeParams){

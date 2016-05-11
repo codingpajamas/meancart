@@ -235,6 +235,8 @@ router.get("/:id", function(req, res){
 
 router.put("/:id", postImage, function(req, res){  
 
+	console.log(req.body)
+
 	// this needs refactoring!!!!
 	var productImages = []; 
 	var imgs = [];
@@ -244,42 +246,50 @@ router.put("/:id", postImage, function(req, res){
 	var strProductImg3 = null
 	var strProductImg4 = null
 
+	var strResizeImg1 = null
+	var strResizeImg2 = null
+	var strResizeImg3 = null
+	var strResizeImg4 = null
+
 	// let's add image1  
 	if(req.files && req.files['nProductImg1'] && req.files['nProductImg1'][0] && req.files['nProductImg1'][0]['size']){ 
 		strProductImg1 = req.files['nProductImg1'][0]['filename'];
+		strResizeImg1 = req.files['nProductImg1'][0]['filename'];
 	} 
-	if(!strProductImg1 && req.body.productImg1 != 'undefined'){   
+	if(!strProductImg1 && req.body.productImg1 != 'undefined' && req.body.productImg1 != 'null'){   
 		strProductImg1 = req.body.productImg1;
 	}
 
 	// let's add image2  
 	if(req.files && req.files['nProductImg2'] && req.files['nProductImg2'][0] && req.files['nProductImg2'][0]['size']){ 
-		strProductImg2 = req.files['nProductImg2'][0]['filename'];; 		
+		strProductImg2 = req.files['nProductImg2'][0]['filename'];
+		strResizeImg2 = req.files['nProductImg2'][0]['filename'];	
 	} 
-	if(!strProductImg2 && req.body.productImg2 != 'undefined'){ 
+	if(!strProductImg2 && req.body.productImg2 != 'undefined' && req.body.productImg2 != 'null'){ 
 		strProductImg2 = req.body.productImg2;
 	}
 
 	// let's add image3  
 	if(req.files && req.files['nProductImg3'] && req.files['nProductImg3'][0] && req.files['nProductImg3'][0]['size']){ 
-		strProductImg3 = req.files['nProductImg3'][0]['filename']; 		
+		strProductImg3 = req.files['nProductImg3'][0]['filename']; 
+		strResizeImg3 = req.files['nProductImg3'][0]['filename']; 		
 	} 
-	if(!strProductImg3 && req.body.productImg3 != 'undefined'){  
-		strProductImg3 = req.body.productImg;
+	if(!strProductImg3 && req.body.productImg3 != 'undefined' && req.body.productImg3 != 'null'){  
+		strProductImg3 = req.body.productImg3;
 	}
 
 	// let's add image4  
 	if(req.files && req.files['nProductImg4'] && req.files['nProductImg4'][0] && req.files['nProductImg4'][0]['size']){ 
-		strProductImg4 = req.files['nProductImg4'][0]['filename']; 		
+		strProductImg4 = req.files['nProductImg4'][0]['filename'];
+		strResizeImg4 = req.files['nProductImg4'][0]['filename'];
 	} 
-	if(!strProductImg4 && req.body.productImg4 != 'undefined'){  
-		strProductImg4 = req.body.productImg;
+	if(!strProductImg4 && req.body.productImg4 != 'undefined' && req.body.productImg4 != 'null'){  
+		strProductImg4 = req.body.productImg4;
 	}  
 
  
-	async.forEachOfSeries([strProductImg1, strProductImg2, strProductImg3, strProductImg4], function(value, i, callback){ 
-		console.log(i, value)
-		if(value != 'null' || value != 'undefined' || value != undefined || value != null){
+	async.forEachOfSeries([strResizeImg1, strResizeImg2, strResizeImg3, strResizeImg4], function(value, i, callback){
+		if(value){
 			var imgPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/c/"+value;
 			var xsthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/xs/"+value;
 			var smthumbPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/products/sm/"+value;
