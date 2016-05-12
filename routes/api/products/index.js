@@ -387,6 +387,12 @@ router.put("/:id", postImage, function(req, res){
 				sub: req.body.subcat 
 			}; 
 
+			post.sale = {
+				off: req.body.saleOff,
+				start: req.body.saleStart,
+				end: req.body.saleEnd 
+			}; 
+
 			post.tags = req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : [];
 			post.related = req.body.related && JSON.parse(req.body.related) ? JSON.parse(req.body.related) : [];
 

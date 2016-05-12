@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('starterApp', ['ngRoute', 'ngAnimate', 'ngCookies', 'ngTagsInput', 'localytics.directives'])
+angular.module('starterApp', ['ngRoute', 'ngAnimate', 'ngCookies', 'ngTagsInput', 'localytics.directives', 'textAngular'])
 	.run(function($rootScope, $location){
 		$rootScope.$on('$routeChangeSuccess', function (e, current, pre) {
 			var fullUrlPath = $location.path().replace(/^\/|\/$/g, '');

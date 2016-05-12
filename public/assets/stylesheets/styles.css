@@ -578,6 +578,17 @@ table {
     width: 100% !important;
 }
 
+/* text angular */
+.btn-toolbar.btn-toolbar-ta {
+	padding: 5px;
+    background: #ddd;
+    margin: 0;
+    border-radius: 4px 4px 0 0;
+}
+.ta-scroll-window {
+	border-radius: 0 0 4px 4px;
+}
+
 
 html {
   height: 100%;

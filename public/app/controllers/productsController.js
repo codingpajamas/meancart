@@ -138,7 +138,8 @@ angular.module('starterApp')
 			angular.element(e.target).parent('div').css('background-image', 'url(/assets/images/add.png)').removeClass('hasImage'); 
 		}
 	})
-	.controller('productsEditController', function($scope, $location, Auth, Product, $routeParams, Category){
+	.controller('productsEditController', function($scope, $location, Auth, Product, $routeParams, Category, $filter){
+
 		Auth.restrict();
 
 		$scope.objProduct = null;
@@ -157,12 +158,7 @@ angular.module('starterApp')
 		$scope.subCategories = []; 
 		$scope.productTags = [];
 		$scope.relatedProducts = [];
-		$scope.productRelated = [];
-
-		// test sale date
-		// $scope.productSaleStart = '';
-		// $scope.productSaleEnd = '';
-		// $scope.productSaleOff = 0;
+		$scope.productRelated = []; 
 
 		Product.view($routeParams.id)
 			.success(function(data){ 
@@ -175,9 +171,9 @@ angular.module('starterApp')
 					$scope.productRelated = $scope.objProduct ? $scope.objProduct.related : [];
 					$scope.productTags = $scope.objProduct.tags;
 
-					$scope.productSaleOff = parseInt($scope.objProduct.sale.off);
-					$scope.productSaleStart = $scope.objProduct.sale.start;
-					$scope.productSaleEnd = $scope.objProduct.sale.end;
+					$scope.objProduct.sale.off = parseInt($scope.objProduct.sale.off);
+					$scope.objProduct.sale.start = $scope.objProduct.sale.start ? $filter('date')($scope.objProduct.sale.start, 'MM/dd/yyyy') : '';
+					$scope.objProduct.sale.end = $scope.objProduct.sale.end ? $filter('date')($scope.objProduct.sale.end, 'MM/dd/yyyy') : '';
 
 					Product.get().success(function(data){
 						if (true == data.success){ 
@@ -254,9 +250,9 @@ angular.module('starterApp')
  			formData.append('productImg4', $scope.objProduct.images[0]['img4']) 
  			formData.append('maincat', $scope.productMainCat) 
  			formData.append('subcat', $scope.productSubCat) 
- 			formData.append('saleOff', $scope.productSaleOff) 
- 			formData.append('saleStart', $scope.productSaleStart) 
- 			formData.append('saleEnd', $scope.productSaleEnd) 
+ 			formData.append('saleOff', $scope.objProduct.sale.off) 
+ 			formData.append('saleStart', $scope.objProduct.sale.start) 
+ 			formData.append('saleEnd', $scope.objProduct.sale.end) 
 
  			var arrRelated = $scope.productRelated ? $scope.productRelated : []; 
 			formData.append('related', JSON.stringify(arrRelated));

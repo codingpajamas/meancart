@@ -7,7 +7,7 @@ var _ = require('lodash');
 var gm = require('gm').subClass({ imageMagick: true });
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) {  
 	res.render('index', { title: 'onMarket' });
 });
  

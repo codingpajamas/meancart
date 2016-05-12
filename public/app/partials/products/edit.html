@@ -10,12 +10,19 @@
 								<div class="form-card-body">
 									<p>
 										<label>Product Name</label>
-										<input type="text" class="form-control input-sm" ng-model="objProduct.name" required />
+										<input type="text" class="form-control input-sm" ng-model="objProduct.name" required /> 
 									</p>
-									<p>
+									<div class="mb10">
 										<label>Product Description</label>
-										<textarea ng-model="objProduct.desc" class="form-control" required ></textarea>
-									</p>
+										<!--textarea ng-model="objProduct.desc" class="form-control hide" required ></textarea-->
+										<div text-angular 
+											ng-model="objProduct.desc" 
+											ta-toolbar="[['h1','h2','p'],['bold','italics','ul'],['justifyLeft', 'justifyCenter', 'justifyRight'],['insertImage','insertLink', 'insertVideo']]"
+											ta-toolbar-class="btn-toolbar btn-toolbar-ta" 
+											ta-toolbar-group-class="btn-group btn-group-xs"
+											 ta-toolbar-active-button-class="active btn-primary"
+										></div>
+									</div>
 									<p>
 										<label>Product Price</label>
 										<input type="number" class="form-control input-sm" ng-model="objProduct.price" required />
@@ -69,16 +76,16 @@
 										<div class="col-sm-4 mb5">
 											<div class="form-group mb0">
 												<div class="input-group">
-													<input type="number" class="form-control input-sm" placeholder="0" name="saleoff" min="0" ng-model="productSaleOff">
+													<input type="number" class="form-control input-sm" placeholder="0" name="saleoff" min="0" ng-model="objProduct.sale.off">
 													<div class="input-group-addon">% off </div>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-4 mb5">
-											<input type="text" class="form-control input-sm" placeholder="Date Start" ng-model="productSaleStart">
+											<input type="text" class="form-control input-sm" placeholder="Date Start" ng-model="objProduct.sale.start">
 										</div>
 										<div class="col-sm-4 mb5">
-											<input type="text" class="form-control input-sm" placeholder="Date End" ng-model="productSaleEnd">
+											<input type="text" class="form-control input-sm" placeholder="Date End" ng-model="objProduct.sale.end">
 										</div>
 									</div>
 								</div>
