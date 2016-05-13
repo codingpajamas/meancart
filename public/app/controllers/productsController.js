@@ -244,10 +244,6 @@ angular.module('starterApp')
  			formData.append('desc', $scope.objProduct.desc)
  			formData.append('price', $scope.objProduct.price)
  			formData.append('image', $scope.objProduct.image) 
- 			formData.append('productImg1', $scope.objProduct.images[0]['img1']) 
- 			formData.append('productImg2', $scope.objProduct.images[0]['img2']) 
- 			formData.append('productImg3', $scope.objProduct.images[0]['img3'])
- 			formData.append('productImg4', $scope.objProduct.images[0]['img4']) 
  			formData.append('maincat', $scope.productMainCat) 
  			formData.append('subcat', $scope.productSubCat) 
  			formData.append('saleOff', $scope.objProduct.sale.off) 
@@ -265,6 +261,19 @@ angular.module('starterApp')
  			}
 
  			formData.append('tags', objTags)
+
+ 			if($scope.objProduct.images[0]['img1']){
+ 				formData.append('productImg1', $scope.objProduct.images[0]['img1']) 
+ 			}
+ 			if($scope.objProduct.images[0]['img2']){
+ 				formData.append('productImg2', $scope.objProduct.images[0]['img2']) 
+ 			}
+ 			if($scope.objProduct.images[0]['img3']){
+ 				formData.append('productImg3', $scope.objProduct.images[0]['img3'])
+ 			}
+ 			if($scope.objProduct.images[0]['img4']){
+ 				formData.append('productImg4', $scope.objProduct.images[0]['img4']) 
+ 			}
 
  			angular.forEach($scope.nProductImg1, function(file){
  				formData.append('nProductImg1', file)

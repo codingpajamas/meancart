@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('starterApp')
-	.controller('loginController', function($scope, $location, Auth){
+	.controller('loginController', function($scope, $location, Auth, $rootScope, $cookies, $cacheFactory){
 		$scope.isLoggedIn = Auth.isLoggedIn(); 
 		$scope.loginError = '';
 
@@ -10,7 +10,16 @@ angular.module('starterApp')
 			$location.path('/');
 		}
 
-		$scope.submitLogin = function(){ 
+		$scope.submitLogin = function(){
+			$rootScope.rs_isManage = false;
+			$cookies.remove('omp_isManage');
+
+			var httpCache = $cacheFactory.get('$http');  
+			httpCache.remove('/api/user/me');   
+
+			Auth.logout();
+			$scope.user = {};
+
 			Auth.login($scope.login.username, $scope.login.password)
 				.success(function(data){  
 					if(data.status == 'success'){ 
