@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mkdirp = require('mkdirp');
 var User = require('../../models/User');
+var Product = require('../../models/Product');
 
 router.get("/url/:storeUrl", function(req, res){ 
 	User.findOne(
@@ -20,5 +21,16 @@ router.get("/url/:storeUrl", function(req, res){
 	);
 })
  
+
+router.get("/:storeId/products", function(req, res){ 
+	Product.find({'store.id':req.params.storeId},{},{sort: '-createdOn'}, function(err, products){
+		if(err){
+			response = {"success":false, "message":err};
+		}else{
+			response = {"success":true, "message":products};
+		} 
+		res.json(response); 
+	})
+})
 
 module.exports = router;

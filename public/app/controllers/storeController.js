@@ -12,6 +12,7 @@ angular.module('starterApp')
 	}) 
 	.controller('storeUrlController', function($scope, Auth, $location, Store){ 
 		$scope.objStore = null;
+		$scope.objStoreProducts = []
 		$scope.storeImg = '/uploads/none.jpg'
 
 		var fullUrlPath = $location.path().replace(/^\/|\/$/g, '');
@@ -24,6 +25,11 @@ angular.module('starterApp')
  					if(data.message){
  						$scope.objStore = data.message ? data.message : null; 
  						$scope.storeImg = $scope.objStore.store.avatar ? '/uploads/'+$scope.objStore._id+'/'+$scope.objStore.store.avatar : '/uploads/none.jpg';
+ 					
+ 						Store.getStoreProducts($scope.objStore._id)
+ 							.success(function(data){
+ 								$scope.objStoreProducts = data.success ? data.message : [];
+ 							})
  					} 
  				})
  		}

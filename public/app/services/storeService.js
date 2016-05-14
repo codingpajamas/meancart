@@ -5,8 +5,13 @@ angular.module('starterApp')
 		var StoreFactory = {};
 
 		StoreFactory.getStoreByUrl = function(url){
-			console.log(url)
 			return $http.get('/api/stores/url/'+url).success(function(data){
+				return data;
+			})
+		} 
+
+		StoreFactory.getStoreProducts = function(id){
+			return $http.get('/api/stores/'+id+'/products').success(function(data){
 				return data;
 			})
 		} 
