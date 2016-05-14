@@ -21,9 +21,10 @@ angular.module('starterApp')
  		if(isStoreUrl){  
  			Store.getStoreByUrl(pageUrlPath.substring(1))
  				.success(function(data){
- 					$scope.objStore = data.message ? data.message : null; 
- 					$scope.storeImg = $scope.objStore.store.avatar ? '/uploads/'+$scope.objStore._id+'/'+$scope.objStore.store.avatar : '/uploads/none.jpg';
- 					console.log($scope.objStore)
+ 					if(data.message){
+ 						$scope.objStore = data.message ? data.message : null; 
+ 						$scope.storeImg = $scope.objStore.store.avatar ? '/uploads/'+$scope.objStore._id+'/'+$scope.objStore.store.avatar : '/uploads/none.jpg';
+ 					} 
  				})
  		}
 	})  
