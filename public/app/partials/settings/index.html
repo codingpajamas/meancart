@@ -7,14 +7,19 @@
 						<form name="settingsForm" ng-submit="submitSettings()">
 							<div class="form-card">
 								<h2 class="form-card-title">Store Details</h2>
-								<div class="form-card-body">
+								<div class="form-card-body"> 
+									<div class="avatarImage shadow" ng-class="{'hasImage' : settings.avatar}" style="background-image: url({{settings.avatar ? '/uploads/'+rs_me._id+'/'+settings.avatar : '/assets/images/add.png'}})">
+										<img src="/assets/images/overlay.png">
+										<input type="file" onchange="angular.element(this).scope().editAvatarImage(this)">
+										<div class="removeImage" ng-click="removeAvatarImage($event)"></div> 
+									</div>   
 									<p>
 										<label>Store Name</label>
 										<input type="text" class="form-control input-sm" ng-model="settings.name" required/>
 									</p>
 									<p>
 										<label>Store Description</label>
-										<textarea class="form-control input-sm" ng-model="settings.description" required></textarea>
+										<textarea rows="5" class="form-control input-sm" ng-model="settings.description" required></textarea>
 									</p> 
 									<p>
 										<label>Store Tags</label>

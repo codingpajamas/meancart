@@ -14,6 +14,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var apiAuth = require('./routes/api/auth');
 var apiUser = require('./routes/api/user');
+var apiStores = require('./routes/api/stores');
 var apiProducts = require('./routes/api/products');
 var apiSettings = require('./routes/api/settings');
 var mdWares = require('./routes/middlewares');
@@ -52,6 +53,7 @@ app.use('/api/auth', apiAuth);
 app.use('/api/user', mdWares.validateToken, apiUser); 
 app.use('/api/products', mdWares.validateToken, apiProducts);  
 app.use('/api/settings', mdWares.validateToken, apiSettings);  
+app.use('/api/stores', mdWares.validateToken, apiStores);  
 app.use('/', routes);
 
 

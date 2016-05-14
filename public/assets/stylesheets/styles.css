@@ -351,6 +351,45 @@ table {
 	display: block;
 }
 
+/*avatarimage setting form */
+.avatarImage {
+	position: relative;
+	overflow: hidden;
+	background: url(../images/add.png) 50% 50% no-repeat; 
+	cursor: pointer;
+	overflow: hidden;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	width: 100px;
+	height: 100px;
+	margin: 30px auto;
+} 
+.avatarImage input {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	z-index: 10;
+	opacity: 0;
+	cursor: pointer;
+}
+.removeImage {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	display: none;
+	z-index: 20;
+	background: url(/assets/images/remove.png) 50% no-repeat;
+	width: 100%;
+	height: 100%;
+}
+.avatarImage.hasImage:hover .removeImage {
+	display: block;
+}
+
+
 
 /* customer list */
 .customer-card-list {

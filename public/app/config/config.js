@@ -181,6 +181,12 @@ angular.module('starterApp')
 				controller : 		'profileController',
 				controllerAs : 		'profile'
 			}) 
+
+			.when('/:storeurl', {
+				templateUrl : 		'app/partials/stores/view.html',
+				controller : 		'storeUrlController',
+				controllerAs : 		'stores'
+			}) 
  
 
 		$locationProvider.html5Mode(true);

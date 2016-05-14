@@ -21,7 +21,8 @@ var User = new Schema({
 		urlraw: String,
 		name: String,
 		description: String,
-		theme: String
+		theme: String,
+		avatar: String
 	},
 	registrationToken: String,
 	resetPasswordToken: String,

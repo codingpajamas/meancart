@@ -2,6 +2,23 @@ var express = require('express');
 var router = express.Router();
 var mkdirp = require('mkdirp');
 var User = require('../../../models/User');  
+var multer = require('multer');
+var _ = require('lodash');
+var secretmonster = 'meanstartedhahahaha';
+var gm = require('gm').subClass({ imageMagick: true });
+
+
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'public/uploads/'+req.decoded.user._id+'/')
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname)
+	}
+});
+var upload = multer({ storage: storage });
+var postAvatarImage = upload.fields([{name:'nAvatarImg', maxCount:1}])
+
 
 
 router.get("/", function(req, res){
@@ -16,13 +33,14 @@ router.get("/", function(req, res){
 	});
 })
 
-router.post("/", function(req, res){   
+router.post("/", postAvatarImage, function(req, res){  
+	console.log(req.files)  
 	User.findById(req.decoded.user._id, function(err, userObj){
 		if(err){ 
 			res.json({"success":false, "message":err}); 
 		}else{ 
  			
- 			if(userObj.store){
+ 			if(!userObj.store){
 				var prettyUrlRaw = req.body.name.trim()
 					.replace(/ñ/g, 'n')
 					.replace(/'/g, '')
@@ -36,13 +54,34 @@ router.post("/", function(req, res){
 					
 					if(users.length > 0){
 						strPrettyUrl = prettyUrlRaw + "." + users.length;
-					}
-	 
+					} 
+
 					userObj.store.url = strPrettyUrl;
 					userObj.store.urlraw = prettyUrlRaw;
 					userObj.store.name = req.body.name;
 					userObj.store.description = req.body.description;
 					userObj.store.theme = req.body.theme ? req.body.theme : 'default';
+					userObj.store.avatar = 'none.jpg';
+   
+	 				if(req.files && req.files['nAvatarImg'] && req.files['nAvatarImg'][0] && req.files['nAvatarImg'][0]['size']){ 
+						userObj.store.avatar = req.files['nAvatarImg'][0]['filename']; 
+
+						var imgPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/"+userObj.store.avatar;
+						gm(imgPath)
+						.noProfile()
+						.gravity('center')
+						.resize('200', '200', "^>")
+						.quality(70)
+						.crop('50', '50')
+						.write(imgPath, function (err) {
+							var msg = userObj.store.avatar + ' : done';
+							if (err){
+								msg = err
+							}
+							console.log(msg)
+						});
+					}
+
 					userObj.save(function(err){
 						if(err){
 							console.log('unable to update store name', err)
@@ -59,6 +98,27 @@ router.post("/", function(req, res){
 				userObj.store.name = req.body.name;
 				userObj.store.description = req.body.description;
 				userObj.store.theme = req.body.theme;
+				userObj.store.avatar = req.body.avatar;
+   
+ 				if(req.files && req.files['nAvatarImg'] && req.files['nAvatarImg'][0] && req.files['nAvatarImg'][0]['size']){
+					userObj.store.avatar = req.files['nAvatarImg'][0]['filename']; 
+
+					var imgPath = __dirname + "/../../../public/uploads/"+req.decoded.user._id+"/"+userObj.store.avatar;
+					gm(imgPath)
+					.noProfile()
+					.gravity('center')
+					.resize('200', '200', "^>")
+					.quality(70)
+					.crop('200', '200')
+					.write(imgPath, function (err) {
+						var msg = userObj.store.avatar + ' : done';
+						if (err){
+							msg = err
+						} 
+						console.log(msg)
+					});
+				}
+
 				userObj.save(function(err){
 					if(err){
 						console.log('unable to update store name', err)

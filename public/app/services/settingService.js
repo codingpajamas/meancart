@@ -11,7 +11,10 @@ angular.module('starterApp')
 		}
 
 		SettingFactory.setStore = function(inputs){
-			return $http.post('/api/settings', inputs).success(function(data){
+			return $http.post('/api/settings', inputs, {
+				transformRequest:angular.identity,
+				headers:{'Content-Type':undefined}
+			}).success(function(data){
 				return data;
 			})
 		}

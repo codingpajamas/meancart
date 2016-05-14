@@ -3,11 +3,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="profileBox">
-					<img src="/assets/images/avatar.jpg" alt="" class="profileBox-avatar">
+					<img ng-src="{{storeImg}}" alt="" class="profileBox-avatar">
 					<div class="profileBox-details">
-						<h3>CoolStore</h3>
-						<h5>@coolstore</h5>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid beatae aliquam, iusto nisi sequi labore architecto repudiandae officiis, suscipit corporis laboriosam voluptatibus minima quos. Ad aperiam quidem, fugiat. Aliquam, optio?</p>
+						<h3>{{objStore.store.name}}</h3>
+						<h5>@{{objStore.store.url}}</h5>
+						<p>{{objStore.store.description}}</p>
 						<ul class="profileBox-meta">
 							<li>Products : 57</li>
 							<li>Reviews : 57</li>

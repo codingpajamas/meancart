@@ -85,6 +85,10 @@ router.get('/s/*', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
 });  
 
+router.get('/@*', function(req, res, next) {
+	res.render('index', { title: 'onMarket' });
+});  
+
 /* GET login page. */
 router.get('/login', function(req, res, next) {
 	res.render('index', { title: 'onMarket' });
@@ -127,8 +131,8 @@ router.get('/:storeurl', function(req, res, next) {
 				callback(null, null, null);
 			}
 		}
-	], function(err, user, products){ 
-		if(err){
+	], function(err, user, products){  
+		if(err || !user){
 			// display to error page
 			res.render('index', { title: 'onMarket' }); 
 		}else{  
