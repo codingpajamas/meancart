@@ -46,5 +46,11 @@ angular.module('starterApp')
 			})
 		}
 
+		ProductFactory.homeProducts = function(){
+			return $http.get('/api/products/home').success(function(data){
+				return data;
+			})
+		}
+
 		return ProductFactory;
 	}) 

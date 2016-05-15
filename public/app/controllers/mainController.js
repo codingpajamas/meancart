@@ -8,6 +8,8 @@ angular.module('starterApp')
 		$rootScope.rs_hasStore = false;
 		$rootScope.rs_hasProfile = false;
 
+		$scope.homeProducts = []
+
 		$rootScope.$on('$routeChangeStart', function(){
 			$scope.isLoggedIn = Auth.isLoggedIn(); 
 

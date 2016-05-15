@@ -28,74 +28,14 @@
 	<div class="page-wrap" ng-if="isLoggedIn && rs_me && !rs_isManage">
 		<div class="page-body">
 			<div class="row"> 
-				<div class="col-md-3 col-sm-4">
+				<div class="col-md-3 col-sm-4" ng-repeat="objProduct in homeProducts">
 					<div class="product-card product-card-cool product-card-cool-sm"> 
-						<a href="/p/B1AUiUhl">
-							<span class="product-name">This is a very cool productThis is a very cool product</span>
-							<img src="/temp/carthtml/images/bags/4.jpg">
+						<a href="/p/{{objProduct.prodid}}">
+							<span class="product-name">{{objProduct.name}}</span>
+							<img ng-src="/uploads/{{objProduct.store.id}}/products/sm/{{objProduct.images[0].img1 || objProduct.images[0].img2 || objProduct.images[0].img3 || objProduct.images[0].img4 || 'none.jpg'}}">
 						</a>
 						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>120</span></div>
-							<a class="product-view">
-								<i class="glyphicon glyphicon-share-alt"></i> View
-							</a>
-							<a class="product-like">
-								<i class="glyphicon glyphicon-heart"></i> 100
-							</a>
-							<a class="product-wishlist">
-								<i class="glyphicon glyphicon-gift"></i> Wishlist
-							</a>
-						</div> 
-					</div>
-				</div> 
-				<div class="col-md-3 col-sm-4">
-					<div class="product-card product-card-cool product-card-cool-sm"> 
-						<a href="/p/B1AUiUhl">
-							<span class="product-name">This is a very cool productThis is a very cool product</span>
-							<img src="/temp/carthtml/images/bags/5.jpg">
-						</a>
-						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>120</span></div>
-							<a class="product-view">
-								<i class="glyphicon glyphicon-share-alt"></i> View
-							</a>
-							<a class="product-like">
-								<i class="glyphicon glyphicon-heart"></i> 100
-							</a>
-							<a class="product-wishlist">
-								<i class="glyphicon glyphicon-gift"></i> Wishlist
-							</a>
-						</div> 
-					</div>
-				</div> 
-				<div class="col-md-3 col-sm-4">
-					<div class="product-card product-card-cool product-card-cool-sm"> 
-						<a href="/p/B1AUiUhl">
-							<span class="product-name">This is a very cool productThis is a very cool product</span>
-							<img src="/temp/carthtml/images/bags/6.jpg">
-						</a>
-						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>120</span></div>
-							<a class="product-view">
-								<i class="glyphicon glyphicon-share-alt"></i> View
-							</a>
-							<a class="product-like">
-								<i class="glyphicon glyphicon-heart"></i> 100
-							</a>
-							<a class="product-wishlist">
-								<i class="glyphicon glyphicon-gift"></i> Wishlist
-							</a>
-						</div> 
-					</div>
-				</div> 
-				<div class="col-md-3 col-sm-4">
-					<div class="product-card product-card-cool product-card-cool-sm"> 
-						<a href="/p/B1AUiUhl">
-							<span class="product-name">This is a very cool productThis is a very cool product</span>
-							<img src="/temp/carthtml/images/bags/7.jpg">
-						</a>
-						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>120</span></div>
+							<div class="product-price">PHP <span>{{objProduct.price}}</span></div>
 							<a class="product-view">
 								<i class="glyphicon glyphicon-share-alt"></i> View
 							</a>
@@ -108,88 +48,8 @@
 						</div> 
 					</div>
 				</div>  
-				<div class="col-md-3 col-sm-4">
-					<div class="product-card product-card-cool product-card-cool-sm"> 
-						<a href="/p/B1AUiUhl">
-							<span class="product-name">This is a very cool productThis is a very cool product</span>
-							<img src="/temp/carthtml/images/bags/5.jpg">
-						</a>
-						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>120</span></div>
-							<a class="product-view">
-								<i class="glyphicon glyphicon-share-alt"></i> View
-							</a>
-							<a class="product-like">
-								<i class="glyphicon glyphicon-heart"></i> 100
-							</a>
-							<a class="product-wishlist">
-								<i class="glyphicon glyphicon-gift"></i> Wishlist
-							</a>
-						</div> 
-					</div>
-				</div> 
-				<div class="col-md-3 col-sm-4">
-					<div class="product-card product-card-cool product-card-cool-sm"> 
-						<a href="/p/B1AUiUhl">
-							<span class="product-name">This is a very cool productThis is a very cool product</span>
-							<img src="/temp/carthtml/images/bags/6.jpg">
-						</a>
-						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>120</span></div>
-							<a class="product-view">
-								<i class="glyphicon glyphicon-share-alt"></i> View
-							</a>
-							<a class="product-like">
-								<i class="glyphicon glyphicon-heart"></i> 100
-							</a>
-							<a class="product-wishlist">
-								<i class="glyphicon glyphicon-gift"></i> Wishlist
-							</a>
-						</div> 
-					</div>
-				</div> 
-				<div class="col-md-3 col-sm-4">
-					<div class="product-card product-card-cool product-card-cool-sm"> 
-						<a href="/p/B1AUiUhl">
-							<span class="product-name">This is a very cool productThis is a very cool product</span>
-							<img src="/temp/carthtml/images/bags/7.jpg">
-						</a>
-						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>120</span></div>
-							<a class="product-view">
-								<i class="glyphicon glyphicon-share-alt"></i> View
-							</a>
-							<a class="product-like">
-								<i class="glyphicon glyphicon-heart"></i> 100
-							</a>
-							<a class="product-wishlist">
-								<i class="glyphicon glyphicon-gift"></i> Wishlist
-							</a>
-						</div> 
-					</div>
-				</div> 
-				<div class="col-md-3 col-sm-4">
-					<div class="product-card product-card-cool product-card-cool-sm"> 
-						<a href="/p/B1AUiUhl">
-							<span class="product-name">This is a very cool productThis is a very cool product</span>
-							<img src="/temp/carthtml/images/bags/8.jpg">
-						</a>
-						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>120</span></div>
-							<a class="product-view">
-								<i class="glyphicon glyphicon-share-alt"></i> View
-							</a>
-							<a class="product-like">
-								<i class="glyphicon glyphicon-heart"></i> 100
-							</a>
-							<a class="product-wishlist">
-								<i class="glyphicon glyphicon-gift"></i> Wishlist
-							</a>
-						</div> 
-					</div>
-				</div> 
 			</div>
-			<div class="row"> 
+			<div class="row hide"> 
 				<div class="col-md-4 col-sm-6">
 					<div class="product-card product-card-cool"> 
 						<a href="/p/B1AUiUhl">
@@ -312,7 +172,7 @@
 				</div>   
 			</div>
 
-			<div class="row"> 
+			<div class="row hide"> 
 				<div class="col-md-4">
 					<div class="product-card">
 						<a href="/p/B1AUiUhl">
@@ -347,7 +207,7 @@
 					</div>
 				</div> 
 			</div>
-			<div class="row"> 
+			<div class="row hide"> 
 				<div class="col-md-4">
 					<div class="product-card">
 						<a href="/p/B1AUiUhl">
@@ -384,7 +244,7 @@
 			</div>
 
 			<!-- 4 column -->
-			<div class="row">  
+			<div class="row hide">  
 				<div class="col-md-3">
 					<div class="product-card product-card-sm">
 						<a href="/p/B1AUiUhl">
@@ -430,7 +290,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">  
+			<div class="row hide">  
 				<div class="col-md-3">
 					<div class="product-card product-card-sm">
 						<a href="/p/B1AUiUhl">

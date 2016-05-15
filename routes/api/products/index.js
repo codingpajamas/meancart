@@ -408,4 +408,16 @@ router.delete("/:id", function(req, res){
 	});
 })
 
+
+router.get("/home", function(req, res){
+	Product.find({},{},{sort: '-createdOn'}, function(err, posts){
+		if(err){
+			response = {"success":false, "message":err};
+		}else{
+			response = {"success":true, "message":posts};
+		} 
+		res.json(response); 
+	})
+})
+
 module.exports = router;
