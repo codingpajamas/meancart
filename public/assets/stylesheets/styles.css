@@ -561,8 +561,9 @@ table {
 .productview-body {
 	padding: 20px;
 }
-.productview-img {
-
+.productview-img img {
+	width: 100%;
+	max-width: 100%;
 } 
 .productview-desc {
 
@@ -622,6 +623,7 @@ table {
 	position: relative;
 	font-size: 12px;
 	line-height: 14px;
+	min-height: 70px;
 }
 .productview-related-item img {
 	width: 50px;
@@ -688,7 +690,7 @@ table {
     background: #fff;
     box-shadow: 0 1px 1px rgba(0,0,0,0.2);
     padding: 20px 20px 20px 190px;
-    min-height: 150px;
+    min-height: 190px;
 }
 .profileBox-avatar {
     width: 150px;

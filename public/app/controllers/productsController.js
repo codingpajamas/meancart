@@ -10,13 +10,26 @@ angular.module('starterApp')
 			});
 
 	})
-	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product){ 
+	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product, Store){ 
 
 		$scope.objProduct = null; 
-		Product.view($routeParams.id)
+		$scope.objStore = null;
+		$scope.objRelatedProducts = null;
+
+		Product.viewByProdid($routeParams.id)
 			.success(function(data){ 
 				if (true == data.success){ 
-					$scope.objProduct = data.message; 
+					$scope.objProduct = data.success && data.message ? data.message : null; 
+					
+					Store.getStoreByProductId($scope.objProduct.store.id)
+						.success(function(data){
+							$scope.objStore = data.success && data.message ? data.message.store : null;
+						});
+
+					Product.getRelatedProducts($scope.objProduct._id)
+						.success(function(data){
+							$scope.objRelatedProducts = data.success && data.message && data.message.length ? data.message : null;
+						})
 				}
 			})
 	})

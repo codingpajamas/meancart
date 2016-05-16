@@ -230,6 +230,38 @@ router.get("/:id", function(req, res){
 	})
 })
 
+router.get("/:id/related", function(req, res){  
+	Product.findById(req.params.id, function(err, product){
+		if(err && !product){
+			response = {"success":false, "message":err};
+		}else{ 
+			Product.find()
+				.where('_id')
+				.in(product.related)
+				.exec(function(err, related){
+					if(err && !product){
+						response = {"success":false, "message":err};
+					}else{
+						response = {"success":true, "message":related};
+					}
+
+					res.json(response); 
+				});
+		}  
+	})
+})
+
+router.get("/:id/prodid", function(req, res){  
+	Product.findOne({"prodid":req.params.id},{},{}, function(err, product){
+		if(err){
+			response = {"success":false, "message":err};
+		}else{
+			response = {"success":true, "message":product};
+		} 
+		res.json(response); 
+	})
+})
+
 
 router.put("/:id", postImage, function(req, res){  
   

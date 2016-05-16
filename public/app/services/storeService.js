@@ -10,6 +10,12 @@ angular.module('starterApp')
 			})
 		} 
 
+		StoreFactory.getStoreByProductId = function(url){
+			return $http.get('/api/stores/getbyproductid/'+url).success(function(data){
+				return data;
+			})
+		} 
+
 		StoreFactory.getStoreProducts = function(id){
 			return $http.get('/api/stores/'+id+'/products').success(function(data){
 				return data;

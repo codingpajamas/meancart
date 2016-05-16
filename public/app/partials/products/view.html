@@ -4,19 +4,13 @@
 			<div class="col-sm-7 col-md-8">
 				<div class="productview">
 					<div class="productview-head"> 
-						<h2>This is a product</h2> 
+						<h2>{{objProduct.name}}</h2> 
 					</div>
 					<div class="productview-body">  
 						<div class="productview-img mb20">
-							<img src="/temp/carthtml/images/1.jpg"> 
+							<img ng-src="/uploads/{{objProduct.store.id}}/products/md/{{objProduct.images[0].img1 || objProduct.images[0].img2 || objProduct.images[0].img3 || objProduct.images[0].img4 || 'none.jpg'}}"> 
 						</div> 
-						<div class="productview-desc">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed architecto modi consectetur, vitae dignissimos non qui deserunt beatae ut dolor nemo id aliquid itaque, nihil commodi ipsum? Inventore, perferendis, voluptas.</p>
-						</div> 
+						<div class="productview-desc" ng-bind-html="objProduct.desc != 'undefined' ? objProduct.desc : '' | sanitize"></div> 
 					</div>
 				</div>
 			</div>
@@ -24,61 +18,31 @@
 				<div class="productview-addtocart"> 
 					<div class="input-group input-group-sm mb5">
 						<input type="number" min="1" value="1" class="form-control text-center">
-						<span class="input-group-addon">x Php <strong>120</strong></span>
+						<span class="input-group-addon">x Php <strong>{{objProduct.price}}</strong></span>
 					</div>
 					<input type="submit" value="Add to Cart" class="btn btn-primary btn-block">
 				</div>
 				<div class="productview-storeinfo"> 
-					<a href="#">
-						<img src="/assets/images/avatar.jpg"> 
-						<strong>CoolStore101</strong>
-						<span>This is the store tagline with long tagline ofcourse</span>
+					<a href="/@{{objStore.url}}">
+						<img ng-src="{{objStore.avatar ? '/uploads/' + objProduct.store.id + '/' + objStore.avatar : '/uploads/none.jpg'}}"> 
+						<strong>{{objStore.name}}</strong>
+						<span>{{objStore.description}}</span>
 					</a>
 				</div>
 				<div class="productview-related mb20"> 
 					<h5 class="m0 pad20">Related Products</h5>
-					<div class="productview-related-item">
-						<a href="/p/B1AUiUhl">
-							<img src="/temp/carthtml/images/bags/4.jpg">
-							<span class="productview-related-name">This is a very cool productThis is a very cool product</span>
+					<div class="productview-related-item" ng-if="objRelatedProducts" ng-repeat="objRelated in objRelatedProducts">
+						<a href="/p/{{objRelated.prodid}}">
+							<img ng-src="/uploads/{{objProduct.store.id}}/products/sm/{{objRelated.images[0].img1 || objRelated.images[0].img2 || objRelated.images[0].img3 || objRelated.images[0].img4 || 'none.jpg'}}">
+							<span class="productview-related-name">{{objRelated.name}}</span>
 							<span class="productview-related-meta clearfix show">
 								0 Reviews
-								<span class="pull-right">Php 1,000.00</span>
+								<span class="pull-right">Php {{objRelated.price}}</span>
 							</span>
 						</a>
-					</div>
-					<div class="productview-related-item">
-						<a href="/p/B1AUiUhl">
-							<img src="/temp/carthtml/images/bags/4.jpg">
-							<span class="productview-related-name">This is a very cool productThis is a very cool product</span>
-							<span class="productview-related-meta clearfix show">
-								0 Reviews
-								<span class="pull-right">Php 1,000.00</span>
-							</span>
-						</a>
-					</div>
-					<div class="productview-related-item">
-						<a href="/p/B1AUiUhl">
-							<img src="/temp/carthtml/images/bags/4.jpg">
-							<span class="productview-related-name">This is a very cool productThis is a very cool product</span>
-							<span class="productview-related-meta clearfix show">
-								0 Reviews
-								<span class="pull-right">Php 1,000.00</span>
-							</span>
-						</a>
-					</div>
-					<div class="productview-related-item">
-						<a href="/p/B1AUiUhl">
-							<img src="/temp/carthtml/images/bags/4.jpg">
-							<span class="productview-related-name">This is a very cool productThis is a very cool product</span>
-							<span class="productview-related-meta clearfix show">
-								0 Reviews
-								<span class="pull-right">Php 1,000.00</span>
-							</span>
-						</a>
-					</div>
-					<div class="productview-related-item text-center">
-						<a href="#" class="pad10"><strong>Read All</strong></a>
+					</div> 
+					<div class="productview-reviews-item" ng-if="!objRelatedProducts">
+						No related products found.
 					</div>
 				</div>
 				<div class="productview-reviews mb20"> 

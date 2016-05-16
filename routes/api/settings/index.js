@@ -26,6 +26,7 @@ router.get("/", function(req, res){
 		if(err){ 
 			res.json({"success":false, "message":err}); 
 		}else{ 
+			console.log(user.store.length)
 			response = {"success":true, "message":user.store}; 
 		}  
 
@@ -40,7 +41,7 @@ router.post("/", postAvatarImage, function(req, res){
 			res.json({"success":false, "message":err}); 
 		}else{ 
  			
- 			if(!userObj.store){
+ 			if(!userObj.store || !userObj.store.length){
 				var prettyUrlRaw = req.body.name.trim()
 					.replace(/ñ/g, 'n')
 					.replace(/'/g, '')
@@ -72,7 +73,7 @@ router.post("/", postAvatarImage, function(req, res){
 						.gravity('center')
 						.resize('200', '200', "^>")
 						.quality(70)
-						.crop('50', '50')
+						.crop('200', '200')
 						.write(imgPath, function (err) {
 							var msg = userObj.store.avatar + ' : done';
 							if (err){

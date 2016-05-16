@@ -8,6 +8,11 @@ angular.module('starterApp', ['ngRoute', 'ngAnimate', 'ngCookies', 'ngTagsInput'
 			$rootScope.rs_pagePath = pageUrlPath ? pageUrlPath : ''; 
 		});
 	})
+	.filter("sanitize", ['$sce', function($sce) {
+		return function(htmlCode){
+			return $sce.trustAsHtml(htmlCode);
+		}
+	}])
 	
 	
 	

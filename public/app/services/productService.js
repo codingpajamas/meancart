@@ -31,6 +31,18 @@ angular.module('starterApp')
 			})
 		}
 
+		ProductFactory.getRelatedProducts = function(_id){
+			return $http.get('/api/products/'+_id+'/related').success(function(data){
+				return data;
+			})
+		}
+
+		ProductFactory.viewByProdid = function(_id){
+			return $http.get('/api/products/'+_id+'/prodid').success(function(data){
+				return data;
+			})
+		}
+
 		ProductFactory.put = function(_id, fd){ 
 			return $http.put('/api/products/'+_id, fd, {
 				transformRequest:angular.identity,

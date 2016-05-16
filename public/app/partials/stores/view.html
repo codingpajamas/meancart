@@ -22,7 +22,7 @@
 					<div class="product-card product-card-cool product-card-cool-sm"> 
 						<a href="/p/B1AUiUhl">
 							<span class="product-name">{{strProd.name}}</span>
-							<img src="/temp/carthtml/images/bags/4.jpg">
+							<img ng-src="/uploads/{{strProd.store.id}}/products/md/{{strProd.images[0].img1 || strProd.images[0].img2 || strProd.images[0].img3 || strProd.images[0].img4 || 'none.jpg'}}">
 						</a>
 						<div class="product-meta clearfix">
 							<div class="product-price">PHP <span>{{strProd.price}}</span></div>

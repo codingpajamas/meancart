@@ -33,4 +33,22 @@ router.get("/:storeId/products", function(req, res){
 	})
 })
 
+router.get("/getbyproductid/:productid", function(req, res){ 
+	console.log(req.params.productid)
+	User.findOne(
+		{'_id':req.params.productid},
+		{'username':false, 'profile':false, 'createdOn':false, 'hash':false, 'salt':false},
+		{}, 
+		function(err, user){ 
+			if(err){ 
+				res.json({"success":false, "message":err}); 
+			}else{ 
+				response = {"success":true, "message":user}; 
+			}  
+
+			res.json(response);
+		}
+	);
+})
+
 module.exports = router;

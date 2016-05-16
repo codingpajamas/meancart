@@ -26,7 +26,7 @@
 
 <div id="homeProducts">
 	<div class="page-wrap" ng-if="isLoggedIn && rs_me && !rs_isManage">
-		<div class="page-body">
+		<div class="page-body" ng-if="homeProducts.length > 0">
 			<div class="row"> 
 				<div class="col-md-3 col-sm-4" ng-repeat="objProduct in homeProducts">
 					<div class="product-card product-card-cool product-card-cool-sm"> 
@@ -334,6 +334,14 @@
 							</span>
 						</a>
 					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-body" ng-if="homeProducts.length == 0">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 class="text-center whitebox">No products to display.</h4>
 				</div>
 			</div>
 		</div>
