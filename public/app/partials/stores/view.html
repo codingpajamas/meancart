@@ -5,13 +5,16 @@
 				<div class="profileBox">
 					<img ng-src="{{storeImg}}" alt="" class="profileBox-avatar">
 					<div class="profileBox-details">
-						<h3>{{objStore.store.name}}</h3>
+						<h3 class="clearfix">
+							{{objStore.store.name}}
+							<a class="btn btn-xs btn-danger padLR20 pull-right">Follow</a>
+						</h3>
 						<h5>@{{objStore.store.url}}</h5>
 						<p>{{objStore.store.description}}</p>
-						<ul class="profileBox-meta">
+						<ul class="profileBox-meta clearfix">
 							<li>Products : 57</li>
 							<li>Reviews : 57</li>
-							<li>Followers : 570</li>
+							<li>Followers : 570</li> 
 						</ul>
 					</div>
 				</div>

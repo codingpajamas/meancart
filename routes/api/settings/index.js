@@ -62,7 +62,7 @@ router.post("/", postAvatarImage, function(req, res){
 					userObj.store.name = req.body.name;
 					userObj.store.description = req.body.description;
 					userObj.store.theme = req.body.theme ? req.body.theme : 'default';
-					userObj.store.avatar = 'none.jpg';
+					userObj.store.avatar = req.body.avatar;
    
 	 				if(req.files && req.files['nAvatarImg'] && req.files['nAvatarImg'][0] && req.files['nAvatarImg'][0]['size']){ 
 						userObj.store.avatar = req.files['nAvatarImg'][0]['filename']; 
