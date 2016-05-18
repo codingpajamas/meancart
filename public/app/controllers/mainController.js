@@ -50,6 +50,10 @@ angular.module('starterApp')
 			$location.path('/');
 		}
 
+		$scope.addToWishlist = function(prodId){
+			console.log(prodId)
+		}
+
 		$scope.logout = function(){
 			$rootScope.rs_isManage = false;
 			$cookies.remove('omp_isManage');

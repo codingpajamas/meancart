@@ -5,7 +5,7 @@ angular.module('starterApp')
 		$scope.boolIsHomeLoading = true;
 
 	 	if($scope.isLoggedIn && $rootScope.rs_me && !$rootScope.rs_isManage && $scope.$parent.homeProducts.length == 0){
-			Product.all().success(function(data){ 
+			Product.homeProducts().success(function(data){ 
 					if(data.success){
 						$scope.$parent.homeProducts = data.message;
 					}
@@ -26,7 +26,7 @@ angular.module('starterApp')
 
 		 		if(intDistance < 500){
 		 			$scope.boolIsHomeLoading = true;
-		 			Product.all().success(function(data){ 
+		 			Product.homeProducts().success(function(data){ 
 						if(data.success){
 							_.map(data.message, function(objProd){ 
 								$scope.$parent.homeProducts.push(objProd);

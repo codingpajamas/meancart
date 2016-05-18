@@ -35,6 +35,18 @@ router.get("/", function(req, res){
 	})
 })
 
+
+router.get("/home", function(req, res){
+	Product.find({},{},{sort: '-createdOn'}, function(err, posts){
+		if(err){
+			response = {"success":false, "message":err};
+		}else{
+			response = {"success":true, "message":posts};
+		} 
+		res.json(response); 
+	})
+})
+
 router.get("/get", function(req, res){  
 	Product.find({'store.id':req.decoded.user._id}, {'prodid':1, 'name':1}, {}, function(err, product){
 		if(err){
@@ -439,17 +451,6 @@ router.delete("/:id", function(req, res){
         res.json(response); 
 	});
 })
-
-
-router.get("/home", function(req, res){
-	Product.find({},{},{sort: '-createdOn'}, function(err, posts){
-		if(err){
-			response = {"success":false, "message":err};
-		}else{
-			response = {"success":true, "message":posts};
-		} 
-		res.json(response); 
-	})
-})
+ 
 
 module.exports = router;
