@@ -4,15 +4,6 @@ angular.module('starterApp')
 	.factory('Product', function($http, $q){
 		var ProductFactory = {};
 
-		ProductFactory.add = function(fd){
-			return $http.post('/api/products/add', fd, {
-				transformRequest:angular.identity,
-				headers:{'Content-Type':undefined}
-			}).success(function(data){
-				return data;
-			})
-		}
-
 		ProductFactory.all = function(){
 			return $http.get('/api/products').success(function(data){
 				return data;
@@ -39,6 +30,15 @@ angular.module('starterApp')
 
 		ProductFactory.viewByProdid = function(_id){
 			return $http.get('/api/products/'+_id+'/prodid').success(function(data){
+				return data;
+			})
+		}
+
+		ProductFactory.add = function(fd){
+			return $http.post('/api/products/add', fd, {
+				transformRequest:angular.identity,
+				headers:{'Content-Type':undefined}
+			}).success(function(data){
 				return data;
 			})
 		}

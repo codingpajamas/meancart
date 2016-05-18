@@ -8,10 +8,18 @@
 						<h3>{{objStore.store.name}}</h3>
 						<h5>@{{objStore.store.url}}</h5>
 						<p>{{objStore.store.description}}</p>
-						<ul class="profileBox-meta">
+						<ul class="profileBox-meta mt20">
 							<li>Products : 57</li>
 							<li>Reviews : 57</li>
 							<li>Followers : 570</li>
+							<li class="pull-right m0" ng-if="!isfollowed">
+								<a href="#" class="btn btn-xs btn-primary" ng-click="followStore($event)">
+									<i class="glyphicon glyphicon-plus"></i> Follow</a>
+							</li>
+							<li class="pull-right m0" ng-if="isfollowed">
+								<a href="#" class="btn btn-xs btn-warning" ng-click="unfollowStore($event)">
+									<i class="glyphicon glyphicon-remove"></i> Unfollow</a>
+							</li>
 						</ul>
 					</div>
 				</div>

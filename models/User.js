@@ -24,6 +24,8 @@ var User = new Schema({
 		theme: String,
 		avatar: String
 	},
+	followed: Array,
+	followers: Array,
 	registrationToken: String,
 	resetPasswordToken: String,
   	resetPasswordExpires: Date,
