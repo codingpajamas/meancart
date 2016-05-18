@@ -44,7 +44,8 @@ angular.module('starterApp')
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
 						Auth.refreshToken() 
- 						$scope.isfollowed = true;
+ 						$scope.isfollowed = true; 
+ 						$scope.objStore.followers.push($rootScope.rs_me._id); 
  					}
  				})
  			return false;
@@ -59,6 +60,7 @@ angular.module('starterApp')
 						httpCache.remove('/api/user/me');
 						Auth.refreshToken() 
  						$scope.isfollowed = false;
+ 						$scope.objStore.followers = _.remove($scope.objStore.followers, $rootScope.rs_me._id)
  					}
  				})
  			return false;
