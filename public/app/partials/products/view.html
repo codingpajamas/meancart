@@ -22,8 +22,8 @@
 					</div>
 					<input type="submit" value="Add to Cart" class="btn btn-primary btn-block mb10">
 					<p class="text-center m0 mb10">or</p>
-					<p class="m0"><a href="#" class="btn btn-xs btn-block btn-default" ng-if="!isWishlisted" ng-click="addToWishlist(objProduct._id)">Add to Wishist</a></p>
-					<p class="m0"><a href="#" class="btn btn-xs btn-block btn-warning" ng-if="isWishlisted" ng-click="removeFromWishlist(objProduct._id)">Remove from Wishist</a></p>
+					<p class="m0"><a href="#" class="btn btn-xs btn-block btn-default" ng-if="!isProductWishlisted" ng-click="addToWishlist(objProduct._id)">Add to Wishist</a></p>
+					<p class="m0"><a href="#" class="btn btn-xs btn-block btn-warning" ng-if="isProductWishlisted" ng-click="removeFromWishlist(objProduct._id)">Remove from Wishist</a></p>
 				</div>
 				<div class="productview-storeinfo"> 
 					<a href="/@{{objStore.url}}">

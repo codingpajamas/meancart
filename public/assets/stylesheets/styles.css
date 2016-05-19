@@ -278,17 +278,22 @@ table {
 	font-size: 12px;
 	display: inline-block;
 	cursor: pointer;
-}
+} 
 .product-card.product-card-cool .product-like i,
 .product-card.product-card-cool .product-wishlist i,
 .product-card.product-card-cool .product-view i {
 	display: block;
 	margin-bottom: 5px;
 }  
-
 .product-card.product-card-cool .product-like:hover,
 .product-card.product-card-cool .product-wishlist:hover,
 .product-card.product-card-cool .product-view:hover {
+	background-color: #337ab7;
+	color: #fff;
+} 
+.product-card.product-card-cool .product-like.product-like-active,
+.product-card.product-card-cool .product-wishlist.product-wishlist-active,
+.product-card.product-card-cool .product-view.product-view-active {
 	background-color: #337ab7;
 	color: #fff;
 }

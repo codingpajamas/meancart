@@ -50,6 +50,14 @@ angular.module('starterApp')
 			$location.path('/');
 		}
 
+		$scope.isWishlisted = function(prodId){
+			if($rootScope.rs_me){
+				return _.indexOf($rootScope.rs_me.wishlist, prodId) != -1 ? true : false;
+			}else{
+				return false;
+			}
+		}
+
 		$scope.logout = function(){
 			$rootScope.rs_isManage = false;
 			$cookies.remove('omp_isManage');

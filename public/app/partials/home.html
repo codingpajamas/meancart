@@ -42,9 +42,12 @@
 							<a class="product-like">
 								<i class="glyphicon glyphicon-heart"></i> 100
 							</a>
-							<a class="product-wishlist">
+							<a class="product-wishlist product-wishlist-active" ng-if="objProduct.isWishListed" ng-click="removeFromWishlist(objProduct._id)">
 								<i class="glyphicon glyphicon-gift"></i> Wishlist
-							</a>
+							</a> 
+							<a class="product-wishlist" ng-if="!objProduct.isWishListed" ng-click="addToWishlist(objProduct._id)">
+								<i class="glyphicon glyphicon-gift"></i> Wishlist
+							</a> 
 						</div> 
 					</div>
 				</div>  

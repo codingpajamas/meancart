@@ -15,7 +15,7 @@ angular.module('starterApp')
 		$scope.objProduct = null; 
 		$scope.objStore = null;
 		$scope.objRelatedProducts = null;
-		$scope.isWishlisted = false;
+		$scope.isProductWishlisted = false;
 
 		Product.viewByProdid($routeParams.id)
 			.success(function(data){ 
@@ -32,8 +32,7 @@ angular.module('starterApp')
 							$scope.objRelatedProducts = data.success && data.message && data.message.length ? data.message : null;
 						})
 
-					$scope.isWishlisted = _.indexOf($rootScope.rs_me.wishlist, $scope.objProduct._id) != -1 ? true : false;
-					console.log($scope.isWishlisted)
+					$scope.isProductWishlisted = _.indexOf($rootScope.rs_me.wishlist, $scope.objProduct._id) != -1 ? true : false; 
 				}
 			})
 
@@ -45,8 +44,7 @@ angular.module('starterApp')
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
 						Auth.refreshToken() 
- 						$scope.isWishlisted = true;
- 						$scope.rs_me.wishlist.push($scope.objProduct._id); 
+ 						$scope.isProductWishlisted = true; 
  					}
 				})
 		}
@@ -59,8 +57,7 @@ angular.module('starterApp')
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
 						Auth.refreshToken() 
- 						$scope.isWishlisted = false;
- 						$scope.rs_me.wishlist = _.remove($scope.rs_me.wishlist, $scope.objProduct._id)
+ 						$scope.isProductWishlisted = false; 
  					}
 				})
 		}
