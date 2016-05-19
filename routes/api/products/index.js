@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../../../models/Product');
+var User = require('../../../models/User');
 var crypto = require('crypto'); 
 var async = require('async'); 
 var passport = require('passport');
@@ -26,6 +27,18 @@ var postImage = upload.fields([{name:'nProductImg1', maxCount:1}, {name:'nProduc
 
 router.get("/", function(req, res){
 	Product.find({'store.id':req.decoded.user._id},{},{sort: '-createdOn'}, function(err, posts){
+		if(err){
+			response = {"success":false, "message":err};
+		}else{
+			response = {"success":true, "message":posts};
+		} 
+		res.json(response); 
+	})
+})
+
+
+router.get("/home", function(req, res){
+	Product.find({},{},{sort: '-createdOn'}, function(err, posts){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
@@ -262,7 +275,6 @@ router.get("/:id/prodid", function(req, res){
 	})
 })
 
-
 router.put("/:id", postImage, function(req, res){  
   
 	// this needs refactoring!!!!
@@ -440,16 +452,91 @@ router.delete("/:id", function(req, res){
 	});
 })
 
+// Add to wishlist, requires productid
+router.post("/wishlist", function(req, res){
+	async.series([
+		function(callback){
+			User.findOneAndUpdate(
+				{_id: req.decoded.user._id}, 
+				{$push: {wishlist: req.body.prodId}}, 
+				function(err, userObj){
+					if(err){
+						console.log(err)
+						callback(err);
+					}else{
+						callback(null, 'wishlist')
+					}
+				}
+			)
+		},
+		function(callback){
+			Product.findOneAndUpdate(
+				{_id: req.body.prodId}, 
+				{$push: {wishlistedBy: req.decoded.user._id}}, 
+				function(err, userObj){
+					if(err){
+						console.log(err)
+						callback(err);
+					}else{
+						callback(null, 'wishlisted')
+					}
+				}
+			)
+		}
+	], function(err, result){
+		if(err){ 
+			console.log(err)
+			res.json({"success":false, "message":err}); 
+		}else{ 
+			response = {"success":true, "message":result}; 
+		}  
 
-router.get("/home", function(req, res){
-	Product.find({},{},{sort: '-createdOn'}, function(err, posts){
-		if(err){
-			response = {"success":false, "message":err};
-		}else{
-			response = {"success":true, "message":posts};
-		} 
-		res.json(response); 
-	})
+		res.json(response);
+	})  
 })
+
+// Remove from wishlist, requires productid
+router.post("/unwishlist", function(req, res){
+	async.series([
+		function(callback){
+			User.findOneAndUpdate(
+				{_id: req.decoded.user._id}, 
+				{$pull: {wishlist: req.body.prodId}}, 
+				function(err, userObj){
+					if(err){
+						console.log(err)
+						callback(err);
+					}else{
+						callback(null, 'unwishlist')
+					}
+				}
+			)
+		},
+		function(callback){
+			Product.findOneAndUpdate(
+				{_id: req.body.prodId}, 
+				{$pull: {wishlistedBy: req.decoded.user._id}}, 
+				function(err, userObj){
+					if(err){
+						console.log(err)
+						callback(err);
+					}else{
+						callback(null, 'unwishlisted')
+					}
+				}
+			)
+		}
+	], function(err, result){
+		if(err){ 
+			console.log(err)
+			res.json({"success":false, "message":err}); 
+		}else{ 
+			response = {"success":true, "message":result}; 
+		}  
+
+		res.json(response);
+	})  
+})
+ 
 
 module.exports = router;

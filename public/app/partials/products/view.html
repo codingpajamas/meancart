@@ -1,5 +1,5 @@
 <div class="page-wrap">
-	<div class="page-body">
+	<div class="page-body" ng-if="objProduct">
 		<div class="row">
 			<div class="col-sm-7 col-md-8">
 				<div class="productview">
@@ -20,7 +20,10 @@
 						<input type="number" min="1" value="1" class="form-control text-center">
 						<span class="input-group-addon">x Php <strong>{{objProduct.price}}</strong></span>
 					</div>
-					<input type="submit" value="Add to Cart" class="btn btn-primary btn-block">
+					<input type="submit" value="Add to Cart" class="btn btn-primary btn-block mb10">
+					<p class="text-center m0 mb10">or</p>
+					<p class="m0"><a href="#" class="btn btn-xs btn-block btn-default" ng-if="!isWishlisted" ng-click="addToWishlist(objProduct._id)">Add to Wishist</a></p>
+					<p class="m0"><a href="#" class="btn btn-xs btn-block btn-warning" ng-if="isWishlisted" ng-click="removeFromWishlist(objProduct._id)">Remove from Wishist</a></p>
 				</div>
 				<div class="productview-storeinfo"> 
 					<a href="/@{{objStore.url}}">
@@ -108,6 +111,14 @@
 						<a href="#" class="pad10"><strong>Read All</strong></a>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-body" ng-if="!objProduct">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="text-center whitebox">Page not found.</h4>
 			</div>
 		</div>
 	</div>

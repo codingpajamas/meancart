@@ -10,11 +10,12 @@ angular.module('starterApp')
 			});
 
 	})
-	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product, Store){ 
+	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product, Store, $rootScope, $cacheFactory){ 
 
 		$scope.objProduct = null; 
 		$scope.objStore = null;
 		$scope.objRelatedProducts = null;
+		$scope.isWishlisted = false;
 
 		Product.viewByProdid($routeParams.id)
 			.success(function(data){ 
@@ -30,8 +31,39 @@ angular.module('starterApp')
 						.success(function(data){
 							$scope.objRelatedProducts = data.success && data.message && data.message.length ? data.message : null;
 						})
+
+					$scope.isWishlisted = _.indexOf($rootScope.rs_me.wishlist, $scope.objProduct._id) != -1 ? true : false;
+					console.log($scope.isWishlisted)
 				}
 			})
+
+		$scope.addToWishlist = function(prodId){ 
+			Product.wishlist(prodId)
+				.success(function(data){
+					if(data.success){
+ 						// refresh the token since we updated our profile
+						var httpCache = $cacheFactory.get('$http'); 
+						httpCache.remove('/api/user/me');
+						Auth.refreshToken() 
+ 						$scope.isWishlisted = true;
+ 						$scope.rs_me.wishlist.push($scope.objProduct._id); 
+ 					}
+				})
+		}
+
+		$scope.removeFromWishlist = function(prodId){ 
+			Product.unwishlist(prodId)
+				.success(function(data){
+					if(data.success){
+ 						// refresh the token since we updated our profile
+						var httpCache = $cacheFactory.get('$http'); 
+						httpCache.remove('/api/user/me');
+						Auth.refreshToken() 
+ 						$scope.isWishlisted = false;
+ 						$scope.rs_me.wishlist = _.remove($scope.rs_me.wishlist, $scope.objProduct._id)
+ 					}
+				})
+		}
 	})
 	.controller('productsAddController', function($scope, $location, Auth, Product, Category){
 		Auth.restrict();

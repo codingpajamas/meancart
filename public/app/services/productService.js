@@ -4,15 +4,6 @@ angular.module('starterApp')
 	.factory('Product', function($http, $q){
 		var ProductFactory = {};
 
-		ProductFactory.add = function(fd){
-			return $http.post('/api/products/add', fd, {
-				transformRequest:angular.identity,
-				headers:{'Content-Type':undefined}
-			}).success(function(data){
-				return data;
-			})
-		}
-
 		ProductFactory.all = function(){
 			return $http.get('/api/products').success(function(data){
 				return data;
@@ -43,6 +34,15 @@ angular.module('starterApp')
 			})
 		}
 
+		ProductFactory.add = function(fd){
+			return $http.post('/api/products/add', fd, {
+				transformRequest:angular.identity,
+				headers:{'Content-Type':undefined}
+			}).success(function(data){
+				return data;
+			})
+		}
+
 		ProductFactory.put = function(_id, fd){ 
 			return $http.put('/api/products/'+_id, fd, {
 				transformRequest:angular.identity,
@@ -60,6 +60,18 @@ angular.module('starterApp')
 
 		ProductFactory.homeProducts = function(){
 			return $http.get('/api/products/home').success(function(data){
+				return data;
+			})
+		}
+
+		ProductFactory.wishlist = function(prodId){
+			return $http.post('/api/products/wishlist', {prodId:prodId}).success(function(data){
+				return data;
+			})
+		}
+
+		ProductFactory.unwishlist = function(prodId){
+			return $http.post('/api/products/unwishlist', {prodId:prodId}).success(function(data){
 				return data;
 			})
 		}

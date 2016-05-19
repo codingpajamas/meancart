@@ -24,6 +24,7 @@ var Product = new Schema({
 		start: Date,
 		end: Date
 	},
+	wishlistedBy: Array,
 	tags: Array,
 	related: Array,
 	createdOn: {type: Date, default: Date.now()}

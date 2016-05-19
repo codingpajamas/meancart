@@ -10,10 +10,11 @@ angular.module('starterApp')
 	.controller('storeProductsController', function($scope, Auth){
 		Auth.restrict();
 	}) 
-	.controller('storeUrlController', function($scope, Auth, $location, Store){ 
+	.controller('storeUrlController', function($scope, Auth, $location, Store, $rootScope, $cacheFactory){ 
 		$scope.objStore = null;
 		$scope.objStoreProducts = []
 		$scope.storeImg = '/uploads/none.jpg'
+		$scope.isfollowed = false;
 
 		var fullUrlPath = $location.path().replace(/^\/|\/$/g, '');
 		var pageUrlPath = fullUrlPath.split("/")[0];
@@ -29,8 +30,39 @@ angular.module('starterApp')
  						Store.getStoreProducts($scope.objStore._id)
  							.success(function(data){
  								$scope.objStoreProducts = data.success ? data.message : [];
+ 								$scope.isfollowed = _.indexOf($rootScope.rs_me.followed, $scope.objStore._id) != -1 ? true : false; 
  							})
  					} 
  				})
+ 		}
+
+ 		$scope.followStore = function(ev){
+ 			Store.follow($scope.objStore._id)
+ 				.success(function(data){
+ 					if(data.success){
+ 						// refresh the token since we updated our profile
+						var httpCache = $cacheFactory.get('$http'); 
+						httpCache.remove('/api/user/me');
+						Auth.refreshToken() 
+ 						$scope.isfollowed = true; 
+ 						$scope.objStore.followers.push($rootScope.rs_me._id); 
+ 					}
+ 				})
+ 			return false;
+ 		}
+
+ 		$scope.unfollowStore = function(ev){
+ 			Store.unfollow($scope.objStore._id)
+ 				.success(function(data){
+ 					if(data.success){
+ 						// refresh the token since we updated our profile
+						var httpCache = $cacheFactory.get('$http'); 
+						httpCache.remove('/api/user/me');
+						Auth.refreshToken() 
+ 						$scope.isfollowed = false;
+ 						$scope.objStore.followers = _.remove($scope.objStore.followers, $rootScope.rs_me._id)
+ 					}
+ 				})
+ 			return false;
  		}
 	})  
