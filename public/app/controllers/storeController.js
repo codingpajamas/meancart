@@ -30,7 +30,7 @@ angular.module('starterApp')
  						Store.getStoreProducts($scope.objStore._id)
  							.success(function(data){
  								$scope.objStoreProducts = data.success ? data.message : [];
- 								$scope.isfollowed = _.indexOf($rootScope.rs_me.followed, $scope.objStore._id) != -1 ? true : false; 
+ 								$scope.isfollowed = _.find($rootScope.rs_me.followed, {userid:$scope.objStore._id}) ? true : false;
  							})
  					} 
  				})
@@ -44,8 +44,8 @@ angular.module('starterApp')
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
 						Auth.refreshToken() 
- 						$scope.isfollowed = true; 
- 						$scope.objStore.followers.push($rootScope.rs_me._id); 
+ 						$scope.isfollowed = true;  
+ 						$scope.objStore.followers.push({userid:$rootScope.rs_me._id});  
  					}
  				})
  			return false;
@@ -59,8 +59,8 @@ angular.module('starterApp')
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
 						Auth.refreshToken() 
- 						$scope.isfollowed = false;
- 						$scope.objStore.followers = _.remove($scope.objStore.followers, $rootScope.rs_me._id)
+ 						$scope.isfollowed = false; 
+ 						_.remove($scope.objStore.followers, _.find($scope.objStore.followers, {"userid":$rootScope.rs_me._id}))
  					}
  				})
  			return false;

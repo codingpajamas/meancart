@@ -24,8 +24,14 @@ var User = new Schema({
 		theme: String,
 		avatar: String
 	},
-	followed: Array,
-	followers: Array,
+	followed: [{
+		userid: String,
+		date: {type: Date, default: Date.now()}
+	}],
+	followers: [{
+		userid: String,
+		date: {type: Date, default: Date.now()}
+	}],
 	wishlist: Array,
 	registrationToken: String,
 	resetPasswordToken: String,

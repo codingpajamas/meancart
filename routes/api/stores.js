@@ -56,7 +56,7 @@ router.post("/follow", function(req, res){
 		function(callback){
 			User.findOneAndUpdate(
 				{_id: req.decoded.user._id}, 
-				{$push: {followed: req.body.storeId}}, 
+				{$push: {followed: {"userid":req.body.storeId}}}, 
 				function(err, userObj){
 					if(err){
 						console.log(err)
@@ -70,7 +70,7 @@ router.post("/follow", function(req, res){
 		function(callback){
 			User.findOneAndUpdate(
 				{_id: req.body.storeId}, 
-				{$push: {followers: req.decoded.user._id}}, 
+				{$push: {followers: {"userid":req.decoded.user._id}}}, 
 				function(err, userObj){
 					if(err){
 						console.log(err)
@@ -86,7 +86,7 @@ router.post("/follow", function(req, res){
 			console.log(err)
 			res.json({"success":false, "message":err}); 
 		}else{ 
-			response = {"success":true, "message":'Followed'}; 
+			response = {"success":true, "message":result}; 
 		}  
 
 		res.json(response);
@@ -98,13 +98,13 @@ router.post("/unfollow", function(req, res){
 		function(callback){
 			User.findOneAndUpdate(
 				{_id: req.decoded.user._id}, 
-				{$pull: {followed: req.body.storeId}}, 
+				{$pull: {followed: {"userid":req.body.storeId}}}, 
 				function(err, userObj){
 					if(err){
 						console.log(err)
 						callback(err);
 					}else{
-						callback(null, 'followed')
+						callback(null, 'unfollowed')
 					}
 				}
 			)
@@ -112,13 +112,13 @@ router.post("/unfollow", function(req, res){
 		function(callback){
 			User.findOneAndUpdate(
 				{_id: req.body.storeId}, 
-				{$pull: {followers: req.decoded.user._id}}, 
+				{$pull: {followers: {"userid":req.decoded.user._id}}}, 
 				function(err, userObj){
 					if(err){
 						console.log(err)
 						callback(err);
 					}else{
-						callback(null, 'followed')
+						callback(null, 'unfollowers')
 					}
 				}
 			)
@@ -128,7 +128,7 @@ router.post("/unfollow", function(req, res){
 			console.log(err)
 			res.json({"success":false, "message":err}); 
 		}else{ 
-			response = {"success":true, "message":'Followed'}; 
+			response = {"success":true, "message":result}; 
 		}  
 
 		res.json(response);
