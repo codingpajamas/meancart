@@ -51,8 +51,8 @@ angular.module('starterApp')
 		}
 
 		$scope.isWishlisted = function(prodId){
-			if($rootScope.rs_me){
-				return _.indexOf($rootScope.rs_me.wishlist, prodId) != -1 ? true : false;
+			if($rootScope.rs_me){ 
+				return _.find($rootScope.rs_me.wishlist, {productid:prodId}) ? true : false;
 			}else{
 				return false;
 			}

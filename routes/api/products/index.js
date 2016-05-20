@@ -438,7 +438,6 @@ router.put("/:id", postImage, function(req, res){
 	})
 })
 
-
 router.delete("/:id", function(req, res){ 
 	Product.remove({
 		_id:req.params.id
@@ -458,7 +457,7 @@ router.post("/wishlist", function(req, res){
 		function(callback){
 			User.findOneAndUpdate(
 				{_id: req.decoded.user._id}, 
-				{$push: {wishlist: req.body.prodId}}, 
+				{$push: {wishlist: {"productid":req.body.prodId}}}, 
 				function(err, userObj){
 					if(err){
 						console.log(err)
@@ -472,7 +471,7 @@ router.post("/wishlist", function(req, res){
 		function(callback){
 			Product.findOneAndUpdate(
 				{_id: req.body.prodId}, 
-				{$push: {wishlistedBy: req.decoded.user._id}}, 
+				{$push: {wishlistedBy: {"userid":req.decoded.user._id}}}, 
 				function(err, userObj){
 					if(err){
 						console.log(err)
@@ -501,7 +500,7 @@ router.post("/unwishlist", function(req, res){
 		function(callback){
 			User.findOneAndUpdate(
 				{_id: req.decoded.user._id}, 
-				{$pull: {wishlist: req.body.prodId}}, 
+				{$pull: {wishlist: {"productid":req.body.prodId}}}, 
 				function(err, userObj){
 					if(err){
 						console.log(err)
@@ -515,7 +514,7 @@ router.post("/unwishlist", function(req, res){
 		function(callback){
 			Product.findOneAndUpdate(
 				{_id: req.body.prodId}, 
-				{$pull: {wishlistedBy: req.decoded.user._id}}, 
+				{$pull: {wishlistedBy: {"userid":req.decoded.user._id}}}, 
 				function(err, userObj){
 					if(err){
 						console.log(err)

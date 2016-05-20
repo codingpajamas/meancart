@@ -32,7 +32,10 @@ var User = new Schema({
 		userid: String,
 		date: {type: Date, default: Date.now()}
 	}],
-	wishlist: Array,
+	wishlist: [{
+		productid: String,
+		date: {type: Date, default: Date.now()}
+	}],
 	registrationToken: String,
 	resetPasswordToken: String,
   	resetPasswordExpires: Date,

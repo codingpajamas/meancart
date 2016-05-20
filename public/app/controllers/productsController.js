@@ -31,8 +31,8 @@ angular.module('starterApp')
 						.success(function(data){
 							$scope.objRelatedProducts = data.success && data.message && data.message.length ? data.message : null;
 						})
-
-					$scope.isProductWishlisted = _.indexOf($rootScope.rs_me.wishlist, $scope.objProduct._id) != -1 ? true : false; 
+						
+					$scope.isProductWishlisted = _.find($rootScope.rs_me.wishlist, {productid:$scope.objProduct._id}) ? true : false
 				}
 			})
 
