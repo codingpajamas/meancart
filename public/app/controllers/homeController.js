@@ -5,6 +5,7 @@ angular.module('starterApp')
 		$scope.boolIsHomeLoading = true;
 
 	 	if($scope.isLoggedIn && $rootScope.rs_me && !$rootScope.rs_isManage && $scope.$parent.homeProducts.length == 0){
+			console.log('calling home ctrl')
 			Product.homeProducts().success(function(data){ 
 					if(data.success){ 
 						
@@ -48,7 +49,8 @@ angular.module('starterApp')
 				})
 		}
 
-	 	$window.onscroll = function(){  
+	 	$window.onscroll = function(){ 
+	 		console.log('scrolling home') 
 	 		var fullUrlPath = $location.path().replace(/^\/|\/$/g, '');
 			var pageUrlPath = fullUrlPath.split("/")[0];
 

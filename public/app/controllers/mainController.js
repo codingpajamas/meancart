@@ -60,6 +60,7 @@ angular.module('starterApp')
 
 		$scope.logout = function(){
 			$rootScope.rs_isManage = false;
+			$scope.homeProducts = [];
 			$cookies.remove('omp_isManage');
 
 			var httpCache = $cacheFactory.get('$http');  

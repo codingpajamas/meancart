@@ -5,8 +5,7 @@ angular.module('starterApp')
 		$scope.isLoggedIn = Auth.isLoggedIn(); 
 		$scope.loginError = '';
 
-		if($scope.isLoggedIn){
-			//$location.path('/manage/dashboard');
+		if($scope.isLoggedIn){ 
 			$location.path('/');
 		}
 
@@ -24,6 +23,7 @@ angular.module('starterApp')
 				.success(function(data){  
 					if(data.status == 'success'){ 
 						//$location.path('/manage/dashboard');
+						$scope.homeProducts = [];
 						$location.path('/');
 					}else{
 						$scope.loginError = data.message;
@@ -52,6 +52,7 @@ angular.module('starterApp')
 	})
 	.controller('logoutController', function($scope, $rootScope, $location, $cookies, $cacheFactory, Auth){ 
 		$rootScope.rs_isManage = false;
+		$scope.homeProducts = [];
 		$cookies.remove('omp_isManage');
 
 		var httpCache = $cacheFactory.get('$http');  

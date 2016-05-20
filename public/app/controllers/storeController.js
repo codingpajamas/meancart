@@ -10,7 +10,7 @@ angular.module('starterApp')
 	.controller('storeProductsController', function($scope, Auth){
 		Auth.restrict();
 	}) 
-	.controller('storeUrlController', function($scope, Auth, $location, Store, $rootScope, $cacheFactory){ 
+	.controller('storeUrlController', function($scope, Auth, $location, Store, $rootScope, $cacheFactory, Product){ 
 		$scope.objStore = null;
 		$scope.objStoreProducts = []
 		$scope.storeImg = '/uploads/none.jpg'
@@ -22,15 +22,20 @@ angular.module('starterApp')
  		
  		if(isStoreUrl){  
  			Store.getStoreByUrl(pageUrlPath.substring(1))
- 				.success(function(data){
- 					if(data.message){
- 						$scope.objStore = data.message ? data.message : null; 
+ 				.success(function(dataStore){
+ 					if(dataStore.message){
+ 						$scope.objStore = dataStore.message ? dataStore.message : null; 
  						$scope.storeImg = $scope.objStore.store.avatar ? '/uploads/'+$scope.objStore._id+'/'+$scope.objStore.store.avatar : '/uploads/none.jpg';
+ 						$scope.isfollowed = _.find($rootScope.rs_me.followed, {userid:$scope.objStore._id}) ? true : false;
  					
  						Store.getStoreProducts($scope.objStore._id)
- 							.success(function(data){
- 								$scope.objStoreProducts = data.success ? data.message : [];
- 								$scope.isfollowed = _.find($rootScope.rs_me.followed, {userid:$scope.objStore._id}) ? true : false;
+ 							.success(function(dataProducts){
+ 								if(dataProducts.success && dataProducts.message){ 
+ 									$scope.objStoreProducts = _.map(dataProducts.message, function(objProduct){
+										objProduct['isWishListed'] = $scope.$parent.isWishlisted(objProduct['_id']); 
+										return objProduct;
+									});   
+ 								}
  							})
  					} 
  				})
@@ -65,4 +70,32 @@ angular.module('starterApp')
  				})
  			return false;
  		}
+
+ 		$scope.addToWishlist = function(prodId){ 
+			Product.addWishlist(prodId)
+				.success(function(data){
+					if(data.success){
+ 						// refresh the token since we updated our profile
+						var httpCache = $cacheFactory.get('$http'); 
+						httpCache.remove('/api/user/me');
+						Auth.refreshToken()  
+ 						var intProDuctIndex = _.indexOf($scope.objStoreProducts, _.find($scope.objStoreProducts, {_id: prodId}));
+						$scope.objStoreProducts[intProDuctIndex]['isWishListed'] = true;
+ 					}
+				})
+		}
+
+		$scope.removeFromWishlist = function(prodId){ 
+			Product.removeWishlist(prodId)
+				.success(function(data){
+					if(data.success){
+ 						// refresh the token since we updated our profile
+						var httpCache = $cacheFactory.get('$http'); 
+						httpCache.remove('/api/user/me');
+						Auth.refreshToken() 
+ 						var intProDuctIndex = _.indexOf($scope.objStoreProducts, _.find($scope.objStoreProducts, {_id: prodId}));
+						$scope.objStoreProducts[intProDuctIndex]['isWishListed'] = false;
+ 					}
+				})
+		}
 	})  

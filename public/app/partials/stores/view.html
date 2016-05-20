@@ -6,46 +6,44 @@
 					<img ng-src="{{storeImg}}" alt="" class="profileBox-avatar">
 					<div class="profileBox-details">
 						<h3 class="clearfix">
-							{{objStore.store.name}}
-							<a class="btn btn-xs btn-danger padLR20 pull-right">Follow</a>
+							{{objStore.store.name}} 
+								<a href="#" class="pull-right m0 btn btn-xs btn-primary" ng-if="!isfollowed" ng-click="followStore($event)">
+									<i class="glyphicon glyphicon-plus"></i> Follow</a> 
+								<a href="#" class="pull-right m0 btn btn-xs btn-warning" ng-if="isfollowed" ng-click="unfollowStore($event)">
+									<i class="glyphicon glyphicon-remove"></i> Unfollow</a> 
 						</h3>
 						<h5>@{{objStore.store.url}}</h5>
 						<p>{{objStore.store.description}}</p>  
 						<ul class="profileBox-meta mt20 clearfix">
 							<li>Products : 57</li>
 							<li>Reviews : 57</li>
-							<li>Followers : {{objStore.followers.length}}</li>
-							<li class="pull-right m0" ng-if="!isfollowed">
-								<a href="#" class="btn btn-xs btn-primary" ng-click="followStore($event)">
-									<i class="glyphicon glyphicon-plus"></i> Follow</a>
-							</li>
-							<li class="pull-right m0" ng-if="isfollowed">
-								<a href="#" class="btn btn-xs btn-warning" ng-click="unfollowStore($event)">
-									<i class="glyphicon glyphicon-remove"></i> Unfollow</a>
-							</li> 
+							<li>Followers : {{objStore.followers.length}}</li> 
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row"> 
-				<div class="col-md-3 col-sm-4" ng-repeat="strProd in objStoreProducts">
+				<div class="col-md-3 col-sm-4" ng-repeat="objProd in objStoreProducts">
 					<div class="product-card product-card-cool product-card-cool-sm"> 
-						<a href="/p/B1AUiUhl">
-							<span class="product-name">{{strProd.name}}</span>
-							<img ng-src="/uploads/{{strProd.store.id}}/products/md/{{strProd.images[0].img1 || strProd.images[0].img2 || strProd.images[0].img3 || strProd.images[0].img4 || 'none.jpg'}}">
+						<a href="/p/{{objProd.prodid}}">
+							<span class="product-name">{{objProd.name}}</span>
+							<img ng-src="/uploads/{{objProd.store.id}}/products/md/{{objProd.images[0].img1 || objProd.images[0].img2 || objProd.images[0].img3 || objProd.images[0].img4 || 'none.jpg'}}">
 						</a>
 						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>{{strProd.price}}</span></div>
+							<div class="product-price">PHP <span>{{objProd.price}}</span></div>
 							<a class="product-view">
 								<i class="glyphicon glyphicon-share-alt"></i> View
 							</a>
 							<a class="product-like">
 								<i class="glyphicon glyphicon-heart"></i> 100
 							</a>
-							<a class="product-wishlist">
+							<a class="product-wishlist product-wishlist-active" ng-if="objProd.isWishListed" ng-click="removeFromWishlist(objProd._id)">
 								<i class="glyphicon glyphicon-gift"></i> Wishlist
-							</a>
+							</a> 
+							<a class="product-wishlist" ng-if="!objProd.isWishListed" ng-click="addToWishlist(objProd._id)">
+								<i class="glyphicon glyphicon-gift"></i> Wishlist
+							</a> 
 						</div> 
 					</div>
 				</div>  
