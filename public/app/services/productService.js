@@ -64,13 +64,19 @@ angular.module('starterApp')
 			})
 		}
 
-		ProductFactory.wishlist = function(prodId){
+		ProductFactory.addWishlist = function(prodId){
 			return $http.post('/api/products/wishlist', {prodId:prodId}).success(function(data){
 				return data;
 			})
 		}
 
-		ProductFactory.unwishlist = function(prodId){
+		ProductFactory.getWishlist = function(){
+			return $http.get('/api/products/wishlist').success(function(data){
+				return data;
+			})
+		}
+
+		ProductFactory.removeWishlist = function(prodId){
 			return $http.post('/api/products/unwishlist', {prodId:prodId}).success(function(data){
 				return data;
 			})

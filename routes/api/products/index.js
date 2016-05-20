@@ -36,6 +36,105 @@ router.get("/", function(req, res){
 	})
 })
 
+// get wishlist, requires req.decoded.user._id
+router.get("/wishlist", function(req, res){
+	Product.find({"wishlistedBy.userid":req.decoded.user._id}, function(err, products){
+		if(err){ 
+			console.log(err)
+			res.json({"success":false, "message":err}); 
+		}else{ 
+			response = {"success":true, "message":products}; 
+		}  
+
+		res.json(response);
+	})
+})
+
+// Add to wishlist, requires productid
+router.post("/wishlist", function(req, res){
+	async.series([
+		function(callback){
+			User.findOneAndUpdate(
+				{_id: req.decoded.user._id}, 
+				{$push: {wishlist: {"productid":req.body.prodId}}}, 
+				function(err, userObj){
+					if(err){
+						console.log(err)
+						callback(err);
+					}else{
+						callback(null, 'wishlist')
+					}
+				}
+			)
+		},
+		function(callback){
+			Product.findOneAndUpdate(
+				{_id: req.body.prodId}, 
+				{$push: {wishlistedBy: {"userid":req.decoded.user._id}}}, 
+				function(err, userObj){
+					if(err){
+						console.log(err)
+						callback(err);
+					}else{
+						callback(null, 'wishlisted')
+					}
+				}
+			)
+		}
+	], function(err, result){
+		if(err){ 
+			console.log(err)
+			res.json({"success":false, "message":err}); 
+		}else{ 
+			response = {"success":true, "message":result}; 
+		}  
+
+		res.json(response);
+	})  
+})
+
+// Remove from wishlist, requires productid
+router.post("/unwishlist", function(req, res){
+	async.series([
+		function(callback){
+			User.findOneAndUpdate(
+				{_id: req.decoded.user._id}, 
+				{$pull: {wishlist: {"productid":req.body.prodId}}}, 
+				function(err, userObj){
+					if(err){
+						console.log(err)
+						callback(err);
+					}else{
+						callback(null, 'unwishlist')
+					}
+				}
+			)
+		},
+		function(callback){
+			Product.findOneAndUpdate(
+				{_id: req.body.prodId}, 
+				{$pull: {wishlistedBy: {"userid":req.decoded.user._id}}}, 
+				function(err, userObj){
+					if(err){
+						console.log(err)
+						callback(err);
+					}else{
+						callback(null, 'unwishlisted')
+					}
+				}
+			)
+		}
+	], function(err, result){
+		if(err){ 
+			console.log(err)
+			res.json({"success":false, "message":err}); 
+		}else{ 
+			response = {"success":true, "message":result}; 
+		}  
+
+		res.json(response);
+	})  
+})
 
 router.get("/home", function(req, res){
 	Product.find({},{},{sort: '-createdOn'}, function(err, posts){
@@ -449,93 +548,7 @@ router.delete("/:id", function(req, res){
 		}  
         res.json(response); 
 	});
-})
-
-// Add to wishlist, requires productid
-router.post("/wishlist", function(req, res){
-	async.series([
-		function(callback){
-			User.findOneAndUpdate(
-				{_id: req.decoded.user._id}, 
-				{$push: {wishlist: {"productid":req.body.prodId}}}, 
-				function(err, userObj){
-					if(err){
-						console.log(err)
-						callback(err);
-					}else{
-						callback(null, 'wishlist')
-					}
-				}
-			)
-		},
-		function(callback){
-			Product.findOneAndUpdate(
-				{_id: req.body.prodId}, 
-				{$push: {wishlistedBy: {"userid":req.decoded.user._id}}}, 
-				function(err, userObj){
-					if(err){
-						console.log(err)
-						callback(err);
-					}else{
-						callback(null, 'wishlisted')
-					}
-				}
-			)
-		}
-	], function(err, result){
-		if(err){ 
-			console.log(err)
-			res.json({"success":false, "message":err}); 
-		}else{ 
-			response = {"success":true, "message":result}; 
-		}  
-
-		res.json(response);
-	})  
-})
-
-// Remove from wishlist, requires productid
-router.post("/unwishlist", function(req, res){
-	async.series([
-		function(callback){
-			User.findOneAndUpdate(
-				{_id: req.decoded.user._id}, 
-				{$pull: {wishlist: {"productid":req.body.prodId}}}, 
-				function(err, userObj){
-					if(err){
-						console.log(err)
-						callback(err);
-					}else{
-						callback(null, 'unwishlist')
-					}
-				}
-			)
-		},
-		function(callback){
-			Product.findOneAndUpdate(
-				{_id: req.body.prodId}, 
-				{$pull: {wishlistedBy: {"userid":req.decoded.user._id}}}, 
-				function(err, userObj){
-					if(err){
-						console.log(err)
-						callback(err);
-					}else{
-						callback(null, 'unwishlisted')
-					}
-				}
-			)
-		}
-	], function(err, result){
-		if(err){ 
-			console.log(err)
-			res.json({"success":false, "message":err}); 
-		}else{ 
-			response = {"success":true, "message":result}; 
-		}  
-
-		res.json(response);
-	})  
-})
+}) 
  
 
 module.exports = router;

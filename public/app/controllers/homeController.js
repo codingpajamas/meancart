@@ -21,7 +21,7 @@ angular.module('starterApp')
 	 	} 
 
 		$scope.addToWishlist = function(prodId){ 
-			Product.wishlist(prodId)
+			Product.addWishlist(prodId)
 				.success(function(data){
 					if(data.success){
  						// refresh the token since we updated our profile
@@ -35,7 +35,7 @@ angular.module('starterApp')
 		}
 
 		$scope.removeFromWishlist = function(prodId){ 
-			Product.unwishlist(prodId)
+			Product.removeWishlist(prodId)
 				.success(function(data){
 					if(data.success){
  						// refresh the token since we updated our profile

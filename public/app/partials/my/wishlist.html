@@ -2,91 +2,23 @@
 	<div class="page-body"> 	
 		<div class="row">
 			<div class="col-md-12"> 
-				<div class="product-card-list">
+				<div class="product-card-list" ng-repeat="objWish in arrWishlists">
 					<div class="product-image">
-						<img src="/temp/carthtml/images/1.jpg">
+						<img ng-src="/uploads/{{objWish.store.id}}/products/sm/{{objWish.images[0].img1 || objWish.images[0].img2 || objWish.images[0].img3 || objWish.images[0].img4 || 'none.jpg'}}">
 					</div>
 					<div class="product-meta">
 						<h4 class="clearfix">
-							<span class="product-price">PHP <span>120</span></span>
-							<a class="black-text" href="/p/B1AUiUhl">This is a very cool leather bag</a>
+							<span class="product-price">PHP <span>{{objWish.price}}</span></span>
+							<a class="black-text" href="/p/{{objWish.prodid}}">{{objWish.name}}</a>
 						</h4>
 						<p class="clearfix">
-							<a class="gray-text" href="/@closetsnapz">Store 123</a>
-							<a href="#" class="pull-right text-danger ml10">Remove</a> 
+							<a class="gray-text" href="/@{{objWish.store.url}}">@{{objWish.store.name}}</a>
+							<a href="#" class="pull-right text-danger ml10" ng-click="removeFromWishlist(objWish._id)">Remove</a> 
 							<span class="padLR10 pull-right">&bull;</span>
-							<a href="#" class="pull-right text-success ml10">View</a>
+							<a href="/p/{{objWish.prodid}}" class="pull-right text-success ml10">View</a>
 						</p>
 					</div>
-				</div>
-				<div class="product-card-list">
-					<div class="product-image">
-						<img src="/temp/carthtml/images/1.jpg">
-					</div>
-					<div class="product-meta">
-						<h4 class="clearfix">
-							<span class="product-price">PHP <span>120</span></span>
-							<a class="black-text" href="/p/B1AUiUhl">This is a very cool leather bag</a>
-						</h4>
-						<p class="clearfix">
-							<a class="gray-text" href="/@closetsnapz">Store 123</a>
-							<a href="#" class="pull-right text-danger ml10">Remove</a> 
-							<span class="padLR10 pull-right">&bull;</span>
-							<a href="#" class="pull-right text-success ml10">View</a>
-						</p>
-					</div>
-				</div>
-				<div class="product-card-list">
-					<div class="product-image">
-						<img src="/temp/carthtml/images/1.jpg">
-					</div>
-					<div class="product-meta">
-						<h4 class="clearfix">
-							<span class="product-price">PHP <span>120</span></span>
-							<a class="black-text" href="/p/B1AUiUhl">This is a very cool leather bag</a>
-						</h4>
-						<p class="clearfix">
-							<a class="gray-text" href="/@closetsnapz">Store 123</a>
-							<a href="#" class="pull-right text-danger ml10">Remove</a> 
-							<span class="padLR10 pull-right">&bull;</span>
-							<a href="#" class="pull-right text-success ml10">View</a>
-						</p>
-					</div>
-				</div>
-				<div class="product-card-list">
-					<div class="product-image">
-						<img src="/temp/carthtml/images/1.jpg">
-					</div>
-					<div class="product-meta">
-						<h4 class="clearfix">
-							<span class="product-price">PHP <span>120</span></span>
-							<a class="black-text" href="/p/B1AUiUhl">This is a very cool leather bag</a>
-						</h4>
-						<p class="clearfix">
-							<a class="gray-text" href="/@closetsnapz">Store 123</a>
-							<a href="#" class="pull-right text-danger ml10">Remove</a> 
-							<span class="padLR10 pull-right">&bull;</span>
-							<a href="#" class="pull-right text-success ml10">View</a>
-						</p>
-					</div>
-				</div>
-				<div class="product-card-list">
-					<div class="product-image">
-						<img src="/temp/carthtml/images/1.jpg">
-					</div>
-					<div class="product-meta">
-						<h4 class="clearfix">
-							<span class="product-price">PHP <span>120</span></span>
-							<a class="black-text" href="/p/B1AUiUhl">This is a very cool leather bag</a>
-						</h4>
-						<p class="clearfix">
-							<a class="gray-text" href="/@closetsnapz">Store 123</a>
-							<a href="#" class="pull-right text-danger ml10">Remove</a> 
-							<span class="padLR10 pull-right">&bull;</span>
-							<a href="#" class="pull-right text-success ml10">View</a>
-						</p>
-					</div>
-				</div>
+				</div> 
 			</div>
 		</div>
 	</div>
