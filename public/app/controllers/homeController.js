@@ -47,14 +47,10 @@ angular.module('starterApp')
 						$scope.$parent.homeProducts[intProDuctIndex]['isWishListed'] = false;
  					}
 				})
-		}
+		} 
 
-	 	$window.onscroll = function(){ 
-	 		console.log('scrolling home') 
-	 		var fullUrlPath = $location.path().replace(/^\/|\/$/g, '');
-			var pageUrlPath = fullUrlPath.split("/")[0];
-
-			if(!pageUrlPath && !$scope.boolIsHomeLoading){  
+	 	$window.onscroll = function(){  
+			if(!$scope.boolIsHomeLoading && angular.element('#homeProducts').length){  
 		 		var intOffset = this.pageYOffset + this.outerHeight;
 		 		var intPageHeight = angular.element('body')[0].clientHeight;
 		 		var intDistance = intPageHeight - intOffset; 
@@ -71,6 +67,6 @@ angular.module('starterApp')
 						$scope.boolIsHomeLoading = false;
 					});
 		 		}
-		 	}
+		 	} 
 	 	}
 	})
