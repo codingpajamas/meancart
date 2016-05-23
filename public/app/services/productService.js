@@ -70,8 +70,8 @@ angular.module('starterApp')
 			})
 		}
 
-		ProductFactory.getWishlist = function(){
-			return $http.get('/api/products/wishlist').success(function(data){
+		ProductFactory.getWishlist = function(pageNum){
+			return $http.get('/api/products/wishlist?pagenum='+pageNum).success(function(data){
 				return data;
 			})
 		}

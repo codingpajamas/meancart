@@ -1,15 +1,20 @@
 'use strict'
 
 angular.module('starterApp')
-	.controller('wishlistController', function($scope, $location, Auth, Product, $cacheFactory){
+	.controller('wishlistController', function($scope, $location, Auth, Product, $cacheFactory, $window){
 		Auth.restrict();
 
 		$scope.arrWishlists = null;
+		$scope.wishlistProducts = []
+		$scope.wishlistPageNum = 1;
+		$scope.wishlistProductsEnd = false;
+		$scope.boolIsWishlistLoading = false;
 
-		Product.getWishlist().success(function(data){
+		Product.getWishlist($scope.wishlistPageNum).success(function(data){
 			if(data.success && data.message && data.message.length){
 				$scope.arrWishlists = data.message;
-			}
+			} 
+			$scope.wishlistPageNum++; 
 		}); 
 
 		$scope.removeFromWishlist = function(prodId){ 
@@ -27,4 +32,26 @@ angular.module('starterApp')
 
 			return false;
 		}
+
+		$window.onscroll = function(){  
+			if(!$scope.boolIsWishlistLoading && angular.element('#wishlistProducts').length && !$scope.$parent.homeProductsEnd){  
+		 		var intOffset = this.pageYOffset + this.outerHeight;
+		 		var intPageHeight = angular.element('body')[0].clientHeight;
+		 		var intDistance = intPageHeight - intOffset; 
+
+		 		if(intDistance < 300){ 
+		 			$scope.boolIsWishlistLoading = true;
+		 			Product.getWishlist($scope.wishlistPageNum).success(function(data){ 
+						if(data.success){
+							$scope.$parent.homeProductsEnd = data.message.length < 28 ? true : false;
+							_.map(data.message, function(objProd){  
+								$scope.wishlistProducts.push(objProd);
+							})
+						} 
+						$scope.boolIsWishlistLoading = false;
+						$scope.wishlistPageNum++; 
+					});
+		 		}
+		 	} 
+	 	}
 	}) 

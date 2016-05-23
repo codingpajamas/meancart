@@ -38,7 +38,11 @@ router.get("/", function(req, res){
 
 // get wishlist, requires req.decoded.user._id
 router.get("/wishlist", function(req, res){
-	Product.find({"wishlistedBy.userid":req.decoded.user._id}, function(err, products){
+	var pageNum = req.query.pagenum ? req.query.pagenum : 1,
+		limit = 28,
+		skip = (parseInt(pageNum) * limit) - limit;
+
+	Product.find({"wishlistedBy.userid":req.decoded.user._id},{},{skip:skip, limit:limit}, function(err, products){
 		if(err){ 
 			console.log(err)
 			res.json({"success":false, "message":err}); 
