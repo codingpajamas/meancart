@@ -7,6 +7,7 @@ var Product = new Schema({
 	url: String,
 	urlraw: String,
 	name: String,
+	lowername : String,
 	desc: String, 
 	price: Number,
 	images: Array,

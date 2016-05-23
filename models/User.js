@@ -20,6 +20,7 @@ var User = new Schema({
 		url: String,
 		urlraw: String,
 		name: String,
+		lowername : String,
 		description: String,
 		theme: String,
 		avatar: String

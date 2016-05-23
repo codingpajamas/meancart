@@ -271,6 +271,7 @@ router.post('/add', postImage, function(req, res){
 
 	Product.create({
 		name: req.body.name,
+		lowername: req.body.name.toLowerCase(),
 		desc: req.body.desc,
 		price: req.body.price,
 		image: req.files && req.files['images'] ? req.files['images'][0]['filename'] : 'none.jpg',
@@ -503,6 +504,7 @@ router.put("/:id", postImage, function(req, res){
 			res.json({"success":false, "message":err}); 
 		}else{ 
 			post.name = req.body.name;
+			post.lowername = req.body.name.toLowerCase(),
 			post.desc = req.body.desc;
 			post.price = req.body.price;   
 			post.images = {

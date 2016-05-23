@@ -34,14 +34,13 @@ router.get("/", function(req, res){
 	});
 })
 
-router.post("/", postAvatarImage, function(req, res){  
-	console.log(req.files)  
+router.post("/", postAvatarImage, function(req, res){
 	User.findById(req.decoded.user._id, function(err, userObj){
 		if(err){ 
 			res.json({"success":false, "message":err}); 
-		}else{ 
- 			
- 			if(!userObj.store || !userObj.store.length){
+		}else{  
+ 			if(!userObj.store.name){
+ 				console.log('no store yet')
 				var prettyUrlRaw = req.body.name.trim()
 					.replace(/ñ/g, 'n')
 					.replace(/'/g, '')
@@ -60,6 +59,7 @@ router.post("/", postAvatarImage, function(req, res){
 					userObj.store.url = strPrettyUrl;
 					userObj.store.urlraw = prettyUrlRaw;
 					userObj.store.name = req.body.name;
+					userObj.store.lowername = req.body.name.toLowerCase();
 					userObj.store.description = req.body.description;
 					userObj.store.theme = req.body.theme ? req.body.theme : 'default';
 					userObj.store.avatar = req.body.avatar;
@@ -96,7 +96,9 @@ router.post("/", postAvatarImage, function(req, res){
 					
 				})
 			}else{
+				console.log('has store')
 				userObj.store.name = req.body.name;
+				userObj.store.lowername = req.body.name.toLowerCase();
 				userObj.store.description = req.body.description;
 				userObj.store.theme = req.body.theme;
 				userObj.store.avatar = req.body.avatar;
