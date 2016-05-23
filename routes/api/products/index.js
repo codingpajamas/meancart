@@ -137,7 +137,11 @@ router.post("/unwishlist", function(req, res){
 })
 
 router.get("/home", function(req, res){
-	Product.find({},{},{sort: '-createdOn'}, function(err, posts){
+	var pageNum = req.query.pagenum ? req.query.pagenum : 1,
+		limit = 28,
+		skip = (parseInt(pageNum) * limit) - limit;
+
+	Product.find({},{},{skip:skip, limit:limit, sort:'-createdOn'}, function(err, posts){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{

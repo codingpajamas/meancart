@@ -6,9 +6,9 @@ angular.module('starterApp')
 
 	 	if($scope.isLoggedIn && $rootScope.rs_me && !$rootScope.rs_isManage && $scope.$parent.homeProducts.length == 0){
 			console.log('calling home ctrl')
-			Product.homeProducts().success(function(data){ 
-					if(data.success){ 
-						
+			Product.homeProducts($scope.$parent.homePageNum).success(function(data){ 
+					if(data.success){  
+						$scope.$parent.homeProductsEnd = data.message.length < 28 ? true : false;
 						$scope.$parent.homeProducts = _.map(data.message, function(objProduct){
 							objProduct['isWishListed'] = $scope.$parent.isWishlisted(objProduct['_id']); 
 							return objProduct;
@@ -16,6 +16,7 @@ angular.module('starterApp')
 					}
 
 					$scope.boolIsHomeLoading = false;
+					$scope.$parent.homePageNum++; 
 				});
 	 	}else{
 	 		$scope.boolIsHomeLoading = false;
@@ -50,21 +51,23 @@ angular.module('starterApp')
 		} 
 
 	 	$window.onscroll = function(){  
-			if(!$scope.boolIsHomeLoading && angular.element('#homeProducts').length){  
+			if(!$scope.boolIsHomeLoading && angular.element('#homeProducts').length && !$scope.$parent.homeProductsEnd){  
 		 		var intOffset = this.pageYOffset + this.outerHeight;
 		 		var intPageHeight = angular.element('body')[0].clientHeight;
 		 		var intDistance = intPageHeight - intOffset; 
 
 		 		if(intDistance < 500){
 		 			$scope.boolIsHomeLoading = true;
-		 			Product.homeProducts().success(function(data){ 
+		 			Product.homeProducts($scope.$parent.homePageNum).success(function(data){ 
 						if(data.success){
+							$scope.$parent.homeProductsEnd = data.message.length < 28 ? true : false;
 							_.map(data.message, function(objProd){ 
 								objProd['isWishListed'] = $scope.$parent.isWishlisted(objProd['_id']); 
 								$scope.$parent.homeProducts.push(objProd);
 							})
 						} 
 						$scope.boolIsHomeLoading = false;
+						$scope.$parent.homePageNum++; 
 					});
 		 		}
 		 	} 

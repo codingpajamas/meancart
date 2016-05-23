@@ -9,6 +9,8 @@ angular.module('starterApp')
 		$rootScope.rs_hasProfile = false;
 
 		$scope.homeProducts = []
+		$scope.homePageNum = 1;
+		$scope.homeProductsEnd = false;
 
 		$rootScope.$on('$routeChangeStart', function(){
 			$scope.isLoggedIn = Auth.isLoggedIn(); 

@@ -58,8 +58,8 @@ angular.module('starterApp')
 			})
 		}
 
-		ProductFactory.homeProducts = function(){
-			return $http.get('/api/products/home').success(function(data){
+		ProductFactory.homeProducts = function(pageNum){
+			return $http.get('/api/products/home?pagenum='+pageNum).success(function(data){
 				return data;
 			})
 		}
