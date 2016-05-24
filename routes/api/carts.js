@@ -23,25 +23,17 @@ router.get("/", function(req, res){
 			Product.find({_id: { $in:objProductIds }}, {'desc':false, "wishlistedBy":false, "tags":false, "category":false, "related":false}, {}, function(err, objProductsRaw){
 				if(err || !objProductsRaw || !objProductsRaw.length){
 					callback(new Error("No products found"));
-				}else{ 
-					var objProducts = _.map(objProductsRaw, function(objProd){
-						var cartItem = _.find(objCartsRaw, function(c){ return c.productid == objProd._id; }); 
-						objProd['quantity'] = cartItem.quantity; 
-
-						return objProd;
-					})   
-
-					var objCarts = _.groupBy(objProducts, 'store.id');
-					callback(null, objCarts);
+				}else{  
+					callback(null, objProductsRaw, objCartsRaw)
 				}   
 			})
 
 		}
-	], function(err, objResult){
+	], function(err, objProductsRaw, objCartsRaw){
 		if(err){
 			response = {"success":false, "message":err};
-		}else{
-			//console.log(objResult['573d286abcc08048201139f6'][0].quantity)
+		}else{ 
+			var objResult = {"prods":objProductsRaw, "carts":objCartsRaw}
 			response = {"success":true, "message":objResult};
 		} 
 		res.json(response); 
