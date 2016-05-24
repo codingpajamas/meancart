@@ -169,8 +169,8 @@ router.get('/:storeurl/:producturl', function(req, res, next) {
 				callback(null, null, null);
 			}
 		}
-	], function(err, user, product){  
-		if(err){
+	], function(err, user, product){   
+		if(err || !user){
 			// display to error page
 			res.render('index', { title: 'onMarket' }); 
 		}else{ 

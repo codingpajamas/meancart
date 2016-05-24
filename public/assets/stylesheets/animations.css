@@ -16,13 +16,15 @@
     transition: all  300ms ease-out;
 }*/
 
-.wishlist-card.ng-enter {
+.wishlist-card.ng-enter, 
+.fx-slide.ng-enter {
 	-webkit-animation:fadeInDown 0.5s both ease-in;
 	-moz-animation:fadeInDown 0.5s both ease-in;
 	animation:fadeInDown 0.5s both ease-in;
 }
 
-.wishlist-card.ng-leave {
+.wishlist-card.ng-leave,
+.fx-slide.ng-leave {
 	-webkit-animation:fadeOutUp 0.5s both ease-in;
 	-moz-animation:fadeOutUp 0.5s both ease-in;
 	animation:fadeOutUp 0.5s both ease-in;

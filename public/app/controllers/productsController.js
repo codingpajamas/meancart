@@ -10,12 +10,17 @@ angular.module('starterApp')
 			});
 
 	})
-	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product, Store, $rootScope, $cacheFactory){ 
+	.controller('productsViewController', function($scope, $location, $routeParams, Auth, Product, Store, $rootScope, $cacheFactory, Cart){ 
 
 		$scope.objProduct = null; 
 		$scope.objStore = null;
 		$scope.objRelatedProducts = null;
 		$scope.isProductWishlisted = false;
+		$scope.intAddToCartQnty = 1;
+		$scope.objCart = {
+			quantity: 1,
+			added: false
+		}
 
 		Product.viewByProdid($routeParams.id)
 			.success(function(data){ 
@@ -62,8 +67,13 @@ angular.module('starterApp')
 				})
 		}
 
-		$scope.addToCart = function(aObjProd){
-			console.log(aObjProd)
+		$scope.addToCart = function(){
+			Cart.add($scope.objProduct._id, $scope.objCart.quantity)
+				.success(function(data){
+					if(data.message && data.success){
+						$scope.objCart.added = true;
+					}
+				})
 		}
 	})
 	.controller('productsAddController', function($scope, $location, Auth, Product, Category){

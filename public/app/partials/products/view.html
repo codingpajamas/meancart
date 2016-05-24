@@ -16,11 +16,16 @@
 			</div>
 			<div class="col-sm-5 col-md-4">
 				<div class="productview-addtocart"> 
-					<div class="input-group input-group-sm mb5">
-						<input type="number" min="1" value="1" class="form-control text-center">
-						<span class="input-group-addon">x Php <strong>{{objProduct.price | currency:"":0}}</strong></span>
+					<div ng-if="!objCart.added" class="fx-slide">
+						<div class="input-group input-group-sm mb5">
+							<input type="number" min="1" ng-model="objCart.quantity" class="form-control text-center">
+							<span class="input-group-addon">x Php <strong>{{objProduct.price | currency:"":0}}</strong></span>
+						</div>
+						<input type="submit" value="Add to Cart" class="btn btn-primary btn-block mb10" ng-click="addToCart()">
 					</div>
-					<input type="submit" value="Add to Cart" class="btn btn-primary btn-block mb10" ng-click="addToCart(objProduct)">
+					<div ng-if="objCart.added" class="mb5 fx-slide">
+						<a href="/my/cart" class="btn btn-block btn-success mb10">Added to Cart, Click to Update</a>
+					</div>
 					<p class="text-center m0 mb10">or</p>
 					<p class="m0"><a href="#" class="btn btn-xs btn-block btn-default" ng-if="!isProductWishlisted" ng-click="addToWishlist(objProduct._id)">Add to Wishist</a></p>
 					<p class="m0"><a href="#" class="btn btn-xs btn-block btn-warning" ng-if="isProductWishlisted" ng-click="removeFromWishlist(objProduct._id)">Remove from Wishist</a></p>
