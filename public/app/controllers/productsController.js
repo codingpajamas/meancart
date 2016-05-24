@@ -61,6 +61,10 @@ angular.module('starterApp')
  					}
 				})
 		}
+
+		$scope.addToCart = function(aObjProd){
+			console.log(aObjProd)
+		}
 	})
 	.controller('productsAddController', function($scope, $location, Auth, Product, Category){
 		Auth.restrict();

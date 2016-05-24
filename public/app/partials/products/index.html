@@ -18,7 +18,7 @@
 								<a href="/manage/products/{{product._id}}/edit">
 									<img ng-src="/uploads/{{rs_me._id}}/products/sm/{{product.images[0].img1 || product.images[0].img2 || product.images[0].img3 || product.images[0].img4 || 'none.jpg'}}">
 									<span class="product-meta clearfix">
-										<span class="product-price">PHP <span>{{product.price}}</span></span>
+										<span class="product-price">Php <span>{{product.price | currency:"":0}}</span></span>
 										{{product.name}}
 									</span>
 								</a>

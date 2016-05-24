@@ -2,13 +2,13 @@
 	<div class="page-body" ng-if="arrWishlists">
 		<div class="row" id="wishlistProducts">
 			<div class="col-md-12"> 
-				<div class="product-card-list" ng-repeat="objWish in arrWishlists">
+				<div class="product-card-list wishlist-card" ng-repeat="objWish in arrWishlists">
 					<div class="product-image">
 						<img ng-src="/uploads/{{objWish.store.id}}/products/sm/{{objWish.images[0].img1 || objWish.images[0].img2 || objWish.images[0].img3 || objWish.images[0].img4 || 'none.jpg'}}">
 					</div>
 					<div class="product-meta">
 						<h4 class="clearfix">
-							<span class="product-price">PHP <span>{{objWish.price}}</span></span>
+							<span class="product-price">PHP <span>{{objWish.price | currency:"":0}}</span></span>
 							<a class="black-text" href="/p/{{objWish.prodid}}">{{objWish.name}}</a>
 						</h4>
 						<p class="clearfix">

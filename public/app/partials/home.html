@@ -35,7 +35,7 @@
 							<img ng-src="/uploads/{{objProduct.store.id}}/products/sm/{{objProduct.images[0].img1 || objProduct.images[0].img2 || objProduct.images[0].img3 || objProduct.images[0].img4 || 'none.jpg'}}">
 						</a>
 						<div class="product-meta clearfix">
-							<div class="product-price">PHP <span>{{objProduct.price}}</span></div>
+							<div class="product-price">Php <span>{{objProduct.price | currency:"":0}}</span></div>
 							<a class="product-view">
 								<i class="glyphicon glyphicon-share-alt"></i> View
 							</a>

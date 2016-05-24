@@ -12,6 +12,7 @@ angular.module('starterApp')
 
 		Product.getWishlist($scope.wishlistPageNum).success(function(data){
 			if(data.success && data.message && data.message.length){
+				$scope.wishlistProductsEnd = data.message.length < 28 ? true : false;
 				$scope.arrWishlists = data.message;
 			} 
 			$scope.wishlistPageNum++; 
@@ -34,7 +35,7 @@ angular.module('starterApp')
 		}
 
 		$window.onscroll = function(){  
-			if(!$scope.boolIsWishlistLoading && angular.element('#wishlistProducts').length && !$scope.$parent.homeProductsEnd){  
+			if(!$scope.boolIsWishlistLoading && angular.element('#wishlistProducts').length && !$scope.wishlistProductsEnd){  
 		 		var intOffset = this.pageYOffset + this.outerHeight;
 		 		var intPageHeight = angular.element('body')[0].clientHeight;
 		 		var intDistance = intPageHeight - intOffset; 
@@ -43,7 +44,7 @@ angular.module('starterApp')
 		 			$scope.boolIsWishlistLoading = true;
 		 			Product.getWishlist($scope.wishlistPageNum).success(function(data){ 
 						if(data.success){
-							$scope.$parent.homeProductsEnd = data.message.length < 28 ? true : false;
+							$scope.wishlistProductsEnd = data.message.length < 28 ? true : false;
 							_.map(data.message, function(objProd){  
 								$scope.wishlistProducts.push(objProd);
 							})
