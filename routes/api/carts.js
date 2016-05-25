@@ -18,22 +18,30 @@ router.get("/", function(req, res){
 			})  
 		},
 		function(objCartsRaw, callback){
-			var objProductIds = _.map(objCartsRaw, 'productid'); 
-
+			var objProductIds = _.map(objCartsRaw, 'productid');  
 			Product.find({_id: { $in:objProductIds }}, {'desc':false, "wishlistedBy":false, "tags":false, "category":false, "related":false}, {}, function(err, objProductsRaw){
 				if(err || !objProductsRaw || !objProductsRaw.length){
 					callback(new Error("No products found"));
 				}else{  
 					callback(null, objProductsRaw, objCartsRaw)
 				}   
-			})
-
+			}) 
+		},
+		function(objProductsRaw, objCartsRaw, callback){
+			var objStoreIds = _.uniq(_.map(objProductsRaw, 'store.id'));  
+			User.find({_id: {$in:objStoreIds}}, {"followed":false, "followers":false, "wishlist":false, "hash":false, "salt":false, "username":false, "store.description":false}, {}, function(err, objStoresRaw){
+				if(err || !objStoresRaw || !objStoresRaw.length){
+					callback(new Error("No Stores found"));
+				}else{  
+					callback(null, objStoresRaw, objProductsRaw, objCartsRaw)
+				} 
+			}) 
 		}
-	], function(err, objProductsRaw, objCartsRaw){
+	], function(err, objStoresRaw, objProductsRaw, objCartsRaw){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{ 
-			var objResult = {"prods":objProductsRaw, "carts":objCartsRaw}
+			var objResult = {"prods":objProductsRaw, "carts":objCartsRaw, "stores":objStoresRaw}
 			response = {"success":true, "message":objResult};
 		} 
 		res.json(response); 
