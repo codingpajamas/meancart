@@ -15,6 +15,8 @@ angular.module('starterApp')
 			if(objProducts.length && objCarts.length){ 
 				_.map(objProducts, function(objProd){
 					var cartItem = _.find(objCarts, function(c){ return c.productid == objProd._id; }); 
+					objProd['isOnSale'] = $scope.$parent.isOnSale(objProd.sale); 
+					objProd['saleprice'] = $scope.$parent.getSalePrice(objProd);
 					objProd['quantity'] = cartItem.quantity; 
 					return objProd;
 				})   
@@ -24,7 +26,7 @@ angular.module('starterApp')
 					return objStore;
 				})
 
-				$scope.objCartlist = objStores;  
+				$scope.objCartlist = objStores;
 			}
 		})
 	}) 

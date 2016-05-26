@@ -60,6 +60,14 @@ angular.module('starterApp')
 			}
 		}
 
+		$scope.isOnSale = function(objSale){
+			return objSale && parseInt(objSale.off) && moment().isBetween(new Date(objSale.start), new Date(objSale.end)) ? true : false;
+		}
+
+		$scope.getSalePrice = function(objProd){
+			return $scope.isOnSale(objProd.sale) ? (objProd.price - (objProd.price*parseInt(objProd.sale.off)/100)) :  objProd.price;
+		}
+
 		$scope.logout = function(){
 			$rootScope.rs_isManage = false;
 			$scope.homeProducts = [];

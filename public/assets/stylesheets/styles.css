@@ -542,6 +542,20 @@ table {
 	text-align: right;
 }
 
+.cart-prod-total {
+
+}
+.price-orig {
+	font-weight: normal;
+	font-size: 12px;
+}
+.price-orig span {
+	text-decoration: line-through;
+}
+.price-sale {
+	color: #4cae4c;
+}
+
 /* product page */
 .productview { 
 	box-shadow: 0 1px 1px rgba(0,0,0,0.2); 
