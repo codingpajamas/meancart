@@ -10,11 +10,12 @@ angular.module('starterApp')
 	.controller('storeProductsController', function($scope, Auth){
 		Auth.restrict();
 	}) 
-	.controller('storeUrlController', function($scope, Auth, $location, Store, $rootScope, $cacheFactory, Product){ 
+	.controller('storeUrlController', function($scope, Auth, $location, Store, $rootScope, $cacheFactory, Product, Cart){ 
 		$scope.objStore = null;
 		$scope.objStoreProducts = []
 		$scope.storeImg = '/uploads/none.jpg'
 		$scope.isfollowed = false;
+		$scope.cartItemInStore = null;
 
 		var fullUrlPath = $location.path().replace(/^\/|\/$/g, '');
 		var pageUrlPath = fullUrlPath.split("/")[0];
@@ -37,6 +38,13 @@ angular.module('starterApp')
 									});   
  								}
  							})
+
+ 						Cart.store($scope.objStore._id).success(function(data){
+ 							if(data.success && data.message){
+ 								$scope.cartItemInStore = data.message
+ 							}
+							console.log($scope.cartItemInStore)
+						})
  					} 
  				})
  		}

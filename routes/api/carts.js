@@ -47,6 +47,38 @@ router.get("/", function(req, res){
 		res.json(response); 
 	}) 
 })
+
+router.get("/store/:storeid", function(req, res){  
+	async.waterfall([
+		function(callback){
+			Cart.find({"userid":req.decoded.user._id},{},{sort:"-createdOn"}, function(err, objCartsRaw){
+				if(err || !objCartsRaw || !objCartsRaw.length){
+					callback(new Error("No item in cart"));
+				}else{
+					callback(null, objCartsRaw);
+				}  
+			})  
+		},
+		function(objCartsRaw, callback){
+			var objProductIds = _.map(objCartsRaw, 'productid');  
+			Product.find({_id: { $in:objProductIds }, "store.id":req.params.storeid}, {'desc':false, "wishlistedBy":false, "tags":false, "category":false, "related":false}, {}, function(err, objProductsRaw){
+				if(err || !objProductsRaw || !objProductsRaw.length){
+					callback(new Error("No products found"));
+				}else{  
+					callback(null, objProductsRaw)
+				}   
+			}) 
+		}, 
+	], function(err, objProductsRaw){
+		if(err){
+			response = {"success":false, "message":err};
+		}else{ 
+			var objResult = {"prods":objProductsRaw}
+			response = {"success":true, "message":objResult};
+		} 
+		res.json(response); 
+	}) 
+})
  
 router.post("/", function(req, res){ 
 	Cart.create({

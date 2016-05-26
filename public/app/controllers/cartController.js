@@ -39,5 +39,5 @@ angular.module('starterApp')
 				}
 			}) 
 			return false;
-		}
+		} 
 	}) 
