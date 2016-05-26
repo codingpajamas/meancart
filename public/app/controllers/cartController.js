@@ -10,6 +10,7 @@ angular.module('starterApp')
 
 			var objProducts = data.message.prods;
 			var objCarts = data.message.carts;
+			var objStores = data.message.stores;
 			
 			if(objProducts.length && objCarts.length){ 
 				_.map(objProducts, function(objProd){
@@ -17,9 +18,13 @@ angular.module('starterApp')
 					objProd['quantity'] = cartItem.quantity; 
 					return objProd;
 				})   
+ 
+				_.map(objStores, function(objStore){
+					objStore['cartItems'] = _.filter(objProducts, {store:{id:objStore._id}}) 
+					return objStore;
+				})
 
-				$scope.objCartlist = _.groupBy(objProducts, 'store.id') 
-				console.log($scope.objCartlist) 
+				$scope.objCartlist = objStores;  
 			}
 		})
 	}) 

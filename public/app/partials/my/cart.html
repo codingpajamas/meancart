@@ -2,21 +2,21 @@
 	<div class="page-body"> 	
 		<div class="row">
 			<div class="col-md-12"> 
-				<div class="cart-card" ng-repeat="(key,objCart) in objCartlist">
+				<div class="cart-card" ng-repeat="storeCart in objCartlist">
 					<div class="cart-head"> 
 						<table>
 							<tr>
-								<td class="cart-head-img"><img src="/temp/carthtml/images/1.jpg"></td>
-								<td class="cart-head-name">{{objCart[0].store.name}}</td>
+								<td class="cart-head-img"><img ng-src="{{storeCart.store.avatar ? '/uploads/' + storeCart._id + '/' + storeCart.store.avatar : '/uploads/none.jpg'}}"></td>
+								<td class="cart-head-name">{{storeCart.store.name}}</td>
 								<td class="cart-head-price">Total : Php 12,000.00</td>
 							</tr>
 						</table>
 					</div>
 					<div class="cart-body">
 						<table class="table">
-							<tr ng-repeat="cartItem in objCart">
+							<tr ng-repeat="cartItem in storeCart.cartItems">
 								<td class="cart-prod-img">
-									<img src="/temp/carthtml/images/1.jpg">
+									<img ng-src="/uploads/{{storeCart._id}}/products/md/{{cartItem.images[0].img1 || cartItem.images[0].img2 || cartItem.images[0].img3 || cartItem.images[0].img4 || 'none.jpg'}}">
 								</td>
 								<td class="cart-prod-name">{{cartItem.name}}</td>
 								<td class="cart-prod-qty">
