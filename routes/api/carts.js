@@ -73,7 +73,16 @@ router.put("/:cartid", function(req, res){
 })
 
 router.delete("/:cartid", function(req, res){ 
-	res.json({"success":true, "message":"delete one cart"});
+	Cart.remove({
+		_id:req.params.cartid
+	}, function(err, post){
+		if(err){ 
+			res.json({"success":false, "message":err}); 
+		}else{ 
+			response = {"success":true, "message":"Cart item was deleted successfully"};
+		}  
+        res.json(response); 
+	}); 
 })
 
 
