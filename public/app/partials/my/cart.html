@@ -16,14 +16,16 @@
 						<table class="table">
 							<tr ng-repeat="cartItem in storeCart.cartItems" class="fx-slide">
 								<td class="cart-prod-img">
-									<img ng-src="/uploads/{{storeCart._id}}/products/md/{{cartItem.images[0].img1 || cartItem.images[0].img2 || cartItem.images[0].img3 || cartItem.images[0].img4 || 'none.jpg'}}">
+									<a href="/p/{{cartItem.prodid}}"> 
+										<img ng-src="/uploads/{{storeCart._id}}/products/md/{{cartItem.images[0].img1 || cartItem.images[0].img2 || cartItem.images[0].img3 || cartItem.images[0].img4 || 'none.jpg'}}">
+									</a>
 								</td>
 								<td class="cart-prod-name">{{cartItem.name}}</td>
 								<td class="cart-prod-qty">
 									<div class="input-group input-group-sm">
-										<input type="number" min="1" value="1" class="form-control">
-										<span class="input-group-addon" ng-if="!cartItem.isOnSale">x Php {{cartItem.price | currency:"":0}}</span>
-										<span class="input-group-addon" ng-if="cartItem.isOnSale">x Php {{cartItem.saleprice | currency:"":0}}</span>
+										<input type="number" min="1" value="{{cartItem.quantity}}" ng-change="updateCartItem(intCartQnty, cartItem.cartid)" ng-model="intCartQnty" class="form-control">
+										<span class="input-group-addon" ng-if="!cartItem.isOnSale">x P {{cartItem.price | currency:"":0}}</span>
+										<span class="input-group-addon" ng-if="cartItem.isOnSale">x P {{cartItem.saleprice | currency:"":0}}</span>
 									</div>
 								</td>
 								<td class="cart-prod-total">
@@ -35,7 +37,11 @@
 										Php {{cartItem.price | currency:"":0}}
 									</div>
 								</td>
-								<td class="cart-prod-remove"><a href="#" ng-click="removeCartItem(cartItem.cartid, $parent.$index, $index)">x</a></td>
+								<td class="cart-prod-remove">
+									<a href="#" ng-click="removeCartItem(cartItem.cartid, $parent.$index, $index)">
+										<i class="glyphicon glyphicon-trash"></i>
+									</a>
+								</td>
 							</tr> 
 						</table>
 					</div>

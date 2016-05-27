@@ -28,8 +28,19 @@ angular.module('starterApp')
 				})
 
 				$scope.objCartlist = objStores;
+				console.log($scope.objCartlist)
 			}
 		});
+
+		$scope.updateCartItem = function(intCartQnty, cartid){
+			if(intCartQnty){
+				console.log(intCartQnty, cartid)
+				Cart.update(cartid, intCartQnty)
+					.success(function(data){
+						console.log(data)
+					})
+			}
+		}
 
 		$scope.removeCartItem = function(cartId, $parentIndex, $index){
 			Cart.delete(cartId).success(function(data){
@@ -41,3 +52,31 @@ angular.module('starterApp')
 			return false;
 		} 
 	}) 
+
+
+
+
+/*
+* create cart model 
+* add [add to cart] button on product page
+^ create cart service 
+* create Cart route API
+* create cart/add cart method in cart api
+* create addToCart functionality in productctrl
+* create getcart method in cart api
+* display carts in cart page
+* create sale checker
+  display products in cart when viewing a store
+  cart page per store
+* add remove button in cart item
+* add removeFromCart functionality in cartctrl
+  update cart item in product page if product exist in cart
+  update quantity in cart page
+* add updateCart functionality in cartCtrl
+* create updatecart method in cart  api
+  add submit button
+  add submit functionality in cartCtrl
+  add submitCart method in cart api
+  create is in cart checker
+  add cart icon in product card
+ */

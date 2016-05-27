@@ -531,6 +531,7 @@ table {
 }
 .cart-prod-qty input {
 	text-align: center !important;
+	min-width: 70px;
 }
 .cart-prod-total {
 	width: 150px;

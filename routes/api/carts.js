@@ -101,7 +101,20 @@ router.get("/:cartid", function(req, res){
 })
 
 router.put("/:cartid", function(req, res){ 
-	res.json({"success":true, "message":"update cart"});
+	console.log(req.body)
+
+	Cart.findByIdAndUpdate(
+		req.params.cartid,
+		{ quantity: req.body.quantity },
+		function(err, cart){
+			if(err || !cart){
+				res.json({"success":false, "message":err}); 
+			}else{
+				response = {"success":true, "message":"Cart item was updated successfully"};
+			}
+			res.json(response); 
+		}
+	) 
 })
 
 router.delete("/:cartid", function(req, res){ 

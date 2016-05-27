@@ -28,7 +28,7 @@ angular.module('starterApp')
 			})
 		}
 
-		CartFactory.update = function(quantity){
+		CartFactory.update = function(cartId, quantity){
 			return $http.put('/api/carts/'+cartId, {quantity:quantity}).success(function(data){
 				return data;
 			})
