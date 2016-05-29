@@ -1,14 +1,18 @@
 <div class="page-wrap">
-	<div class="page-body"> 	
+	<div class="page-body" ng-if="objCartlist">
 		<div class="row">
 			<div class="col-md-12"> 
 				<div class="cart-card" ng-repeat="storeCart in objCartlist">
 					<div class="cart-head"> 
 						<table>
 							<tr>
-								<td class="cart-head-img"><img ng-src="{{storeCart.store.avatar ? '/uploads/' + storeCart._id + '/' + storeCart.store.avatar : '/uploads/none.jpg'}}"></td>
-								<td class="cart-head-name">{{storeCart.store.name}}</td>
-								<td class="cart-head-price">Total : Php 12,000.00</td>
+								<td class="cart-head-img">
+									<a href="/@{{storeCart.store.url}}">
+										<img ng-src="{{storeCart.store.avatar ? '/uploads/' + storeCart._id + '/' + storeCart.store.avatar : '/uploads/none.jpg'}}">
+									</a>
+								</td>
+								<td class="cart-head-name"><a href="/@{{storeCart.store.url}}">{{storeCart.store.name}}</a></td>
+								<td class="cart-head-price">Total : Php {{storeCart.totalCartPrice | currency:"":0}}</td>
 							</tr>
 						</table>
 					</div>
@@ -138,6 +142,14 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-body" ng-if="!objCartlist">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="whitebox">No items found.</h4>
 			</div>
 		</div>
 	</div>

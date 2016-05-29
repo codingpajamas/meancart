@@ -23,12 +23,12 @@ angular.module('starterApp')
 				})    
  
 				_.map(objStores, function(objStore){
-					objStore['cartItems'] = _.filter(objProducts, {store:{id:objStore._id}}) 
+					objStore['cartItems'] = _.filter(objProducts, {store:{id:objStore._id}});  
+					objStore['totalCartPrice'] = _.reduce(objStore['cartItems'], function(total, item){ return total + item.saleprice }, 0)
 					return objStore;
 				})
 
-				$scope.objCartlist = objStores;
-				console.log($scope.objCartlist)
+				$scope.objCartlist = objStores; 
 			}
 		});
 
@@ -77,6 +77,9 @@ angular.module('starterApp')
   add submit button
   add submit functionality in cartCtrl
   add submitCart method in cart api
-  create is in cart checker
+  create is in cart checker in mainctrl
+  create getallcartitems in api
+  create getallcartproductsonly in service
   add cart icon in product card
+  create getallcartitems updater
  */
