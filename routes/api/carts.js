@@ -69,11 +69,21 @@ router.get("/store/:storeid", function(req, res){
 				}   
 			}) 
 		}, 
-	], function(err, objProductsRaw){
-		if(err){
+		function(objProductsRaw, callback){
+			User.findById(req.params.storeid, function(err, objStoreRaw){
+				if(err || !objStoreRaw){
+					callback(new Error("No store found"));
+				}else{  
+					callback(null, objStoreRaw, objProductsRaw)
+				}  
+			})
+		}
+	], function(err, objStoreRaw, objProductsRaw){
+		if(err || !objStoreRaw || !objProductsRaw){
+			console.log(err)
 			response = {"success":false, "message":err};
 		}else{ 
-			var objResult = {"prods":objProductsRaw}
+			var objResult = {"prods":objProductsRaw, "store":objStoreRaw.store}
 			response = {"success":true, "message":objResult};
 		} 
 		res.json(response); 

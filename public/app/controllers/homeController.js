@@ -4,13 +4,13 @@ angular.module('starterApp')
 	.controller('homeController', function($scope, Product, $rootScope, $window, $location, $cacheFactory, Auth){  
 		$scope.boolIsHomeLoading = true;
 
-	 	if($scope.isLoggedIn && $rootScope.rs_me && !$rootScope.rs_isManage && $scope.$parent.homeProducts.length == 0){
-			console.log('calling home ctrl')
+	 	if($scope.isLoggedIn && $rootScope.rs_me && !$rootScope.rs_isManage && $scope.$parent.homeProducts.length == 0){ 
 			Product.homeProducts($scope.$parent.homePageNum).success(function(data){ 
 					if(data.success){  
 						$scope.$parent.homeProductsEnd = data.message.length < 28 ? true : false;
 						$scope.$parent.homeProducts = _.map(data.message, function(objProduct){
 							objProduct['isWishListed'] = $scope.$parent.isWishlisted(objProduct['_id']); 
+							objProduct['inCartItem'] = $scope.$parent.isOnCart(objProduct['_id']);  
 							return objProduct;
 						});  
 					}

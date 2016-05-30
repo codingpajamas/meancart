@@ -39,7 +39,10 @@
 							<a class="product-view">
 								<i class="glyphicon glyphicon-share-alt"></i> View
 							</a>
-							<a class="product-like">
+							<a class="product-like" ng-if="!objProduct.inCartItem">
+								<i class="fa fa-cart-plus"></i> Cart
+							</a>
+							<a class="product-like product-like-active" ng-if="objProduct.inCartItem">
 								<i class="fa fa-cart-plus"></i> Cart
 							</a>
 							<a class="product-wishlist product-wishlist-active" ng-if="objProduct.isWishListed" ng-click="removeFromWishlist(objProduct._id)">

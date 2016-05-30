@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../../../models/User');
+var Cart = require('../../../models/Cart');
 var crypto = require('crypto'); 
 var async = require('async'); 
 var passport = require('passport');
@@ -9,6 +10,7 @@ var jwt = require('jsonwebtoken');
 var mkdirp = require('mkdirp');
 var fs = require('fs-extra'); 
 var secretmonster = 'meanstartedhahahaha';
+var _ = require('lodash');
 
 router.post('/register', function(req, res){ 
 	User.findOne(
@@ -113,25 +115,33 @@ router.post('/register', function(req, res){
 });
 
 router.post('/login', function(req, res, next){
-	passport.authenticate('local', function(err, user, info){  
-		if(err || !user){ 
+	passport.authenticate('local', function(err, objUser, info){  
+		if(err || !objUser){ 
 			res.json({'status':'error', 'message' : info.message})
 		} else { 
 
 			var safeUser = {
-				id : user['id'],
-				username : user['username'],
-				fullname : user['fullname'] 
+				id : objUser['id'],
+				username : objUser['username'],
+				fullname : objUser['fullname'] 
 			}
 
-			// setup the token 
-			var usertoken = jwt.sign({
-				user : user
-			}, secretmonster, {
-				expiresIn : 86400
-			});
+			Cart.find({"userid":objUser._id}, function(err, carts){
+				if(carts){
+					console.log(carts)
+					objUser["cart"] = carts;
+				} 
 
-			res.json({'status':'success', 'message' : 'Successfully logged in.', token:usertoken})
+				// setup the token 
+				var usertoken = jwt.sign({
+					user : objUser,
+					cart : _.map(carts, 'productid')
+				}, secretmonster, {
+					expiresIn : 86400
+				});
+
+				res.json({'status':'success', 'message' : 'Successfully logged in.', token:usertoken})
+			}) 
 		};
 	})(req, res, next);
 })

@@ -16,6 +16,7 @@ angular.module('starterApp')
 		$scope.objStore = null;
 		$scope.objRelatedProducts = null;
 		$scope.isProductWishlisted = false;
+		$scope.isProductInCart = false;
 		$scope.intAddToCartQnty = 1;
 		$scope.objCart = {
 			quantity: 1,
@@ -37,7 +38,8 @@ angular.module('starterApp')
 							$scope.objRelatedProducts = data.success && data.message && data.message.length ? data.message : null;
 						})
 
-					$scope.isProductWishlisted = _.find($rootScope.rs_me.wishlist, {productid:$scope.objProduct._id}) ? true : false
+					$scope.isProductWishlisted = _.find($rootScope.rs_me.wishlist, {productid:$scope.objProduct._id}) ? true : false;
+					$scope.isProductInCart = $scope.$parent.isOnCart($scope.objProduct._id); 
 				}
 			})
 

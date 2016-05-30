@@ -18,7 +18,8 @@ angular.module('starterApp')
 			if($scope.isLoggedIn){
 				Auth.getUser()
 					.success(function(data){
-						$rootScope.rs_me = data.user;
+						$rootScope.rs_me = data.user ? data.user : null;
+						$rootScope.rs_me.cart = data.cart && data.user ? data.cart : []; 
 
 						if(data.user && data.user.store){
 							$rootScope.rs_hasStore = true;
@@ -62,6 +63,14 @@ angular.module('starterApp')
 
 		$scope.isOnSale = function(objSale){
 			return objSale && parseInt(objSale.off) && moment().isBetween(new Date(objSale.start), new Date(objSale.end)) ? true : false;
+		}
+
+		$scope.isOnCart = function(prodId){ 
+			if($rootScope.rs_me){ 
+				return _.includes($rootScope.rs_me.cart, prodId) ? true : false;
+			}else{
+				return false;
+			}
 		}
 
 		$scope.getSalePrice = function(objProd){

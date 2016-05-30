@@ -176,6 +176,11 @@ angular.module('starterApp')
 				controller : 		'cartController',
 				controllerAs : 		'cart'
 			}) 
+			.when('/my/cart/:id', {
+				templateUrl : 		'app/partials/my/cartview.html',
+				controller : 		'cartViewController',
+				controllerAs : 		'cartview'
+			}) 
 			.when('/my/profile', {
 				templateUrl : 		'app/partials/my/profile.html',
 				controller : 		'profileController',

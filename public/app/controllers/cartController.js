@@ -52,6 +52,17 @@ angular.module('starterApp')
 			return false;
 		} 
 	}) 
+	.controller('cartViewController', function($scope, $location, Auth, Cart){
+		Auth.restrict(); 
+		$scope.objCart = null;
+
+		Cart.store('573d286abcc08048201139f6')
+			.success(function(data){
+				$scope.objCart = data.success && data.message ? data.message : null;
+
+				console.log($scope.objCart)
+			})
+	})
 
 
 
@@ -77,9 +88,8 @@ angular.module('starterApp')
   add submit button
   add submit functionality in cartCtrl
   add submitCart method in cart api
-  create is in cart checker in mainctrl
-  create getallcartitems in api
-  create getallcartproductsonly in service
-  add cart icon in product card
-  create getallcartitems updater
+
+* create is in cart checker in mainctrl
+* include cart items in /me api 
+* add cart icon in product card 
  */
