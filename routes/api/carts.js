@@ -65,25 +65,25 @@ router.get("/store/:storeid", function(req, res){
 				if(err || !objProductsRaw || !objProductsRaw.length){
 					callback(new Error("No products found"));
 				}else{  
-					callback(null, objProductsRaw)
+					callback(null, objProductsRaw, objCartsRaw)
 				}   
 			}) 
 		}, 
-		function(objProductsRaw, callback){
+		function(objProductsRaw, objCartsRaw, callback){
 			User.findById(req.params.storeid, function(err, objStoreRaw){
 				if(err || !objStoreRaw){
 					callback(new Error("No store found"));
 				}else{  
-					callback(null, objStoreRaw, objProductsRaw)
+					callback(null, objStoreRaw, objProductsRaw, objCartsRaw)
 				}  
 			})
 		}
-	], function(err, objStoreRaw, objProductsRaw){
-		if(err || !objStoreRaw || !objProductsRaw){
+	], function(err, objStoreRaw, objProductsRaw, objCartsRaw){
+		if(err || !objStoreRaw || !objProductsRaw || !objCartsRaw){
 			console.log(err)
 			response = {"success":false, "message":err};
-		}else{ 
-			var objResult = {"prods":objProductsRaw, "store":objStoreRaw.store}
+		}else{  
+			var objResult = {"prods":objProductsRaw, "store":objStoreRaw, "carts":objCartsRaw}
 			response = {"success":true, "message":objResult};
 		} 
 		res.json(response); 

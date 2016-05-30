@@ -1,5 +1,5 @@
 <div class="page-wrap">
-	<div class="page-body" ng-if="objCart">
+	<div class="page-body" ng-if="objCartItems">
 		<div class="row">
 			<div class="col-md-12"> 
 				<div class="cart-card">
@@ -7,21 +7,21 @@
 						<table>
 							<tr>
 								<td class="cart-head-img">
-									<a href="/@{{objCart.store.url}}">
-										<img ng-src="{{objCart.store.avatar ? '/uploads/' + objCart.store._id + '/' + objCart.store.store.avatar : '/uploads/none.jpg'}}">
+									<a href="/@{{objStore.store.url}}">
+										<img ng-src="{{objStore.store.avatar ? '/uploads/' + objStore._id + '/' + objStore.store.avatar : '/uploads/none.jpg'}}">
 									</a>
 								</td>
-								<td class="cart-head-name"><a href="/@{{objCart.store.store.url}}">{{objCart.store.name}}</a></td>
+								<td class="cart-head-name"><a href="/@{{objStore.store.url}}">{{objStore.store.name}}</a></td>
 								<td class="cart-head-price">Total : Php {{objCart.store.totalCartPrice | currency:"":0}}</td>
 							</tr>
 						</table>
 					</div>
 					<div class="cart-body">
 						<table class="table">
-							<tr ng-repeat="cartItem in objCart.prods" class="fx-slide">
+							<tr ng-repeat="cartItem in objCartItems" class="fx-slide">
 								<td class="cart-prod-img">
 									<a href="/p/{{cartItem.prodid}}"> 
-										<img ng-src="/uploads/{{objCart.store._id}}/products/md/{{cartItem.images[0].img1 || cartItem.images[0].img2 || cartItem.images[0].img3 || cartItem.images[0].img4 || 'none.jpg'}}">
+										<img ng-src="/uploads/{{objStore._id}}/products/md/{{cartItem.images[0].img1 || cartItem.images[0].img2 || cartItem.images[0].img3 || cartItem.images[0].img4 || 'none.jpg'}}">
 									</a>
 								</td>
 								<td class="cart-prod-name">{{cartItem.name}}</td>
@@ -71,7 +71,7 @@
 		</div>
 	</div>
 
-	<div class="page-body" ng-if="!objCart">
+	<div class="page-body" ng-if="!objCartItems">
 		<div class="row">
 			<div class="col-md-12">
 				<h4 class="whitebox">No items found.</h4>

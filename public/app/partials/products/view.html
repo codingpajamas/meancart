@@ -25,21 +25,21 @@
 							<input type="submit" value="Add to Cart" class="btn btn-primary btn-block mb10" ng-click="addToCart()">
 						</div>
 						<div ng-if="objCart.added" class="mb5 fx-slide">
-							<a href="/my/cart" class="btn btn-block btn-success mb10">Added to Cart, Click to Update</a>
+							<a href="/my/cart/{{objStore._id}}" class="btn btn-block btn-success mb10">Added to Cart, Click to Update</a>
 						</div>
 					</div>
 					<div ng-if="isProductInCart">
-						<a href="/my/cart" class="btn btn-block btn-success mb10">Added to Cart, Click to Update</a>
+						<a href="/my/cart/{{objStore._id}}" class="btn btn-block btn-success mb10">Added to Cart, Click to Update</a>
 					</div>
 					<p class="text-center m0 mb10">or</p>
 					<p class="m0"><a href="#" class="btn btn-block btn-default" ng-if="!isProductWishlisted" ng-click="addToWishlist(objProduct._id)">Add to Wishist</a></p>
 					<p class="m0"><a href="#" class="btn btn-block btn-warning" ng-if="isProductWishlisted" ng-click="removeFromWishlist(objProduct._id)">Remove from Wishist</a></p>
 				</div>
 				<div class="productview-storeinfo"> 
-					<a href="/@{{objStore.url}}">
-						<img ng-src="{{objStore.avatar ? '/uploads/' + objProduct.store.id + '/' + objStore.avatar : '/uploads/none.jpg'}}"> 
-						<strong>{{objStore.name}}</strong>
-						<span>{{objStore.description}}</span>
+					<a href="/@{{objStore.store.url}}">
+						<img ng-src="{{objStore.store.avatar ? '/uploads/' + objProduct.store.id + '/' + objStore.store.avatar : '/uploads/none.jpg'}}"> 
+						<strong>{{objStore.store.name}}</strong>
+						<span>{{objStore.store.description}}</span>
 					</a>
 				</div>
 				<div class="productview-related mb20"> 

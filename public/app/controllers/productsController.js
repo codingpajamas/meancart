@@ -30,7 +30,7 @@ angular.module('starterApp')
 					
 					Store.getStoreByProductId($scope.objProduct.store.id)
 						.success(function(data){
-							$scope.objStore = data.success && data.message ? data.message.store : null;
+							$scope.objStore = data.success && data.message ? data.message : null;
 						});
 
 					Product.getRelatedProducts($scope.objProduct._id)
@@ -74,6 +74,11 @@ angular.module('starterApp')
 				.success(function(data){
 					if(data.message && data.success){
 						$scope.objCart.added = true;
+
+						// refresh the token since we updated our profile
+						var httpCache = $cacheFactory.get('$http'); 
+						httpCache.remove('/api/user/me');
+						Auth.refreshToken() 
 					}
 				})
 		}

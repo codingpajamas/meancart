@@ -52,15 +52,23 @@ angular.module('starterApp')
 			return false;
 		} 
 	}) 
-	.controller('cartViewController', function($scope, $location, Auth, Cart){
+	.controller('cartViewController', function($scope, $location, Auth, Cart, $routeParams){
 		Auth.restrict(); 
-		$scope.objCart = null;
+		$scope.objCartItems = null;
+		$scope.objStore = null;
 
-		Cart.store('573d286abcc08048201139f6')
+		Cart.store($routeParams.id)
 			.success(function(data){
-				$scope.objCart = data.success && data.message ? data.message : null;
+				if(data.success && data.message){
+					$scope.objStore = data.message.store;
 
-				console.log($scope.objCart)
+					_.map(data.message.prods, function(objProd){
+						var cartItem = _.find(data.message.carts, function(c){ return c.productid == objProd._id; }); 
+						objProd['quantity'] = cartItem.quantity; 
+						return objProd;
+					})
+					$scope.objCartItems = data.message.prods; 
+				} 
 			})
 	})
 
