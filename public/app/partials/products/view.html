@@ -37,7 +37,7 @@
 				</div>
 				<div class="productview-storeinfo"> 
 					<a href="/@{{objStore.store.url}}">
-						<img ng-src="{{objStore.store.avatar ? '/uploads/' + objProduct.store.id + '/' + objStore.store.avatar : '/uploads/none.jpg'}}"> 
+						<img ng-src="{{objStore.store.avatar != 'none.jpg' ? '/uploads/' + objProduct.store.id + '/' + objStore.store.avatar : '/uploads/none.jpg'}}"> 
 						<strong>{{objStore.store.name}}</strong>
 						<span>{{objStore.store.description}}</span>
 					</a>

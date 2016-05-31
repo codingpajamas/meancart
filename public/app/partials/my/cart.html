@@ -8,7 +8,7 @@
 							<tr>
 								<td class="cart-head-img">
 									<a href="/@{{storeCart.store.url}}">
-										<img ng-src="{{storeCart.store.avatar ? '/uploads/' + storeCart._id + '/' + storeCart.store.avatar : '/uploads/none.jpg'}}">
+										<img ng-src="{{storeCart.store.avatar != 'none.jpg' ? '/uploads/' + storeCart._id + '/' + storeCart.store.avatar : '/uploads/none.jpg'}}">
 									</a>
 								</td>
 								<td class="cart-head-name"><a href="/@{{storeCart.store.url}}">{{storeCart.store.name}}</a></td>

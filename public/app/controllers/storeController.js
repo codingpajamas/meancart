@@ -26,7 +26,7 @@ angular.module('starterApp')
  				.success(function(dataStore){
  					if(dataStore.message){
  						$scope.objStore = dataStore.message ? dataStore.message : null; 
- 						$scope.storeImg = $scope.objStore.store.avatar ? '/uploads/'+$scope.objStore._id+'/'+$scope.objStore.store.avatar : '/uploads/none.jpg';
+ 						$scope.storeImg = $scope.objStore.store.avatar != 'none.jpg' ? '/uploads/'+$scope.objStore._id+'/'+$scope.objStore.store.avatar : '/uploads/none.jpg';
  						$scope.isfollowed = _.find($rootScope.rs_me.followed, {userid:$scope.objStore._id}) ? true : false;
  					
  						Store.getStoreProducts($scope.objStore._id)
@@ -34,16 +34,16 @@ angular.module('starterApp')
  								if(dataProducts.success && dataProducts.message){ 
  									$scope.objStoreProducts = _.map(dataProducts.message, function(objProduct){
 										objProduct['isWishListed'] = $scope.$parent.isWishlisted(objProduct['_id']); 
+										objProduct['inCartItem'] = $scope.$parent.isOnCart(objProduct['_id']); 
 										return objProduct;
 									});   
- 								}
+ 								} 
  							})
 
  						Cart.store($scope.objStore._id).success(function(data){
  							if(data.success && data.message){
  								$scope.cartItemInStore = data.message
- 							}
-							console.log($scope.cartItemInStore)
+ 							} 
 						})
  					} 
  				})
