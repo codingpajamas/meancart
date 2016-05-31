@@ -19,6 +19,12 @@ angular.module('starterApp')
 			})
 		}
 
+		SettingFactory.checkStore = function(lowername){
+			return $http.get('/api/settings/check/'+lowername).success(function(data){
+				return data;
+			})
+		}
+
 		SettingFactory.getProfile = function(){
 			return $http.get('/api/settings/profile').success(function(data){
 				return data;
@@ -29,7 +35,7 @@ angular.module('starterApp')
 			return $http.post('/api/settings/profile', inputs).success(function(data){
 				return data;
 			})
-		}
+		} 
 
 		return SettingFactory;
 	}) 

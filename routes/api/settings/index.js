@@ -133,7 +133,18 @@ router.post("/", postAvatarImage, function(req, res){
 			} 
 		}  
 	});
-});  
+}); 
+
+router.get("/check/:lowername", function(req, res){
+	User.findOne({'store.lowername':req.params.lowername}, function(err, users){
+		if(err){ 
+			res.json({"success":false, "message":err}); 
+		}else{
+			response = {"success":true, "message":users}; 
+		}   
+		res.json(response);
+	});
+})
 
 
 router.get("/profile", function(req, res){

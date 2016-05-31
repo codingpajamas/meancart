@@ -14,8 +14,8 @@
 										<div class="removeImage" ng-click="removeAvatarImage($event)"></div> 
 									</div>   
 									<p>
-										<label>Store Name</label>
-										<input type="text" class="form-control input-sm" ng-model="settings.name" required/>
+										<label class="clearfix show">Store Name <span class="pull-right text-danger font12 mt5" ng-if="isNameAvailable">Store Name is not available.</span></label>
+										<input type="text" class="form-control input-sm" ng-model="settings.name" name="storename" required ng-change="checkStore()"/>
 									</p>
 									<p>
 										<label>Store Description</label>

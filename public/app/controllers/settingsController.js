@@ -8,11 +8,29 @@ angular.module('starterApp')
 		$scope.isSettingsSuccess = false;
 		$scope.isSettingsError = false
 		$scope.nAvatarImg = "";
+		$scope.isNameAvailable = false;
 
 		Setting.getStore()
 			.success(function(data){
 				$scope.settings = data.message; 
 			});
+
+		$scope.checkStore = function(){ 
+			if($scope.settings.name && $scope.settings.name.trim()){ 
+				Setting.checkStore($scope.settings.name.trim().toLowerCase())
+					.success(function(data){ 
+						if(data.success && data.message){
+							console.log($scope.settingsForm.storename)
+							$scope.settingsForm.$invalid = true;
+							$scope.isNameAvailable =  true;
+							console.log($scope.settingsForm.storename)
+						}else{
+							$scope.settingsForm.$invalid = false;
+							$scope.isNameAvailable =  false;
+						}
+					})
+			}
+		}
 
 		// this needs refactoring!!!!
 		$scope.editAvatarImage = function(el){ 
