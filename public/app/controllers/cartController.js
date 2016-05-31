@@ -65,11 +65,33 @@ angular.module('starterApp')
 					_.map(data.message.prods, function(objProd){
 						var cartItem = _.find(data.message.carts, function(c){ return c.productid == objProd._id; }); 
 						objProd['quantity'] = cartItem.quantity; 
+						objProd['cartid'] = cartItem._id; 
 						return objProd;
 					})
 					$scope.objCartItems = data.message.prods; 
+					console.log($scope.objCartItems)
 				} 
 			})
+
+		$scope.updateCartItem = function(intCartQnty, cartid){
+			if(intCartQnty){
+				console.log(intCartQnty, cartid)
+				Cart.update(cartid, intCartQnty)
+					.success(function(data){
+						console.log(data)
+					})
+			}
+		}
+
+		$scope.removeCartItem = function(cartId, $parentIndex, $index){
+			Cart.delete(cartId).success(function(data){
+				if(data.success){ 
+					_.remove($scope.objCartItems, _.find($scope.objCartItems, {"cartid":cartId})) 
+
+				}
+			}) 
+			return false;
+		} 
 	})
 
 
@@ -78,7 +100,7 @@ angular.module('starterApp')
 /*
 * create cart model 
 * add [add to cart] button on product page
-^ create cart service 
+* create cart service 
 * create Cart route API
 * create cart/add cart method in cart api
 * create addToCart functionality in productctrl
@@ -86,11 +108,11 @@ angular.module('starterApp')
 * display carts in cart page
 * create sale checker
   display products in cart when viewing a store
-  cart page per store
+* cart page per store
 * add remove button in cart item
 * add removeFromCart functionality in cartctrl
-  update cart item in product page if product exist in cart
-  update quantity in cart page
+* update cart item in product page if product exist in cart
+* update quantity in cart page
 * add updateCart functionality in cartCtrl
 * create updatecart method in cart  api
   add submit button

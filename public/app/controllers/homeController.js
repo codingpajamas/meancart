@@ -63,6 +63,7 @@ angular.module('starterApp')
 							$scope.$parent.homeProductsEnd = data.message.length < 28 ? true : false;
 							_.map(data.message, function(objProd){ 
 								objProd['isWishListed'] = $scope.$parent.isWishlisted(objProd['_id']); 
+								objProd['inCartItem'] = $scope.$parent.isOnCart(objProd['_id']);  
 								$scope.$parent.homeProducts.push(objProd);
 							})
 						} 
