@@ -19,7 +19,7 @@ angular.module('starterApp')
 				Auth.getUser()
 					.success(function(data){
 						$rootScope.rs_me = data.user ? data.user : null;
-						$rootScope.rs_me.cart = data.cart && data.user ? data.cart : []; 
+						$rootScope.rs_me.cart = data.cart && data.user ? data.cart : [];  
 
 						if(data.user && data.user.store){
 							$rootScope.rs_hasStore = true;

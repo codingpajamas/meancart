@@ -28,6 +28,7 @@
 					<input type="text" ng-model="register.fullname" placeholder="Fullname" autocomplete="off" class="form-control input-sm" required>
 				</div>
 				<div class="alert alert-danger messagebox" ng-if="registerError">{{registerError}}</div> 
+				<div class="alert alert-success messagebox" ng-if="registerSuccess">Registration successful. <a href="/login">You can now login.</a></div> 
 				<p class="text-center mb20">
 					<input type="submit" value="Join" class="btn btn-primary btn-block" ng-disabled="registerForm.$invalid">
 				</p>

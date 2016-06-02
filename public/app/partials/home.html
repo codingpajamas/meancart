@@ -24,7 +24,7 @@
 	</div> 
 </div>
 
-<div id="homeProducts">
+<div id="homeProducts" ng-if="rs_me">
 	<div class="page-wrap" ng-if="isLoggedIn && rs_me && !rs_isManage">
 		<div class="page-body" ng-if="homeProducts.length > 0">
 			<div class="row"> 

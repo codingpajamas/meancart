@@ -24,18 +24,18 @@ angular.module('starterApp')
 		}
 
 		Product.viewByProdid($routeParams.id)
-			.success(function(data){ 
-				if (true == data.success){ 
-					$scope.objProduct = data.success && data.message ? data.message : null; 
+			.success(function(dataProduct){ 
+				if (true == dataProduct.success && dataProduct.message){ 
+					$scope.objProduct = dataProduct.message; 
 					
 					Store.getStoreByProductId($scope.objProduct.store.id)
-						.success(function(data){
-							$scope.objStore = data.success && data.message ? data.message : null;
+						.success(function(dataStore){
+							$scope.objStore = dataStore.success && dataStore.message ? dataStore.message : null;
 						});
 
 					Product.getRelatedProducts($scope.objProduct._id)
-						.success(function(data){
-							$scope.objRelatedProducts = data.success && data.message && data.message.length ? data.message : null;
+						.success(function(dataRelatedProduct){
+							$scope.objRelatedProducts = dataRelatedProduct.success && dataRelatedProduct.message && dataRelatedProduct.message.length ? dataRelatedProduct.message : null;
 						})
 
 					$scope.isProductWishlisted = _.find($rootScope.rs_me.wishlist, {productid:$scope.objProduct._id}) ? true : false;
@@ -45,8 +45,8 @@ angular.module('starterApp')
 
 		$scope.addToWishlist = function(prodId){ 
 			Product.addWishlist(prodId)
-				.success(function(data){
-					if(data.success){
+				.success(function(dataWish){
+					if(dataWish.success){
  						// refresh the token since we updated our profile
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
@@ -58,8 +58,8 @@ angular.module('starterApp')
 
 		$scope.removeFromWishlist = function(prodId){ 
 			Product.removeWishlist(prodId)
-				.success(function(data){
-					if(data.success){
+				.success(function(dataWish){
+					if(dataWish.success){
  						// refresh the token since we updated our profile
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
@@ -71,8 +71,8 @@ angular.module('starterApp')
 
 		$scope.addToCart = function(){
 			Cart.add($scope.objProduct._id, $scope.objCart.quantity)
-				.success(function(data){
-					if(data.message && data.success){
+				.success(function(dataCart){
+					if(dataCart.message && dataCart.success){
 						$scope.objCart.added = true;
 
 						// refresh the token since we updated our profile
@@ -108,9 +108,9 @@ angular.module('starterApp')
 		$scope.mainCategories = Category.main();
 		$scope.subCategories = []; 
 
-		Product.get().success(function(data){
-			if (true == data.success){ 
-				$scope.relatedProducts = data.message; 
+		Product.get().success(function(dataProduct){
+			if (true == dataProduct.success){ 
+				$scope.relatedProducts = dataProduct.message; 
 			}
 		})
 
@@ -186,8 +186,8 @@ angular.module('starterApp')
  			});
 
 			Product.add(formData)
-				.success(function(data){  
-					if (true == data.success){
+				.success(function(dataProduct){  
+					if (true == dataProduct.success){
 						$scope.isAddPostSuccess = true;
 						$scope.isAddPostError = false; 
 					}else{
@@ -224,9 +224,9 @@ angular.module('starterApp')
 		$scope.productRelated = []; 
 
 		Product.view($routeParams.id)
-			.success(function(data){ 
-				if (true == data.success){ 
-					$scope.objProduct = data.message;
+			.success(function(dataViewProduct){ 
+				if (true == dataViewProduct.success){ 
+					$scope.objProduct = dataViewProduct.message;
 
 					$scope.productMainCat = $scope.objProduct ? $scope.objProduct.category.main : '';
 					$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : [];
@@ -238,10 +238,10 @@ angular.module('starterApp')
 					$scope.objProduct.sale.start = $scope.objProduct.sale.start ? $filter('date')($scope.objProduct.sale.start, 'MM/dd/yyyy') : '';
 					$scope.objProduct.sale.end = $scope.objProduct.sale.end ? $filter('date')($scope.objProduct.sale.end, 'MM/dd/yyyy') : '';
 
-					Product.get().success(function(data){
-						if (true == data.success){ 
-							_.remove(data.message, {_id:$scope.objProduct._id})
-							$scope.relatedProducts = data.message;  
+					Product.get().success(function(dataAllProducts){
+						if (true == dataAllProducts.success){ 
+							_.remove(dataAllProducts.message, {_id:$scope.objProduct._id})
+							$scope.relatedProducts = dataAllProducts.message;  
 						}
 					})
 				}
@@ -352,12 +352,12 @@ angular.module('starterApp')
  			});
 
 			Product.put($routeParams.id, formData)
-				.success(function(data){ 
-					if (true == data.success){
+				.success(function(dataProduct){ 
+					if (true == dataProduct.success){
 							$scope.isEditPostSuccess = true;
 							$scope.isEditPostError = false; 
 
-							$scope.objPost = data.message;
+							$scope.objPost = dataProduct.message;
 						}else{
 							$scope.isEditPostSuccess = false;
 							$scope.isEditPostError = true;
@@ -392,16 +392,16 @@ angular.module('starterApp')
 		$scope.isDeletePostError = false; 
 
 		Product.view($routeParams.id)
-			.success(function(data){ 
-				if (true == data.success){ 
-					$scope.objPost = data.message; 
+			.success(function(dataViewProduct){ 
+				if (true == dataViewProduct.success){ 
+					$scope.objPost = dataViewProduct.message; 
 				}
 			})
 
 		$scope.deletePostSubmit = function(){
 			Product.delete($routeParams.id)
-				.success(function(data){ 
-					if (true == data.success){
+				.success(function(dataDeletedProduct){ 
+					if (true == dataDeletedProduct.success){
 							$scope.isDeletePostSuccess = true;
 							$scope.isDeletePostError = false; 
 						}else{

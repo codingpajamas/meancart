@@ -34,6 +34,7 @@ angular.module('starterApp')
 	.controller('registerController', function($scope, $location, Auth, Register){
 		$scope.isLoggedIn = Auth.isLoggedIn();
 		$scope.registerError = '';
+		$scope.registerSuccess = false;
 
 		if($scope.isLoggedIn){
 			$location.path('/manage/dashboard');
@@ -43,7 +44,12 @@ angular.module('starterApp')
 			Register.send($scope.register.username, $scope.register.password, $scope.register.fullname)
 				.success(function(data){ 
 					if(data.status == 'success'){ 
-						$location.path('/login');
+						//$location.path('/login');
+						$scope.registerSuccess = true;
+						$scope.registerError = '';
+						$scope.register.username = ''; 
+						$scope.register.password = '';
+						$scope.register.fullname = '';
 					}else{
 						$scope.registerError = data.message;
 					}

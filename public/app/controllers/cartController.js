@@ -1,18 +1,17 @@
 'use strict'
 
 angular.module('starterApp')
-	.controller('cartController', function($scope, $location, Auth, Cart){
+	.controller('cartController', function($scope, $location, Auth, Cart, $rootScope){
 		Auth.restrict();
 
 		$scope.objCartlist = null;
 
-		Cart.all().success(function(data){ 
+		Cart.all().success(function(data){   
+			if(data.message && data.message.prods){ 
+				var objProducts = data.message.prods;
+				var objCarts = data.message.carts;
+				var objStores = data.message.stores;
 
-			var objProducts = data.message.prods;
-			var objCarts = data.message.carts;
-			var objStores = data.message.stores;
-			
-			if(objProducts.length && objCarts.length){ 
 				_.map(objProducts, function(objProd){
 					var cartItem = _.find(objCarts, function(c){ return c.productid == objProd._id; }); 
 					objProd['isOnSale'] = $scope.$parent.isOnSale(objProd.sale); 
@@ -42,11 +41,11 @@ angular.module('starterApp')
 			}
 		}
 
-		$scope.removeCartItem = function(cartId, $parentIndex, $index){
-			Cart.delete(cartId).success(function(data){
+		$scope.removeCartItem = function(objCart, $parentIndex, $index){ 
+			Cart.delete(objCart.cartid).success(function(data){
 				if(data.success){ 
-					_.remove($scope.objCartlist[$parentIndex]['cartItems'], _.find($scope.objCartlist[$parentIndex]['cartItems'], {"cartid":cartId})) 
-
+					_.remove($scope.objCartlist[$parentIndex]['cartItems'], _.find($scope.objCartlist[$parentIndex]['cartItems'], {"cartid":objCart.cartid}));
+					_.pull($rootScope.rs_me.cart, objCart._id); 
 				}
 			}) 
 			return false;
