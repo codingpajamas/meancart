@@ -65,12 +65,50 @@ angular.module('starterApp')
 			return objSale && parseInt(objSale.off) && moment().isBetween(new Date(objSale.start), new Date(objSale.end)) ? true : false;
 		}
 
-		$scope.isOnCart = function(prodId){ 
-			if($rootScope.rs_me){ 
+		$scope.isOnCart = function(prodId){  
+			console.log($rootScope.rs_me.cart, prodId)
+			if($rootScope.rs_me && $rootScope.rs_me.cart && $rootScope.rs_me.cart.length){ 
 				return _.includes($rootScope.rs_me.cart, prodId) ? true : false;
 			}else{
 				return false;
 			}
+		}
+
+		$scope.homeProductsCartAdd = function(prodId){ 
+			_.map($scope.homeProducts, function(prod){
+				if(prod._id == prodId){ 
+					prod['inCartItem'] = true;
+				}  
+				return prod;
+			}) 
+		}
+
+		$scope.homeProductsCartRemove = function(prodId){ 
+			_.map($scope.homeProducts, function(prod){
+				if(prod._id == prodId){ 
+					prod['inCartItem'] = false;
+				}  
+				_.pull($rootScope.rs_me.cart, prodId); 
+				return prod;
+			}) 
+		}
+
+		$scope.homeProductsWishListAdd = function(prodId){ 
+			_.map($scope.homeProducts, function(prod){
+				if(prod._id == prodId){ 
+					prod['isWishListed'] = true;
+				}  
+				return prod;
+			}) 
+		}
+
+		$scope.homeProductsWishListRemove = function(prodId){ 
+			_.map($scope.homeProducts, function(prod){
+				if(prod._id == prodId){ 
+					prod['isWishListed'] = false;
+				}  
+				return prod;
+			}) 
 		}
 
 		$scope.getSalePrice = function(objProd){

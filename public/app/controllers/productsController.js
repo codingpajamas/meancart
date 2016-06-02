@@ -46,7 +46,9 @@ angular.module('starterApp')
 		$scope.addToWishlist = function(prodId){ 
 			Product.addWishlist(prodId)
 				.success(function(dataWish){
-					if(dataWish.success){
+					if(dataWish.success){ 
+						$scope.$parent.homeProductsWishListAdd(prodId);
+
  						// refresh the token since we updated our profile
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
@@ -60,6 +62,8 @@ angular.module('starterApp')
 			Product.removeWishlist(prodId)
 				.success(function(dataWish){
 					if(dataWish.success){
+						$scope.$parent.homeProductsWishListRemove(prodId);
+
  						// refresh the token since we updated our profile
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
@@ -74,6 +78,8 @@ angular.module('starterApp')
 				.success(function(dataCart){
 					if(dataCart.message && dataCart.success){
 						$scope.objCart.added = true;
+
+						$scope.$parent.homeProductsCartAdd($scope.objProduct._id);
 
 						// refresh the token since we updated our profile
 						var httpCache = $cacheFactory.get('$http'); 

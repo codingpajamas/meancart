@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('starterApp')
-	.controller('cartController', function($scope, $location, Auth, Cart, $rootScope){
+	.controller('cartController', function($scope, $location, Auth, Cart, $rootScope, $cacheFactory){
 		Auth.restrict();
 
 		$scope.objCartlist = null;
@@ -32,8 +32,7 @@ angular.module('starterApp')
 		});
 
 		$scope.updateCartItem = function(intCartQnty, cartid){
-			if(intCartQnty){
-				console.log(intCartQnty, cartid)
+			if(intCartQnty){ 
 				Cart.update(cartid, intCartQnty)
 					.success(function(data){
 						console.log(data)
@@ -41,17 +40,23 @@ angular.module('starterApp')
 			}
 		}
 
-		$scope.removeCartItem = function(objCart, $parentIndex, $index){ 
+		$scope.removeCartItem = function(objCart, $parentIndex, $index){  
 			Cart.delete(objCart.cartid).success(function(data){
 				if(data.success){ 
-					_.remove($scope.objCartlist[$parentIndex]['cartItems'], _.find($scope.objCartlist[$parentIndex]['cartItems'], {"cartid":objCart.cartid}));
-					_.pull($rootScope.rs_me.cart, objCart._id); 
+					$scope.$parent.homeProductsCartRemove(objCart._id);
+					_.remove($scope.objCartlist[$parentIndex]['cartItems'], _.find($scope.objCartlist[$parentIndex]['cartItems'], {"cartid":objCart.cartid})); 
+					console.log($rootScope.rs_me.cart)
+
+					// refresh the token since we updated our profile
+					var httpCache = $cacheFactory.get('$http'); 
+					httpCache.remove('/api/user/me');
+					Auth.refreshToken() 
 				}
 			}) 
 			return false;
 		} 
 	}) 
-	.controller('cartViewController', function($scope, $location, Auth, Cart, $routeParams){
+	.controller('cartViewController', function($scope, $location, Auth, Cart, $routeParams, $rootScope, $cacheFactory){
 		Auth.restrict(); 
 		$scope.objCartItems = null;
 		$scope.objStore = null;
@@ -67,14 +72,12 @@ angular.module('starterApp')
 						objProd['cartid'] = cartItem._id; 
 						return objProd;
 					})
-					$scope.objCartItems = data.message.prods; 
-					console.log($scope.objCartItems)
+					$scope.objCartItems = data.message.prods;  
 				} 
 			})
 
 		$scope.updateCartItem = function(intCartQnty, cartid){
-			if(intCartQnty){
-				console.log(intCartQnty, cartid)
+			if(intCartQnty){ 
 				Cart.update(cartid, intCartQnty)
 					.success(function(data){
 						console.log(data)
@@ -82,11 +85,16 @@ angular.module('starterApp')
 			}
 		}
 
-		$scope.removeCartItem = function(cartId, $parentIndex, $index){
-			Cart.delete(cartId).success(function(data){
+		$scope.removeCartItem = function(objCart, $parentIndex, $index){
+			Cart.delete(objCart.cartid).success(function(data){
 				if(data.success){ 
-					_.remove($scope.objCartItems, _.find($scope.objCartItems, {"cartid":cartId})) 
+					_.remove($scope.objCartItems, _.find($scope.objCartItems, {"cartid":objCart.cartid})) 
+					$scope.$parent.homeProductsCartRemove(objCart._id); 
 
+					// refresh the token since we updated our profile
+					var httpCache = $cacheFactory.get('$http'); 
+					httpCache.remove('/api/user/me');
+					Auth.refreshToken() 
 				}
 			}) 
 			return false;
