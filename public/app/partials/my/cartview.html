@@ -1,5 +1,19 @@
 <div class="page-wrap">
 	<div class="page-body" ng-if="objCartItems">
+
+		<div class="row" ng-if="isLoggedIn && !rs_isManage"> 
+			<div class="col-sm-12">
+				<ul id="subNav" class="clearfix">
+					<li><a ng-class="{'active' : rs_pagePath == ''}" href="/">Home</a></li>
+					<li><a ng-class="{'active' : rs_pagePath == 'wishlist'}" href="/my/wishlist">Wishlist</a></li>
+					<li><a ng-class="{'active' : rs_pagePath == 'orders'}" href="/my/orders">Orders</a></li>
+					<li><a ng-class="{'active' : rs_pagePath == 'cart'}" href="/my/cart">Cart</a></li>
+					<li><a ng-class="{'active' : rs_pagePath == 'profile'}" href="/my/profile">Profile</a></li>
+					<li><a href="/logout">Logout</a></li>
+				</ul>
+			</div>
+		</div> 
+		
 		<div class="row">
 			<div class="col-md-12"> 
 				<div class="cart-card">
