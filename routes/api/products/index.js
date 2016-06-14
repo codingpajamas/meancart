@@ -11,6 +11,7 @@ var multer = require('multer');
 var _ = require('lodash');
 var secretmonster = 'meanstartedhahahaha';
 var gm = require('gm').subClass({ imageMagick: true });
+var fs = require('fs');
 
 
 var storage = multer.diskStorage({
@@ -95,6 +96,91 @@ router.post("/wishlist", function(req, res){
 
 		res.json(response);
 	})  
+})
+
+// Delete product image
+router.post("/deleteimage", function(req, res){  
+	var setQuery = {}; 
+
+	switch(req.body.field){
+		case "img1":
+			setQuery = {"images.0.img1":null}
+			break;
+		case "img2":
+			setQuery = {"images.0.img2":null}
+			break;
+		case "img3":
+			setQuery = {"images.0.img3":null}
+			break;
+		case "img4":
+			setQuery = {"images.0.img4":null}
+			break;
+	};
+
+	Product.findOneAndUpdate(
+		{_id: req.body.prodId}, 
+		{$set: setQuery}, 
+		function(err, prodObj){
+			if(err){
+				console.log(err)
+				res.json({"success":false, "message":err});
+			}else{
+				async.parallel([
+					function(callback){
+						var imgPathC = 'public/uploads/'+req.decoded.user._id+'/products/c/'+req.body.name;
+						fs.stat(imgPathC, function(err, stats){
+							if(err){
+								var result = {"success":false, "message":err}; 
+							}else{ 
+								var result = {"success":true, "message":req.body.name + " : image is deleted in C"};
+								fs.unlink(imgPathC);
+							}
+							callback(null, result);
+						})
+					},
+					function(callback){
+						var imgPathMD = 'public/uploads/'+req.decoded.user._id+'/products/md/'+req.body.name;
+						fs.stat(imgPathMD, function(err, stats){
+							if(err){
+								var result = {"success":false, "message":err}; 
+							}else{ 
+								var result = {"success":true, "message":req.body.name + " : image is deleted in md"};
+								fs.unlink(imgPathMD);
+							}
+							callback(null, result);
+						})
+					},
+					function(callback){
+						var imgPathSM = 'public/uploads/'+req.decoded.user._id+'/products/sm/'+req.body.name;
+						fs.stat(imgPathSM, function(err, stats){
+							if(err){
+								var result = {"success":false, "message":err}; 
+							}else{ 
+								var result = {"success":true, "message":req.body.name + " : image is deleted in sm"};
+								fs.unlink(imgPathSM);
+							}
+							callback(null, result);
+						})
+					},
+					function(callback){
+						var imgPathXS = 'public/uploads/'+req.decoded.user._id+'/products/xs/'+req.body.name;
+						fs.stat(imgPathXS, function(err, stats){
+							if(err){
+								var result = {"success":false, "message":err}; 
+							}else{ 
+								var result = {"success":true, "message":req.body.name + " : image is deleted in xs"};
+								fs.unlink(imgPathXS);
+							}
+							callback(null, result);
+						})
+					}
+				], function(err, results){
+					res.json(results);
+				})
+			}
+		}
+	)  
+
 })
 
 // Remove from wishlist, requires productid

@@ -82,5 +82,11 @@ angular.module('starterApp')
 			})
 		}
 
+		ProductFactory.deleteProductImage = function(prodId, strImageName, strImgField){
+			return $http.post('/api/products/deleteimage', {prodId:prodId, name:strImageName, field:strImgField}).success(function(data){
+				return data;
+			})
+		}
+
 		return ProductFactory;
 	}) 

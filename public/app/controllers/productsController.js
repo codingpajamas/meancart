@@ -376,15 +376,23 @@ angular.module('starterApp')
 			$scope.objProduct.images[angular.element(e.target).attr('data-imgtype')] = "";
 			switch(angular.element(e.target).attr('data-imgtype')){
 				case "productImg1":
+					Product.deleteProductImage($routeParams.id, $scope.objProduct.images[0]['img1'], 'img1')
+						.success(function(data){})
 					$scope.objProduct.images[0]['img1'] = null
 					break;
 				case "productImg2":
+					Product.deleteProductImage($routeParams.id, $scope.objProduct.images[0]['img2'], 'img2')
+						.success(function(data){})
 					$scope.objProduct.images[0]['img2'] = null
 					break;
 				case "productImg3":
+					Product.deleteProductImage($routeParams.id, $scope.objProduct.images[0]['img3'], 'img3')
+						.success(function(data){})
 					$scope.objProduct.images[0]['img3'] = null
 					break;
 				case "productImg4":
+					Product.deleteProductImage($routeParams.id, $scope.objProduct.images[0]['img4'], 'img4')
+						.success(function(data){})
 					$scope.objProduct.images[0]['img4'] = null
 					break; 
 			}
