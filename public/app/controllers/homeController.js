@@ -6,7 +6,7 @@ angular.module('starterApp')
 
 		console.log("callling home")
 
-	 	if($scope.isLoggedIn && !$rootScope.rs_isManage && $scope.$parent.homeProducts.length == 0){ 
+	 	if($rootScope.rs_isLoggedIn && !$rootScope.rs_isManage && $scope.$parent.homeProducts.length == 0){ 
 	 		console.log("called @ home")
 			Product.homeProducts($scope.$parent.homePageNum).success(function(data){ 
 					if(data.success){  

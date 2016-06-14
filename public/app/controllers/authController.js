@@ -2,10 +2,10 @@
 
 angular.module('starterApp')
 	.controller('loginController', function($scope, $location, Auth, $rootScope, $cookies, $cacheFactory){
-		$scope.isLoggedIn = Auth.isLoggedIn(); 
+		$rootScope.rs_isLoggedIn = Auth.isLoggedIn(); 
 		$scope.loginError = '';
 
-		if($scope.isLoggedIn){ 
+		if($rootScope.rs_isLoggedIn){ 
 			$location.path('/');
 		}
 
@@ -32,11 +32,11 @@ angular.module('starterApp')
 		}
 	}) 
 	.controller('registerController', function($scope, $location, Auth, Register){
-		$scope.isLoggedIn = Auth.isLoggedIn();
+		$rootScope.rs_isLoggedIn = Auth.isLoggedIn();
 		$scope.registerError = '';
 		$scope.registerSuccess = false;
 
-		if($scope.isLoggedIn){
+		if($rootScope.rs_isLoggedIn){
 			$location.path('/manage/dashboard');
 		}
 
@@ -66,5 +66,7 @@ angular.module('starterApp')
 
 		Auth.logout();
 		$scope.user = {};
-		$location.path('/login');
+		console.log(Auth.isLoggedIn());
+		//$location.path('/login');
+		window.location.href = '/login';
 	})

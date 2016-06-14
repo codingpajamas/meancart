@@ -13,9 +13,9 @@ angular.module('starterApp')
 		$scope.homeProductsEnd = false;
 
 		$rootScope.$on('$routeChangeStart', function(){
-			$scope.isLoggedIn = Auth.isLoggedIn(); 
+			$rootScope.rs_isLoggedIn = Auth.isLoggedIn(); 
 
-			if($scope.isLoggedIn){
+			if($rootScope.rs_isLoggedIn){
 				Auth.getUser()
 					.success(function(data){
 						$rootScope.rs_me = data.user ? data.user : null;
@@ -126,6 +126,9 @@ angular.module('starterApp')
 
 			Auth.logout();
 			$scope.user = {};
-			$location.path('/login');
+			console.log(Auth.isLoggedIn());
+			$rootScope.rs_isLoggedIn = Auth.isLoggedIn(); 
+			//$location.path('/login');
+			window.location.href = '/login';
 		}
 	})

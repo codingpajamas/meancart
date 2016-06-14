@@ -25,10 +25,10 @@
 </div>
 
 <div id="homeProducts" ng-if="rs_me">
-	<div class="page-wrap" ng-if="isLoggedIn && rs_me && !rs_isManage">
+	<div class="page-wrap" ng-if="rs_isLoggedIn && rs_me && !rs_isManage">
 		<div class="page-body" ng-if="homeProducts.length > 0">
 
-			<div class="row" ng-if="isLoggedIn && !rs_isManage"> 
+			<div class="row" ng-if="rs_isLoggedIn && !rs_isManage"> 
 				<div class="col-sm-12">
 					<ul id="subNav" class="clearfix">
 						<li><a ng-class="{'active' : rs_pagePath == ''}" href="/">Home</a></li>
