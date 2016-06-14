@@ -2,12 +2,9 @@
 
 angular.module('starterApp')
 	.controller('homeController', function($scope, Product, $rootScope, $window, $location, $cacheFactory, Auth){  
-		$scope.boolIsHomeLoading = true; 
+		$scope.boolIsHomeLoading = true;
 
-		console.log("callling home")
-
-	 	if($rootScope.rs_isLoggedIn && !$rootScope.rs_isManage && $scope.$parent.homeProducts.length == 0){ 
-	 		console.log("called @ home")
+	 	if($rootScope.rs_isLoggedIn && !$rootScope.rs_isManage && $scope.$parent.homeProducts.length == 0){  
 			Product.homeProducts($scope.$parent.homePageNum).success(function(data){ 
 					if(data.success){  
 						$scope.$parent.homeProductsEnd = data.message.length < 28 ? true : false;

@@ -65,8 +65,7 @@ angular.module('starterApp')
 			return objSale && parseInt(objSale.off) && moment().isBetween(new Date(objSale.start), new Date(objSale.end)) ? true : false;
 		}
 
-		$scope.isOnCart = function(prodId){  
-			console.log($rootScope.rs_me.cart, prodId)
+		$scope.isOnCart = function(prodId){   
 			if($rootScope.rs_me && $rootScope.rs_me.cart && $rootScope.rs_me.cart.length){ 
 				return _.includes($rootScope.rs_me.cart, prodId) ? true : false;
 			}else{
@@ -121,12 +120,10 @@ angular.module('starterApp')
 			$cookies.remove('omp_isManage');
 
 			var httpCache = $cacheFactory.get('$http');  
-			//httpCache.remove('api/path');  
-			console.log(httpCache)
+			//httpCache.remove('api/path');   
 
 			Auth.logout();
-			$scope.user = {};
-			console.log(Auth.isLoggedIn());
+			$scope.user = {}; 
 			$rootScope.rs_isLoggedIn = Auth.isLoggedIn(); 
 			//$location.path('/login');
 			window.location.href = '/login';

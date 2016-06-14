@@ -35,7 +35,7 @@ angular.module('starterApp')
 			if(intCartQnty){ 
 				Cart.update(cartid, intCartQnty)
 					.success(function(data){
-						console.log(data)
+						//console.log(data)
 					})
 			}
 		}
@@ -44,8 +44,7 @@ angular.module('starterApp')
 			Cart.delete(objCart.cartid).success(function(data){
 				if(data.success){ 
 					$scope.$parent.homeProductsCartRemove(objCart._id);
-					_.remove($scope.objCartlist[$parentIndex]['cartItems'], _.find($scope.objCartlist[$parentIndex]['cartItems'], {"cartid":objCart.cartid})); 
-					console.log($rootScope.rs_me.cart)
+					_.remove($scope.objCartlist[$parentIndex]['cartItems'], _.find($scope.objCartlist[$parentIndex]['cartItems'], {"cartid":objCart.cartid}));
 
 					// refresh the token since we updated our profile
 					var httpCache = $cacheFactory.get('$http'); 
@@ -80,7 +79,7 @@ angular.module('starterApp')
 			if(intCartQnty){ 
 				Cart.update(cartid, intCartQnty)
 					.success(function(data){
-						console.log(data)
+						//console.log(data)
 					})
 			}
 		}

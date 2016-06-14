@@ -19,11 +19,9 @@ angular.module('starterApp')
 			if($scope.settings.name && $scope.settings.name.trim()){ 
 				Setting.checkStore($scope.settings.name.trim().toLowerCase())
 					.success(function(data){ 
-						if(data.success && data.message){
-							console.log($scope.settingsForm.storename)
+						if(data.success && data.message){ 
 							$scope.settingsForm.$invalid = true;
-							$scope.isNameAvailable =  true;
-							console.log($scope.settingsForm.storename)
+							$scope.isNameAvailable =  true; 
 						}else{
 							$scope.settingsForm.$invalid = false;
 							$scope.isNameAvailable =  false;

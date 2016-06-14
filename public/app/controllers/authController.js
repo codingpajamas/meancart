@@ -65,8 +65,7 @@ angular.module('starterApp')
 		httpCache.remove('/api/user/me');   
 
 		Auth.logout();
-		$scope.user = {};
-		console.log(Auth.isLoggedIn());
+		$scope.user = {}; 
 		//$location.path('/login');
 		window.location.href = '/login';
 	})

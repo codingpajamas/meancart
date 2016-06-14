@@ -23,9 +23,7 @@ angular.module('starterApp')
 
 						var httpCache = $cacheFactory.get('$http'); 
 						httpCache.remove('/api/user/me');
-						Auth.refreshToken();
-						 
-						console.log($rootScope.rs_hasProfile )
+						Auth.refreshToken(); 
 					}else{
 						$scope.isProfileSuccess = false;
 						$scope.isProfileError = true;
