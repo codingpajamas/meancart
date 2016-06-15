@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mkdirp = require('mkdirp');
 var User = require('../../../models/User');  
+var Product = require('../../../models/Product');  
 var multer = require('multer');
 var _ = require('lodash');
 var secretmonster = 'meanstartedhahahaha';
@@ -127,6 +128,18 @@ router.post("/", postAvatarImage, function(req, res){
 						console.log('unable to update store name', err)
 						res.json({"success":false, "message":err}); 
 					}else{
+
+						// update the product store details
+						Product.update(
+							{'store.id':userObj._id}, 
+							{'store.name':req.body.name}, 
+							{upsert:false, multi:true}, 
+							function(err, prods){
+								if(err){
+									console.log(err)
+								}
+							}
+						)
 						res.json({"success":true, "message":userObj.store}); 
 					}
 				}); 
