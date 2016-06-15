@@ -96,7 +96,9 @@ angular.module('starterApp')
 		$scope.productSubCat = '';
 
 		$scope.isAddPostSuccess = false;
-		$scope.isAddPostError = false;  
+		$scope.isAddPostError = false; 
+		$scope.isInvalidImage = false;
+		$scope.isInvalidError = "The image is invalid type. Only 'png' and 'jpeg' are allowed.";  
 
 		$scope.productTags = [];
 		$scope.relatedProducts = [];
@@ -127,6 +129,15 @@ angular.module('starterApp')
 
 		// this needs refactoring!!!!
 		$scope.addProductImage = function(el){ 
+
+			if(el.files[0]['type'] == 'image/png' || el.files[0]['type'] == 'image/jpeg'){
+			 	$scope.isInvalidImage = false; 
+			}else{ 
+				$scope.isInvalidImage = true;
+				$scope.$apply(); 
+				return false;
+			}
+
 			switch(angular.element(el).attr('data-imgtype')){
 				case "productImg1":
 					$scope.nProductImg1 = el.files;
@@ -213,7 +224,9 @@ angular.module('starterApp')
 
 		$scope.objProduct = null;
 		$scope.isEditPostSuccess = false;
-		$scope.isEditPostError = false;  
+		$scope.isEditPostError = false; 
+		$scope.isInvalidImage = false;
+		$scope.isInvalidError = "The image is invalid type. Only 'png' and 'jpeg' are allowed."; 
 
 		$scope.nProductImg1 = "";
 		$scope.nProductImg2 = "";
@@ -274,6 +287,15 @@ angular.module('starterApp')
 
 		// this needs refactoring!!!!
 		$scope.editProductImage = function(el){ 
+
+			if(el.files[0]['type'] == 'image/png' || el.files[0]['type'] == 'image/jpeg'){
+			 	$scope.isInvalidImage = false; 
+			}else{ 
+				$scope.isInvalidImage = true;
+				$scope.$apply(); 
+				return false;
+			}
+
 			switch(angular.element(el).attr('data-imgtype')){
 				case "productImg1":
 					$scope.nProductImg1 = el.files;

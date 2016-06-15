@@ -6,105 +6,92 @@ var async = require('async');
 var _ = require('lodash');
 var gm = require('gm').subClass({ imageMagick: true });
 
+var meta = {
+	title: '7 Eleven',
+	description: 'This is 711',
+	keywords: 'Online,store,ads,buy and sell,shop,shopping',
+	author: '711'
+};
+
 /* GET home page. */
 router.get('/', function(req, res, next) {  
-	res.render('index', { title: 'onMarket' });
+	meta.title = '711';
+	meta.author = '711';
+	res.render('index', { meta:meta });
 });
  
-router.get('/manage/*', function(req, res, next) {
-
-	/*
-	var imgPath = __dirname + "../../public/uploads/572206b1b3151de41e6b8af4/products/1461847911522_nProductImg1-dribbble_-_shot_-_10.png";
-	var thumbPath = __dirname + "../../public/uploads/572206b1b3151de41e6b8af4/thumbs/1461847911522_nProductImg1-dribbble_-_shot_-_10.png";
-
-
-	gm(imgPath)
-		.gravity('center')
-		.resize(240, 240)
-		.noProfile()
-		.write(thumbPath, function (err) {
-			if (!err){
-				console.log('done');
-			} else {
-				console.log(err);
-				console.log('error');
-			}
-		}); 
-	*/
-
-	/*
-	var imgPath = __dirname + "../../public/uploads/572206b1b3151de41e6b8af4/products/1461847911522_nProductImg1-dribbble_-_shot_-_10.png";
-	var thumbPath = __dirname + "../../public/uploads/572206b1b3151de41e6b8af4/thumbs/1461847911522_nProductImg1-dribbble_-_shot_-_10.png";
-
-
-	gm(imgPath)
-		.noProfile()
-		.gravity('center')
-		.thumb('200', '200', thumbPath, 75, function(err){
-			if(err){
-				console.log(err)
-			}else{
-				console.log('done')
-			}
-		})
-	*/
-
-	/*
-	var imgPath = __dirname + "../../public/uploads/572206b1b3151de41e6b8af4/products/10.jpg";
-	var thumbPath = __dirname + "../../public/uploads/572206b1b3151de41e6b8af4/thumbs/10.jpg";
-
-
-	gm(imgPath)
-		.noProfile()
-		.gravity('center')
-		.resize('240', '240', "^>")
-		.quality(90)
-		.crop('240', '240')
-		.write(thumbPath, function (err) {
-			if (!err){
-				console.log('done');
-			} else {
-				console.log(err);
-				console.log('error');
-			}
-		});
-	*/
-
-	res.render('index', { title: 'onMarket' });
+router.get('/manage/*', function(req, res, next) { 
+	meta.title = req.decoded ? req.decoded.user.username + ' | 711' : meta.title;
+	meta.author = req.decoded ? req.decoded.user.username + ' | 711' : meta.author;
+	res.render('index', { meta:meta });
 });  
 
 router.get('/my/*', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
+	meta.title = req.decoded ? req.decoded.user.username + ' | 711' : meta.title;
+	meta.author = req.decoded ? req.decoded.user.username + ' | 711' : meta.author;
+	res.render('index', { meta:meta });
 });  
 
 router.get('/p/*', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
+	var fullUrlPath = req.path.replace(/^\/|\/$/g, '');
+	var strProdId = fullUrlPath.split("/")[1]; 
+
+	Product.findOne({"prodid":strProdId},{},{}, function(err, product){
+		console.log(product);
+		if(err){
+			//response = {"success":false, "message":err};
+		}else{
+			//response = {"success":true, "message":product};
+			meta.title = _.capitalize(product.name) + ' | ' + '711 Store';
+			meta.author = _.capitalize(product.store.name);
+		} 
+		res.render('index', { meta:meta });
+	}) 
 }); 
 
 router.get('/s/*', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
+	res.render('index', { meta:meta });
 });  
 
 router.get('/@*', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
+	var fullUrlPath = req.path.replace(/^\/|\/$/g, '');
+	var pageUrlPath = fullUrlPath.split("/")[0];
+	var isStoreUrl = _.startsWith(pageUrlPath, '@');
+
+	User.findOne(
+		{'store.url':pageUrlPath.substring(1)},
+		{'username':false, 'profile':false, 'createdOn':false, 'hash':false, 'salt':false},
+		{}, 
+		function(err, user){  
+			if(err){ 
+				//res.json({"success":false, "message":err}); 
+			}else{ 
+				//response = {"success":true, "message":user};  
+				meta.title = _.capitalize(user.store.name) + ' | ' + '711 Store';
+				meta.author = _.capitalize(user.store.name);
+			}   
+			//res.json(response);
+			res.render('index', { meta:meta });
+		}
+	);
 });  
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
+	res.render('index', { meta:meta });
 }); 
 
 /* GET login page. */
 router.get('/logout', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
+	res.render('index', { meta:meta });
 }); 
 
 /* GET register page. */
 router.get('/register', function(req, res, next) {
-	res.render('index', { title: 'onMarket' });
+	res.render('index', { meta:meta });
 }); 
  
-/* GET store page. */
+/* GET store page.  
 router.get('/:storeurl', function(req, res, next) { 
 	async.waterfall([
 		function(callback){
@@ -134,7 +121,7 @@ router.get('/:storeurl', function(req, res, next) {
 	], function(err, user, products){  
 		if(err || !user){
 			// display to error page
-			res.render('index', { title: 'onMarket' }); 
+			res.render('index', { meta:meta }); 
 		}else{  
 			var strTitle = user && user.store.name ? 'onMarket - '+user.store.name : "Store Not Found"; 
 			res.render('themes/'+user.store.theme+'/index', { title: strTitle, objUser:user, objProducts:products });
@@ -142,7 +129,7 @@ router.get('/:storeurl', function(req, res, next) {
 	}) 
 });
  
-/* GET product page. */
+  GET product page.  
 router.get('/:storeurl/:producturl', function(req, res, next) {
 	async.waterfall([
 		function(callback){
@@ -172,17 +159,18 @@ router.get('/:storeurl/:producturl', function(req, res, next) {
 	], function(err, user, product){   
 		if(err || !user){
 			// display to error page
-			res.render('index', { title: 'onMarket' }); 
+			res.render('index', { meta:meta }); 
 		}else{ 
 			var strTitle = product && product.name ? 'onMarket - '+product.name : "Product Not Found";   
 			res.render('themes/'+user.store.theme+'/product', { title: strTitle, objUser:user, objProduct:product });
 		}
 	}) 
 });
+*/
  
 // catch all other routes and pass it to angular app
 router.get('*', function(req, res) {   
-	res.render('index', { title: 'onMarket' }); 
+	res.render('index', { meta:meta }); 
 }); 
 
 module.exports = router;
