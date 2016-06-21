@@ -47,7 +47,7 @@
 							<a class="product-wishlist" ng-if="!objProd.isWishListed && rs_me" ng-click="addToWishlist(objProd._id)">
 								<i class="glyphicon glyphicon-gift"></i> Wishlist
 							</a> 
-							<a class="product-wishlist" ng-if="!rs_me" href="/login">
+							<a class="product-wishlist" ng-if="!rs_me" href="/login?r=/@{{objStore.store.url}}">
 								<i class="glyphicon glyphicon-gift"></i> Wishlist
 							</a> 
 						</div> 

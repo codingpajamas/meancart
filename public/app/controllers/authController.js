@@ -1,13 +1,15 @@
 'use strict'
 
 angular.module('starterApp')
-	.controller('loginController', function($scope, $location, Auth, $rootScope, $cookies, $cacheFactory){
+	.controller('loginController', function($scope, $location, Auth, $rootScope, $cookies, $cacheFactory, $routeParams){
 		$rootScope.rs_isLoggedIn = Auth.isLoggedIn(); 
 		$scope.loginError = '';
 
 		if($rootScope.rs_isLoggedIn){ 
 			$location.path('/');
 		}
+
+		var strRedirectPath = $routeParams.r ? $routeParams.r : '/';
 
 		$scope.submitLogin = function(){
 			$rootScope.rs_isManage = false;
@@ -24,7 +26,7 @@ angular.module('starterApp')
 					if(data.status == 'success'){ 
 						//$location.path('/manage/dashboard');
 						$scope.homeProducts = [];
-						$location.path('/');
+						$location.path(strRedirectPath);
 					}else{
 						$scope.loginError = data.message;
 					} 
