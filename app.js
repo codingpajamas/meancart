@@ -52,9 +52,9 @@ app.use(passport.session());
 app.use('/users', users); 
 app.use('/api/auth', apiAuth);  
 app.use('/api/user', mdWares.validateToken, apiUser); 
-app.use('/api/products', mdWares.validateToken, apiProducts);  
+app.use('/api/products', apiProducts);  
 app.use('/api/settings', mdWares.validateToken, apiSettings);  
-app.use('/api/stores', mdWares.validateToken, apiStores);
+app.use('/api/stores', apiStores);
 app.use('/api/carts', mdWares.validateToken, apiCarts);  
 app.use('/', routes);
 

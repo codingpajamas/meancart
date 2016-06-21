@@ -38,8 +38,10 @@ angular.module('starterApp')
 							$scope.objRelatedProducts = dataRelatedProduct.success && dataRelatedProduct.message && dataRelatedProduct.message.length ? dataRelatedProduct.message : null;
 						})
 
-					$scope.isProductWishlisted = _.find($rootScope.rs_me.wishlist, {productid:$scope.objProduct._id}) ? true : false;
-					$scope.isProductInCart = $scope.$parent.isOnCart($scope.objProduct._id); 
+					if($rootScope.rs_me != null){ 
+						$scope.isProductWishlisted = _.find($rootScope.rs_me.wishlist, {productid:$scope.objProduct._id}) ? true : false;
+						$scope.isProductInCart = $scope.$parent.isOnCart($scope.objProduct._id); 
+					}
 				}
 			})
 

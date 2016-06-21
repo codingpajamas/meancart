@@ -4,6 +4,7 @@ var User = require('../../models/User');
 var Product = require('../../models/Product');
 var async = require('async'); 
 var _ = require('lodash');
+var mdWares = require('../middlewares');
 
 router.get("/url/:storeUrl", function(req, res){ 
 	User.findOne(
@@ -51,7 +52,7 @@ router.get("/getbyproductid/:productid", function(req, res){
 	);
 })
 
-router.post("/follow", function(req, res){ 
+router.post("/follow", mdWares.validateToken, function(req, res){ 
 	async.series([
 		function(callback){
 			User.findOneAndUpdate(
@@ -93,7 +94,7 @@ router.post("/follow", function(req, res){
 	}) 
 })
 
-router.post("/unfollow", function(req, res){
+router.post("/unfollow", mdWares.validateToken, function(req, res){
 	async.series([
 		function(callback){
 			User.findOneAndUpdate(

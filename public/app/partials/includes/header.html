@@ -38,6 +38,19 @@
 	</div>
 </div> 
 
+<div class="page-head" ng-if="!rs_isHidePublicHeader">
+	<div class="row">
+		<div class="col-sm-2">
+			<a id="mainLogo" class="cp" href="/">711</a>
+		</div>
+		<div class="col-sm-10">
+			<ul id="mainVav"> 
+				<li><a ng-class="{'active' : rs_pagePath == 'login'}" href="/login">Login</a></li>
+				<li><a ng-class="{'active' : rs_pagePath == 'wishlist'}" href="/register">Register</a></li> 
+			</ul> 
+		</div>
+	</div>
+</div> 
  
 <div class="row hide" ng-if="rs_isLoggedIn && !rs_isManage"> 
 	<div class="col-sm-12">

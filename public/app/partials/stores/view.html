@@ -41,10 +41,13 @@
 							<a href="/my/cart/{{objProd.store.id}}" class="product-like product-like-active" ng-if="objProd.inCartItem">
 								<i class="fa fa-cart-plus"></i> Cart
 							</a>
-							<a class="product-wishlist product-wishlist-active" ng-if="objProd.isWishListed" ng-click="removeFromWishlist(objProd._id)">
+							<a class="product-wishlist product-wishlist-active" ng-if="objProd.isWishListed && rs_me" ng-click="removeFromWishlist(objProd._id)">
 								<i class="glyphicon glyphicon-gift"></i> Wishlist
 							</a> 
-							<a class="product-wishlist" ng-if="!objProd.isWishListed" ng-click="addToWishlist(objProd._id)">
+							<a class="product-wishlist" ng-if="!objProd.isWishListed && rs_me" ng-click="addToWishlist(objProd._id)">
+								<i class="glyphicon glyphicon-gift"></i> Wishlist
+							</a> 
+							<a class="product-wishlist" ng-if="!rs_me" href="/login">
 								<i class="glyphicon glyphicon-gift"></i> Wishlist
 							</a> 
 						</div> 

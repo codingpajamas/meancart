@@ -27,7 +27,10 @@ angular.module('starterApp')
  					if(dataStore.message){
  						$scope.objStore = dataStore.message ? dataStore.message : null; 
  						$scope.storeImg = $scope.objStore.store.avatar != 'none.jpg' ? '/uploads/'+$scope.objStore._id+'/'+$scope.objStore.store.avatar : '/uploads/none.jpg';
- 						$scope.isfollowed = _.find($rootScope.rs_me.followed, {userid:$scope.objStore._id}) ? true : false;
+ 						
+ 						if($rootScope.rs_me != null){ 
+ 							$scope.isfollowed = _.find($rootScope.rs_me.followed, {userid:$scope.objStore._id}) ? true : false;
+ 						}
  					
  						Store.getStoreProducts($scope.objStore._id)
  							.success(function(dataProducts){
@@ -40,11 +43,13 @@ angular.module('starterApp')
  								} 
  							})
 
- 						Cart.store($scope.objStore._id).success(function(data){
- 							if(data.success && data.message){
- 								$scope.cartItemInStore = data.message
- 							} 
-						})
+ 						if($rootScope.rs_me != null){ 
+	 						Cart.store($scope.objStore._id).success(function(data){
+	 							if(data.success && data.message){
+	 								$scope.cartItemInStore = data.message
+	 							} 
+							})
+						}
  					} 
  				})
  		}

@@ -31,7 +31,7 @@ angular.module('starterApp')
 				})
 		}
 	}) 
-	.controller('registerController', function($scope, $location, Auth, Register){
+	.controller('registerController', function($scope, $rootScope, $location, Auth, Register){
 		$rootScope.rs_isLoggedIn = Auth.isLoggedIn();
 		$scope.registerError = '';
 		$scope.registerSuccess = false;

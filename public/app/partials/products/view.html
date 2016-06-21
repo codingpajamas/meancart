@@ -22,7 +22,8 @@
 								<input type="number" min="1" ng-model="objCart.quantity" class="form-control text-center">
 								<span class="input-group-addon">x Php <strong>{{objProduct.price | currency:"":0}}</strong></span>
 							</div>
-							<input type="submit" value="Add to Cart" class="btn btn-primary btn-block mb10" ng-click="addToCart()">
+							<input type="submit" value="Add to Cart" class="btn btn-primary btn-block mb10" ng-click="addToCart()" ng-if="rs_me">
+							<a href="/login" class="btn btn-primary btn-block mb10" ng-if="!rs_me">Add to Cart</a>
 						</div>
 						<div ng-if="objCart.added" class="mb5 fx-slide">
 							<a href="/my/cart/{{objStore._id}}" class="btn btn-block btn-success mb10">Added to Cart, Click to Update</a>
@@ -32,8 +33,13 @@
 						<a href="/my/cart/{{objStore._id}}" class="btn btn-block btn-success mb10">Added to Cart, Click to Update</a>
 					</div>
 					<p class="text-center m0 mb10">or</p>
-					<p class="m0"><a href="#" class="btn btn-block btn-default" ng-if="!isProductWishlisted" ng-click="addToWishlist(objProduct._id)">Add to Wishist</a></p>
-					<p class="m0"><a href="#" class="btn btn-block btn-warning" ng-if="isProductWishlisted" ng-click="removeFromWishlist(objProduct._id)">Remove from Wishist</a></p>
+					<div ng-if="rs_me">
+						<p class="m0"><a href="#" class="btn btn-block btn-default" ng-if="!isProductWishlisted" ng-click="addToWishlist(objProduct._id)">Add to Wishist</a></p>
+						<p class="m0"><a href="#" class="btn btn-block btn-warning" ng-if="isProductWishlisted" ng-click="removeFromWishlist(objProduct._id)">Remove from Wishist</a></p>
+					</div>
+					<div ng-if="!rs_me">
+						<a href="/login" class="btn btn-default btn-block" ng-if="!rs_me">Add to Wishlist</a>
+					</div>
 				</div>
 				<div class="productview-storeinfo"> 
 					<a href="/@{{objStore.store.url}}">

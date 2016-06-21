@@ -7,6 +7,7 @@ angular.module('starterApp')
 		$rootScope.rs_isManage = $cookies.get('omp_isManage');
 		$rootScope.rs_hasStore = false;
 		$rootScope.rs_hasProfile = false;
+		$rootScope.rs_isHidePublicHeader = true;
 
 		$scope.homeProducts = []
 		$scope.homePageNum = 1;

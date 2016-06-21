@@ -12,6 +12,7 @@ var _ = require('lodash');
 var secretmonster = 'meanstartedhahahaha';
 var gm = require('gm').subClass({ imageMagick: true });
 var fs = require('fs');
+var mdWares = require('../../middlewares');
 
 
 var storage = multer.diskStorage({
@@ -26,7 +27,7 @@ var upload = multer({ storage: storage });
 var postImage = upload.fields([{name:'nProductImg1', maxCount:1}, {name:'nProductImg2', maxCount:1}, {name:'nProductImg3', maxCount:1}, {name:'nProductImg4', maxCount:1}])
 
 
-router.get("/", function(req, res){
+router.get("/", mdWares.validateToken, function(req, res){
 	Product.find({'store.id':req.decoded.user._id},{},{sort: '-createdOn'}, function(err, posts){
 		if(err){
 			response = {"success":false, "message":err};
@@ -38,7 +39,7 @@ router.get("/", function(req, res){
 })
 
 // get wishlist, requires req.decoded.user._id
-router.get("/wishlist", function(req, res){
+router.get("/wishlist", mdWares.validateToken, function(req, res){
 	var pageNum = req.query.pagenum ? req.query.pagenum : 1,
 		limit = 28,
 		skip = (parseInt(pageNum) * limit) - limit;
@@ -56,7 +57,7 @@ router.get("/wishlist", function(req, res){
 })
 
 // Add to wishlist, requires productid
-router.post("/wishlist", function(req, res){
+router.post("/wishlist", mdWares.validateToken, function(req, res){
 	async.series([
 		function(callback){
 			User.findOneAndUpdate(
@@ -99,7 +100,7 @@ router.post("/wishlist", function(req, res){
 })
 
 // Delete product image
-router.post("/deleteimage", function(req, res){  
+router.post("/deleteimage", mdWares.validateToken, function(req, res){  
 	var setQuery = {}; 
 
 	switch(req.body.field){
@@ -184,7 +185,7 @@ router.post("/deleteimage", function(req, res){
 })
 
 // Remove from wishlist, requires productid
-router.post("/unwishlist", function(req, res){
+router.post("/unwishlist", mdWares.validateToken, function(req, res){
 	async.series([
 		function(callback){
 			User.findOneAndUpdate(
@@ -241,7 +242,7 @@ router.get("/home", function(req, res){
 	})
 })
 
-router.get("/get", function(req, res){  
+router.get("/get", mdWares.validateToken, function(req, res){  
 	Product.find({'store.id':req.decoded.user._id}, {'prodid':1, 'name':1}, {}, function(err, product){
 		if(err){
 			response = {"success":false, "message":err};
@@ -252,7 +253,7 @@ router.get("/get", function(req, res){
 	})
 })
 
-router.post('/add', postImage, function(req, res){   
+router.post('/add', mdWares.validateToken, postImage, function(req, res){   
 
 	// this needs refactoring!!!!
 	var strProductImg1 = null
@@ -469,7 +470,7 @@ router.get("/:id/prodid", function(req, res){
 	})
 })
 
-router.put("/:id", postImage, function(req, res){  
+router.put("/:id", mdWares.validateToken, postImage, function(req, res){  
   
 	// this needs refactoring!!!!
 	var productImages = []; 
@@ -633,7 +634,7 @@ router.put("/:id", postImage, function(req, res){
 	})
 })
 
-router.delete("/:id", function(req, res){ 
+router.delete("/:id", mdWares.validateToken, function(req, res){ 
 	Product.remove({
 		_id:req.params.id
 	}, function(err, post){
