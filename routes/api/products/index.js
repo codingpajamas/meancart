@@ -598,38 +598,45 @@ router.put("/:id", mdWares.validateToken, postImage, function(req, res){
 		if(err){ 
 			res.json({"success":false, "message":err}); 
 		}else{ 
-			post.name = req.body.name;
-			post.lowername = req.body.name.toLowerCase(),
-			post.desc = req.body.desc;
-			post.price = req.body.price;   
-			post.images = {
-				img1: strProductImg1,
-				img2: strProductImg2,
-				img3: strProductImg3,
-				img4: strProductImg4
-			};
-			post.category = {
-				main: req.body.maincat,
-				sub: req.body.subcat 
-			}; 
+			if(post.store.id == req.decoded.user._id){ 
+				post.name = req.body.name;
+				post.lowername = req.body.name.toLowerCase(),
+				post.desc = req.body.desc;
+				post.price = req.body.price;   
+				post.images = {
+					img1: strProductImg1,
+					img2: strProductImg2,
+					img3: strProductImg3,
+					img4: strProductImg4
+				};
+				post.category = {
+					main: req.body.maincat,
+					sub: req.body.subcat 
+				}; 
 
-			post.sale = {
-				off: req.body.saleOff,
-				start: req.body.saleStart,
-				end: req.body.saleEnd 
-			}; 
+				post.sale = {
+					off: req.body.saleOff,
+					start: req.body.saleStart,
+					end: req.body.saleEnd 
+				}; 
 
-			post.tags = req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : [];
-			post.related = req.body.related && JSON.parse(req.body.related) ? JSON.parse(req.body.related) : [];
+				post.tags = req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : [];
+				post.related = req.body.related && JSON.parse(req.body.related) ? JSON.parse(req.body.related) : [];
 
-			post.save(function(err) {
-                if(err){
-                	response = {"success":true, "message":err}; 
-                }else{
-                	response = {"success":true, "message":post};
-                } 
-                res.json(response); 
-            });
+				post.save(function(err) {
+	                if(err){
+	                	response = {"success":true, "message":err}; 
+	                }else{
+	                	response = {"success":true, "message":post};
+	                } 
+	                res.json(response); 
+	            });
+	        }else{
+	        	return res.status(403).json({
+					'status':'error',
+					'message':'Forbidden.'
+				});
+	        }
 		}  
 	})
 })

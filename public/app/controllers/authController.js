@@ -10,6 +10,7 @@ angular.module('starterApp')
 		}
 
 		var strRedirectPath = $routeParams.r ? $routeParams.r : '/';
+		console.log(strRedirectPath);
 
 		$scope.submitLogin = function(){
 			$rootScope.rs_isManage = false;
@@ -23,10 +24,9 @@ angular.module('starterApp')
 
 			Auth.login($scope.login.username, $scope.login.password)
 				.success(function(data){  
-					if(data.status == 'success'){ 
-						//$location.path('/manage/dashboard');
+					if(data.status == 'success'){  
 						$scope.homeProducts = [];
-						$location.path(strRedirectPath);
+						$location.path(strRedirectPath).search('r','');
 					}else{
 						$scope.loginError = data.message;
 					} 

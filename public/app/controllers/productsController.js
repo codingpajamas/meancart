@@ -220,7 +220,7 @@ angular.module('starterApp')
 			angular.element(e.target).parent('div').css('background-image', 'url(/assets/images/add.png)').removeClass('hasImage'); 
 		}
 	})
-	.controller('productsEditController', function($scope, $location, Auth, Product, $routeParams, Category, $filter){
+	.controller('productsEditController', function($scope, $location, Auth, Product, $routeParams, Category, $filter, $rootScope){
 
 		Auth.restrict();
 
@@ -246,9 +246,8 @@ angular.module('starterApp')
 
 		Product.view($routeParams.id)
 			.success(function(dataViewProduct){ 
-				if (true == dataViewProduct.success){ 
-					$scope.objProduct = dataViewProduct.message;
-
+				if (true == dataViewProduct.success && $rootScope.rs_me._id == dataViewProduct.message.store.id){  
+					$scope.objProduct = dataViewProduct.message; 
 					$scope.productMainCat = $scope.objProduct ? $scope.objProduct.category.main : '';
 					$scope.subCategories = Category.sub($scope.productMainCat) ? Category.sub($scope.productMainCat) : [];
 					$scope.productSubCat = $scope.objProduct ? $scope.objProduct.category.sub : '';

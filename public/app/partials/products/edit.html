@@ -3,8 +3,8 @@
 		<div class="page-wrap"> 
 			<div class="page-body">
 				<div class="row">
-					<div class="col-md-6 col-md-push-3">
-						<form ng-if="objProduct"  name="editProductForm" ng-submit="editPostSubmit()" novalidate>
+					<div class="col-md-6 col-md-push-3"  ng-if="objProduct">
+						<form name="editProductForm" ng-submit="editPostSubmit()" novalidate>
 							<div class="form-card">
 								<h2 class="form-card-title">Edit Product Details</h2>
 								<div class="form-card-body">
@@ -178,7 +178,11 @@
 									</div>
 								</div>
 							</div>
-						</form>
+						</form> 
+					</div>
+
+					<div class="col-md-12" ng-if="!objProduct">
+						<h4 class="text-center whitebox">Page not found.</h4>
 					</div>
 				</div>
 			</div>

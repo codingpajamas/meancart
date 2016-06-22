@@ -109,7 +109,8 @@ angular.module('starterApp')
 		InterceptorFactory.responseError = function(response){
 			if(response.status = 403){ 
 				AuthToken.setToken();
-				$location.path('/login');
+				var redirectPath = $location.path();
+				$location.path('/login').search('r', redirectPath);
 			}
 
 			return $q.reject(response);
