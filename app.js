@@ -102,3 +102,6 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+// http://pissang.github.io/dota2hero/#/heroes
+// http://d2armory.com/
