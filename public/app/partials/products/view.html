@@ -1,5 +1,5 @@
 <div class="page-wrap">
-	<div class="page-body" ng-if="objProduct">
+	<div class="page-body" ng-if="objProduct && objProduct.status == 'active'">
 		<div class="row">
 			<div class="col-sm-7 col-md-8">
 				<div class="productview">
@@ -131,10 +131,10 @@
 		</div>
 	</div>
 
-	<div class="page-body" ng-if="!objProduct">
+	<div class="page-body" ng-if="!objProduct || objProduct.status != 'active'">
 		<div class="row">
 			<div class="col-md-12">
-				<h4 class="text-center whitebox">Page not found.</h4>
+				<h4 class="text-center whitebox">Product is not available.</h4>
 			</div>
 		</div>
 	</div>

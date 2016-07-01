@@ -44,7 +44,7 @@ router.get("/wishlist", mdWares.validateToken, function(req, res){
 		limit = 28,
 		skip = (parseInt(pageNum) * limit) - limit;
 
-	Product.find({"wishlistedBy.userid":req.decoded.user._id},{},{skip:skip, limit:limit}, function(err, products){
+	Product.find({"wishlistedBy.userid":req.decoded.user._id, "status":{$ne:"draft"}},{},{skip:skip, limit:limit}, function(err, products){
 		if(err){ 
 			console.log(err)
 			res.json({"success":false, "message":err}); 
@@ -75,7 +75,7 @@ router.post("/wishlist", mdWares.validateToken, function(req, res){
 		},
 		function(callback){
 			Product.findOneAndUpdate(
-				{_id: req.body.prodId}, 
+				{_id: req.body.prodId, "status":{$ne:"draft"}}, 
 				{$push: {wishlistedBy: {"userid":req.decoded.user._id}}}, 
 				function(err, userObj){
 					if(err){
@@ -232,7 +232,7 @@ router.get("/home", function(req, res){
 		limit = 28,
 		skip = (parseInt(pageNum) * limit) - limit;
 
-	Product.find({},{},{skip:skip, limit:limit, sort:'-createdOn'}, function(err, posts){
+	Product.find({"status":{$ne:"draft"}},{},{skip:skip, limit:limit, sort:'-createdOn'}, function(err, posts){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
@@ -243,7 +243,7 @@ router.get("/home", function(req, res){
 })
 
 router.get("/get", mdWares.validateToken, function(req, res){  
-	Product.find({'store.id':req.decoded.user._id}, {'prodid':1, 'name':1}, {}, function(err, product){
+	Product.find({'store.id':req.decoded.user._id, "status":{$ne:"draft"}}, {'prodid':1, 'name':1}, {}, function(err, product){
 		if(err){
 			response = {"success":false, "message":err};
 		}else{
@@ -443,7 +443,7 @@ router.get("/:id/related", function(req, res){
 		if(err && !product){
 			response = {"success":false, "message":err};
 		}else{ 
-			Product.find()
+			Product.find({"status":{$ne:'draft'}})
 				.where('_id')
 				.in(product.related)
 				.exec(function(err, related){
@@ -602,7 +602,8 @@ router.put("/:id", mdWares.validateToken, postImage, function(req, res){
 				post.name = req.body.name;
 				post.lowername = req.body.name.toLowerCase(),
 				post.desc = req.body.desc;
-				post.price = req.body.price;   
+				post.price = req.body.price;  
+				post.status = req.body.status; 
 				post.images = {
 					img1: strProductImg1,
 					img2: strProductImg2,

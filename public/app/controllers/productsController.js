@@ -257,6 +257,7 @@ angular.module('starterApp')
 					$scope.objProduct.sale.off = parseInt($scope.objProduct.sale.off);
 					$scope.objProduct.sale.start = $scope.objProduct.sale.start ? $filter('date')($scope.objProduct.sale.start, 'MM/dd/yyyy') : '';
 					$scope.objProduct.sale.end = $scope.objProduct.sale.end ? $filter('date')($scope.objProduct.sale.end, 'MM/dd/yyyy') : '';
+					$scope.objProduct.status = $scope.objProduct.status ? $scope.objProduct.status : 'active';
 
 					Product.get().success(function(dataAllProducts){
 						if (true == dataAllProducts.success){ 
@@ -341,6 +342,7 @@ angular.module('starterApp')
  			formData.append('saleOff', $scope.objProduct.sale.off) 
  			formData.append('saleStart', $scope.objProduct.sale.start) 
  			formData.append('saleEnd', $scope.objProduct.sale.end) 
+ 			formData.append('status', $scope.objProduct.status) 
 
  			var arrRelated = $scope.productRelated ? $scope.productRelated : []; 
 			formData.append('related', JSON.stringify(arrRelated));

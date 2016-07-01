@@ -19,7 +19,7 @@ router.get("/", function(req, res){
 		},
 		function(objCartsRaw, callback){
 			var objProductIds = _.map(objCartsRaw, 'productid');  
-			Product.find({_id: { $in:objProductIds }}, {'desc':false, "wishlistedBy":false, "tags":false, "category":false, "related":false}, {}, function(err, objProductsRaw){
+			Product.find({_id: { $in:objProductIds }, "status":{$ne:"draft"}}, {'desc':false, "wishlistedBy":false, "tags":false, "category":false, "related":false}, {}, function(err, objProductsRaw){
 				if(err || !objProductsRaw || !objProductsRaw.length){
 					callback(new Error("No products found"));
 				}else{  

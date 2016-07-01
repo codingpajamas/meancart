@@ -16,7 +16,7 @@
 
 		<div class="row" id="wishlistProducts">
 			<div class="col-md-12"> 
-				<div class="product-card-list wishlist-card" ng-repeat="objWish in arrWishlists">
+				<div class="product-card-list wishlist-card" ng-repeat="objWish in arrWishlists" ng-if="objWish.status == 'active'">
 					<div class="product-image">
 						<img ng-src="/uploads/{{objWish.store.id}}/products/sm/{{objWish.images[0].img1 || objWish.images[0].img2 || objWish.images[0].img3 || objWish.images[0].img4 || 'none.jpg'}}">
 					</div>

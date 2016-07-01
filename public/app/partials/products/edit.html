@@ -170,11 +170,19 @@
 									</div>
 								</div>
 								<div class="row"> 
-									<div class="col-sm-3">
-										<a href="/manage/products/{{objProduct._id}}/delete" class="btn btn-danger btn-block">Delete</a>
+									<div class="col-sm-6 col-xs-12 col-md-4 mb10">
+										<select ng-model="objProduct.status" id="" class="form-control"> 
+											<option value="active">Active</option>
+											<option value="draft">Draft</option>
+										</select>
 									</div>
-									<div class="col-sm-9">
+									<div class="col-sm-6 col-xs-12 col-md-8 mb10">
 										<input type="submit" ng-disabled="editProductForm.$invalid" value="Save Changes" class="btn btn-block btn-primary">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 text-center">
+										<a href="/manage/products/{{objProduct._id}}/delete" class="text-danger">Delete this prduct</a>
 									</div>
 								</div>
 							</div>

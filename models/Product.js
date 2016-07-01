@@ -31,7 +31,8 @@ var Product = new Schema({
 	}],
 	tags: Array,
 	related: Array,
-	createdOn: {type: Date, default: Date.now()}
+	createdOn: {type: Date, default: Date.now()},
+	status: {type: String, default: "active"}
 });
  
 module.exports = mongoose.model('Product', Product);
