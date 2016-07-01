@@ -97,6 +97,8 @@ angular.module('starterApp')
 		$scope.productMainCat = '';
 		$scope.productSubCat = '';
 
+		$scope.productStatus = 'active';
+
 		$scope.isAddPostSuccess = false;
 		$scope.isAddPostError = false; 
 		$scope.isInvalidImage = false;
@@ -190,6 +192,7 @@ angular.module('starterApp')
  			formData.append('saleOff', $scope.productSaleOff) 
  			formData.append('saleStart', $scope.productSaleStart) 
  			formData.append('saleEnd', $scope.productSaleEnd) 
+ 			formData.append('status', $scope.productStatus)
 
  			angular.forEach($scope.nProductImg1, function(file){
  				formData.append('nProductImg1', file)

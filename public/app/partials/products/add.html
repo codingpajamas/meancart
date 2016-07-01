@@ -161,10 +161,13 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-sm-4">
-										<input type="submit" value="Draft" class="btn btn-block btn-warning">
+									<div class="col-sm-6 col-xs-12 col-md-4 mb5">
+										<select ng-model="productStatus" id="" class="form-control"> 
+											<option value="active">Active</option>
+											<option value="draft">Draft</option>
+										</select>
 									</div>
-									<div class="col-sm-8">
+									<div class="col-sm-6 col-xs-12 col-md-8 mb5">
 										<input type="submit" value="Submit" class="btn btn-block btn-primary" ng-disabled="addProductForm.$invalid">
 									</div>
 								</div>

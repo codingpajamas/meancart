@@ -391,7 +391,8 @@ router.post('/add', mdWares.validateToken, postImage, function(req, res){
 			end: req.body.saleEnd ? new Date(req.body.saleEnd) : ''
 		},
 		tags: req.body.tags && JSON.parse(req.body.tags) ? JSON.parse(req.body.tags) : [],
-		related: req.body.related && JSON.parse(req.body.related) ? JSON.parse(req.body.related) : []
+		related: req.body.related && JSON.parse(req.body.related) ? JSON.parse(req.body.related) : [],
+		status: req.body.status
 	}, function(err, product){ 
 		if(err){
 			response = {"success":false, "message":err};

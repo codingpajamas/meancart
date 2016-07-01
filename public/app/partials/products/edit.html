@@ -6,7 +6,10 @@
 					<div class="col-md-6 col-md-push-3"  ng-if="objProduct">
 						<form name="editProductForm" ng-submit="editPostSubmit()" novalidate>
 							<div class="form-card">
-								<h2 class="form-card-title">Edit Product Details</h2>
+								<h2 class="form-card-title clearfix">
+									Edit Product Details
+									<a href="/p/{{objProduct.prodid}}" target="new" class="pull-right font12 mt20">view</a>
+								</h2>
 								<div class="form-card-body">
 									<p>
 										<label>Product Name</label>
